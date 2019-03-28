@@ -8,9 +8,17 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.Model;
 
-
+/**
+ * Main.java
+ * This class provides the static main method as entry point for the JVM.
+ */
 public class Main extends Application {
 
+    /**
+     * Creates Elements, adds them to scene and shows them eventually.
+     * @param primaryStage The stage where scene can be added
+     * @throws Exception Is thrown if any resource is not found
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
 
@@ -27,6 +35,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Entry point of program.
+     * @param args Has command line arguments stored
+     */
     public static void main(String[] args) {
         launch(args);
     }
