@@ -4,18 +4,18 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * Model.java
+ * PlayfieldModel.java
  * This class acts as observable.
  * It notifies the controller class if any changes occur.
  */
-public class Model {
+public class PlayfieldModel {
 
     private PropertyChangeSupport propertyChangeSupport;
 
     /**
      * Class constructor
      */
-    public Model() {
+    public PlayfieldModel() {
 
         this.propertyChangeSupport = new PropertyChangeSupport(this);
     }

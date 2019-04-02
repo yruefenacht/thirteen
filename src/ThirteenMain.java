@@ -1,18 +1,18 @@
 import config.Settings;
-import controller.Controller;
+import controller.PlayfieldController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import model.Model;
+import model.PlayfieldModel;
 
 /**
- * Main.java
+ * ThirteenMain.java
  * This class provides the static main method as entry point for the JVM.
  */
-public class Main extends Application {
+public class ThirteenMain extends Application {
 
     /**
      * Creates Elements, adds them to scene and shows them eventually.
@@ -22,15 +22,15 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Model model = new Model();
+        PlayfieldModel model = new PlayfieldModel();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/View.fxml"));
-        loader.setController(new Controller(model));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Playfield.fxml"));
+        loader.setController(new PlayfieldController(model));
 
         Parent root = (Parent) loader.load();
 
         primaryStage.setScene(new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT));
-        primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("app_icon.png")));
+        primaryStage.getIcons().add(new Image(ThirteenMain.class.getResourceAsStream("app_icon.png")));
         primaryStage.setTitle(Settings.APP_TITLE);
         primaryStage.show();
     }

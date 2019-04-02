@@ -1,22 +1,23 @@
 package controller;
 
-import model.Model;
+import model.PlayfieldModel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * Controller.java
- * The Controller class is responsible for handling user input.
+ * PlayfieldController.java
+ * The PlayfieldController class is responsible for handling user input.
  */
-public class Controller implements PropertyChangeListener {
+public class PlayfieldController implements PropertyChangeListener {
 
-    private Model model;
+    private PlayfieldModel model;
 
     /**
      * Class constructor
      * @param model Observable that adds this object instance
      */
-    public Controller(Model model) {
+    public PlayfieldController(PlayfieldModel model) {
 
         this.model = model;
         this.model.addPropertyChangeListener(this);
