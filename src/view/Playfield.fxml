@@ -1,8 +1,13 @@
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<GridPane
-    xmlns:fx="http://javafx.com/fxml"
-    alignment="center"
-    hgap="10"
-    vgap="10">
-</GridPane>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <HBox fx:id="playfieldContainer" styleClass="playfieldContainer" BorderPane.alignment="CENTER">
+         <Pane fx:id="playfield" styleClass="playfield" BorderPane.alignment="CENTER" />
+      </HBox>
+   </center>
+</BorderPane>

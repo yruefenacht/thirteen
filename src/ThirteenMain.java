@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.PlayfieldModel;
 
@@ -22,15 +23,21 @@ public class ThirteenMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        PlayfieldModel model = new PlayfieldModel();
+        //View
+        PlayfieldModel playfieldModel = new PlayfieldModel();
+        PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("view/Playfield.fxml"));
+        loader.setController(playfieldController);
+        Parent root = loader.load();
+        playfieldController.addPlayfield();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("view/Playfield.fxml"));
-        loader.setController(new PlayfieldController(model));
+        //Scene
+        Scene scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
+        scene.getStylesheets().add(this.getClass().getResource("style.css").toString());
 
-        Parent root = (Parent) loader.load();
-
-        primaryStage.setScene(new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT));
-        primaryStage.getIcons().add(new Image(ThirteenMain.class.getResourceAsStream("app_icon.png")));
+        //Stage
+        primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("app_icon.png")));
         primaryStage.setTitle(Settings.APP_TITLE);
         primaryStage.show();
     }

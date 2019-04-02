@@ -1,7 +1,12 @@
 package controller;
 
+import entity.BlockMatrix;
+import config.Settings;
+import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import model.PlayfieldModel;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
@@ -11,16 +16,33 @@ import java.beans.PropertyChangeListener;
  */
 public class PlayfieldController implements PropertyChangeListener {
 
+    @FXML
+    private Pane playfield;
+    @FXML
+    private HBox playfieldContainer;
+
+    private BlockMatrix blockMatrix;
     private PlayfieldModel model;
 
     /**
-     * Class constructor
-     * @param model Observable that adds this object instance
+     * Acts as class constructor.
+     * @param model Observable to be attached to
      */
     public PlayfieldController(PlayfieldModel model) {
 
         this.model = model;
         this.model.addPropertyChangeListener(this);
+        this.blockMatrix = new BlockMatrix(Settings.GRID_DIMENSION);
+    }
+
+    /**
+     * Retrieves Block elements and adds them to grid.
+     */
+    public void addPlayfield() {
+
+        this.playfield.getChildren().addAll(blockMatrix.generatePlayfield());
+        playfieldContainer.setAlignment(Pos.CENTER);
+
     }
 
     /**

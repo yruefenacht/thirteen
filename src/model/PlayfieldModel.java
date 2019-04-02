@@ -10,6 +10,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class PlayfieldModel {
 
+    private int level = 0;
     private PropertyChangeSupport propertyChangeSupport;
 
     /**

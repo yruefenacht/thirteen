@@ -1,0 +1,22 @@
+
+@font-face {
+    font-family: SourceSansPro;
+    src: url("SourceSansPro-Regular.ttf");
+}
+
+* {
+    -fx-font-family: "SourceSansPro";
+}
+
+.block {
+    -fx-font-size: 1.3em;
+    -fx-font-weight: bold;
+}
+
+.playfield {
+    -fx-background-color: rgb(40, 40, 40);
+}
+
+.playfieldContainer {
+    -fx-background-color: rgb(40, 40, 40);
+}
