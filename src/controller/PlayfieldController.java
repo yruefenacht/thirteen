@@ -1,14 +1,16 @@
 package controller;
 
+import entity.Block;
 import entity.BlockMatrix;
 import config.Settings;
+import entity.MergeBlock;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 /**
  * PlayfieldController.java
@@ -19,10 +21,10 @@ public class PlayfieldController implements PropertyChangeListener {
     @FXML
     private Pane playfield;
     @FXML
-    private HBox playfieldContainer;
+    private Label playfieldLevel;
 
+    private int level = Settings.DEFAULT_LEVEL;
     private BlockMatrix blockMatrix;
-    private PlayfieldModel model;
 
     /**
      * Acts as class constructor.
@@ -30,8 +32,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     public PlayfieldController(PlayfieldModel model) {
 
-        this.model = model;
-        this.model.addPropertyChangeListener(this);
+        model.addPropertyChangeListener(this);
         this.blockMatrix = new BlockMatrix(Settings.GRID_DIMENSION);
     }
 
@@ -40,9 +41,12 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     public void addPlayfield() {
 
-        this.playfield.getChildren().addAll(blockMatrix.generatePlayfield());
-        playfieldContainer.setAlignment(Pos.CENTER);
+        ArrayList<Block> blocks = blockMatrix.generateBlocks();
+        ArrayList<MergeBlock> mergeBlocks = blockMatrix.generateMergeBlocks();
 
+        this.playfield.getChildren().addAll(mergeBlocks);
+        this.playfield.getChildren().addAll(blocks);
+        this.playfieldLevel.setText(Integer.toString(this.level));
     }
 
     /**

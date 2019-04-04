@@ -10,7 +10,6 @@ import java.beans.PropertyChangeSupport;
  */
 public class PlayfieldModel {
 
-    private int level = 0;
     private PropertyChangeSupport propertyChangeSupport;
 
     /**
@@ -20,6 +19,7 @@ public class PlayfieldModel {
 
         this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
+
 
     /**
      * This method adds Observers to this observable

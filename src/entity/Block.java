@@ -6,46 +6,61 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 /**
  * Block.java
  * This class represents a single block on the play grid.
  */
-class Block extends StackPane {
+public class Block extends StackPane {
 
     private int x;
     private int y;
     private int value;
+    private Label center;
     private Label valueLabel;
-    private Label background;
 
     /**
      * Class constructor
-     * @param value Each block has a number
+     * @param x position x
+     * @param y position y
+     * @param value number on label
      */
     Block(int x, int y, int value) {
 
         this.x = x;
         this.y = y;
         this.value = value;
-        this.valueLabel = new Label(Integer.toString(this.value));
-        this.setLayoutX(x * Settings.BLOCK_WIDTH);
-        this.setLayoutY(y * Settings.BLOCK_HEIGHT);
+        this.valueLabel = new Label(Integer.toString(value));
+
+        this.setBackground();
+        this.setLayoutX(this.x * Settings.BLOCK_WIDTH);
+        this.setLayoutY(this.y * Settings.BLOCK_HEIGHT);
         this.setPrefSize(Settings.BLOCK_WIDTH, Settings.BLOCK_HEIGHT);
         this.setCursor(Cursor.HAND);
         this.setAlignment(Pos.CENTER);
         this.getStyleClass().add("block");
-        this.background = new Label();
-        this.background.setPrefSize(
-            Settings.BLOCK_WIDTH - Settings.BLOCK_BORDER_RADIUS,
-            Settings.BLOCK_HEIGHT - Settings.BLOCK_BORDER_RADIUS
+
+        this.getChildren().addAll(this.center, this.valueLabel);
+    }
+
+    /**
+     * Set background color and connectors
+     */
+    private void setBackground() {
+
+        this.center = new Label();
+
+        this.center.setAlignment(Pos.CENTER);
+        this.center.setPrefSize(
+                Settings.BLOCK_WIDTH - Settings.BLOCK_BORDER_RADIUS,
+                Settings.BLOCK_HEIGHT - Settings.BLOCK_BORDER_RADIUS
         );
-        this.background.setBackground(new Background(new BackgroundFill(
-            Settings.BLOCK_COLORS.get(value),
-            new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
-            Insets.EMPTY)
+        this.center.setBackground(new Background(new BackgroundFill(
+                Settings.BLOCK_COLORS.get(value),
+                new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
+                Insets.EMPTY)
         ));
-        this.getChildren().addAll(background, valueLabel);
     }
 
     /**
@@ -62,18 +77,18 @@ class Block extends StackPane {
      * X value getter
      * @return x
      */
-    public int getX() { return this.x; }
+    int getX() { return this.x; }
 
     /**
      * Y value getter
      * @return y
      */
-    public int getY() { return this.y; }
+    int getY() { return this.y; }
 
     /**
      * Value getter
      * @return value
      */
-    public int getValue() { return this.value; }
+    int getValue() { return this.value; }
 
 }

@@ -11,17 +11,19 @@ public class Settings {
 
     public static final String APP_TITLE = "Thirteen";
 
+    public static final int DEFAULT_LEVEL = 6;
+
     public static int GRID_DIMENSION = 5;
     public static final int BLOCK_WIDTH = 50;
     public static final int BLOCK_HEIGHT = 50;
     public static final int BLOCK_BORDER_RADIUS = 5;
+    public static final int MERGE_BLOCK_LENGTH = (2 * BLOCK_WIDTH) - (2 * BLOCK_BORDER_RADIUS);
 
-    private static final int SCENE_TOP = 150;
-    private static final int SCENE_BOTTOM = 50;
+    private static final int SCENE_TOP = 250;
 
     private static final int SCENE_SIDE_PADDING = 50;
     public static final int SCENE_WIDTH = (GRID_DIMENSION * BLOCK_WIDTH) + SCENE_SIDE_PADDING;
-    public static final int SCENE_HEIGHT = (GRID_DIMENSION * BLOCK_HEIGHT) + SCENE_TOP + SCENE_BOTTOM;
+    public static final int SCENE_HEIGHT = (GRID_DIMENSION * BLOCK_HEIGHT) + SCENE_TOP;
 
     public static final Map<Integer, Color> BLOCK_COLORS = Map.of(
         1, Color.rgb(181, 207, 97),
