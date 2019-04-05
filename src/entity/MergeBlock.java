@@ -13,7 +13,15 @@ import javafx.scene.layout.CornerRadii;
  */
 public class MergeBlock extends Label {
 
-    public MergeBlock(int x, int y, int width, int height, int value) {
+    /**
+     * Class constructor
+     * @param x position on x axis
+     * @param y position on y axis
+     * @param width label width
+     * @param height label height
+     * @param value number to be displayed
+     */
+    MergeBlock(int x, int y, int width, int height, int value) {
 
         this.setLayoutX(x);
         this.setLayoutY(y);

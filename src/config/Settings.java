@@ -10,12 +10,12 @@ import java.util.Map;
 public class Settings {
 
     public static final String APP_TITLE = "Thirteen";
-
+    public static final int FONT_SIZE_DEFAULT = 30;
     public static final int DEFAULT_LEVEL = 6;
 
     public static int GRID_DIMENSION = 5;
-    public static final int BLOCK_WIDTH = 50;
-    public static final int BLOCK_HEIGHT = 50;
+    public static final int BLOCK_WIDTH = 54;
+    public static final int BLOCK_HEIGHT = 54;
     public static final int BLOCK_BORDER_RADIUS = 5;
     public static final int MERGE_BLOCK_LENGTH = (2 * BLOCK_WIDTH) - (2 * BLOCK_BORDER_RADIUS);
 

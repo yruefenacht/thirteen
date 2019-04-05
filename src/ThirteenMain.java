@@ -9,6 +9,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.PlayfieldModel;
 
+import java.net.URL;
+
 /**
  * ThirteenMain.java
  * This class provides the static main method as entry point for the JVM.
@@ -23,17 +25,29 @@ public class ThirteenMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        //Font
+        Font.loadFont(
+            this.getClass().getResource("SourceSansPro-Regular.ttf").toExternalForm(),
+            Settings.FONT_SIZE_DEFAULT
+        );
+        Font.loadFont(
+            this.getClass().getResource("PermanentMarker-Regular.ttf").toExternalForm(),
+            Settings.FONT_SIZE_DEFAULT
+        );
+
         //View
         PlayfieldModel playfieldModel = new PlayfieldModel();
         PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("view/Playfield.fxml"));
+        URL playfieldFXML = this.getClass().getResource("view/Playfield.fxml");
+        FXMLLoader loader = new FXMLLoader(playfieldFXML);
+        loader.setLocation(playfieldFXML);
         loader.setController(playfieldController);
         Parent root = loader.load();
         playfieldController.addPlayfield();
 
         //Scene
         Scene scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
-        scene.getStylesheets().add(this.getClass().getResource("style.css").toString());
+        scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
 
         //Stage
         primaryStage.setScene(scene);

@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.image.ImageView?>
 <BorderPane styleClass="playfieldBorderPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <!-- MENU BAR -->
    <top>
       <HBox styleClass="playfieldMenuBar">
-
-         <ImageView />
-         <HBox>
-            <Label />
-            <ImageView />
+         <!-- MENU BAR ITEM 1 -->
+         <StackPane alignment="CENTER_LEFT" prefWidth="100.0">
+            <Button prefWidth="40.0" styleClass="playfieldMenuButton">
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </Button>
+         </StackPane>
+         <!-- MENU BAR ITEM 2 -->
+         <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
+         <Label styleClass="playfieldMenuIcon" text="13" BorderPane.alignment="CENTER" />
+         <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
+         <!-- MENU BAR ITEM 3 -->
+         <HBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="5.0">
+            <Label styleClass="playfieldScore" text="500" />
+            <ImageView fitHeight="15.0" fitWidth="15.0">
+               <Image url="@../resources/star.png" />
+            </ImageView>
+            <padding>
+               <Insets right="10.0" />
+            </padding>
          </HBox>
+         <padding>
+            <Insets bottom="10.0" top="10.0" />
+         </padding>
       </HBox>
    </top>
+   <!-- LEVEL DISPLAY -->
    <center>
-      <HBox alignment="CENTER">
+      <StackPane>
          <Label fx:id="playfieldLevel" alignment="CENTER" styleClass="playfieldLevel" />
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
-      </HBox>
+      </StackPane>
    </center>
+   <!-- BLOCK MATRIX -->
    <bottom>
-      <HBox fx:id="playfieldContainer" alignment="CENTER" BorderPane.alignment="CENTER">
+      <HBox fx:id="playfieldContainer" alignment="CENTER">
          <Pane fx:id="playfield" />
          <padding>
-            <Insets bottom="20.0" top="20.0" />
+            <Insets bottom="20.0" />
          </padding>
       </HBox>
    </bottom>
