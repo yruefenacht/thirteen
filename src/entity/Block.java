@@ -53,8 +53,8 @@ public class Block extends StackPane {
 
         this.center.setAlignment(Pos.CENTER);
         this.center.setPrefSize(
-                Settings.BLOCK_WIDTH - Settings.BLOCK_BORDER_RADIUS,
-                Settings.BLOCK_HEIGHT - Settings.BLOCK_BORDER_RADIUS
+                Settings.BLOCK_WIDTH - Settings.GRID_SPACING,
+                Settings.BLOCK_HEIGHT - Settings.GRID_SPACING
         );
         this.center.setBackground(new Background(new BackgroundFill(
                 Settings.BLOCK_COLORS.get(value),
@@ -65,11 +65,10 @@ public class Block extends StackPane {
 
     /**
      * Value setter
-     * @param value new value
      */
-    public void setValue(int value) {
+    public void updateValue() {
 
-        this.value = value;
+        this.value++;
         this.valueLabel.setText(Integer.toString(value));
     }
 

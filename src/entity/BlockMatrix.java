@@ -62,9 +62,9 @@ public class BlockMatrix {
             if(topNeighbor != null){
                 if(topNeighbor.getValue() == block.getValue()) {
                     mergeBlocks.add(new MergeBlock(
-                        (topNeighbor.getX() * Settings.BLOCK_WIDTH) + (Settings.BLOCK_BORDER_RADIUS / 2),
-                        (topNeighbor.getY() * Settings.BLOCK_HEIGHT) + (Settings.BLOCK_BORDER_RADIUS / 2),
-                        Settings.BLOCK_WIDTH - (Settings.BLOCK_BORDER_RADIUS - 1),
+                        (topNeighbor.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
+                        (topNeighbor.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
+                        Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
                         Settings.MERGE_BLOCK_LENGTH,
                         topNeighbor.getValue()
                     ));
@@ -73,10 +73,10 @@ public class BlockMatrix {
             if(rightNeighbor != null){
                 if(rightNeighbor.getValue() == block.getValue()) {
                     mergeBlocks.add(new MergeBlock(
-                            (block.getX() * Settings.BLOCK_WIDTH) + (Settings.BLOCK_BORDER_RADIUS / 2),
-                            (block.getY() * Settings.BLOCK_HEIGHT) + (Settings.BLOCK_BORDER_RADIUS / 2),
+                            (block.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
+                            (block.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
                             Settings.MERGE_BLOCK_LENGTH,
-                            Settings.BLOCK_WIDTH - (Settings.BLOCK_BORDER_RADIUS - 1),
+                            Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
                             block.getValue()
                     ));
                 }

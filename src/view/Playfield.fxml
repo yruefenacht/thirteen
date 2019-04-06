@@ -17,7 +17,7 @@
       <HBox styleClass="playfieldMenuBar">
          <!-- MENU BAR ITEM 1 -->
          <StackPane alignment="CENTER_LEFT" prefWidth="100.0">
-            <Button prefWidth="25.0" prefHeight="25.0" styleClass="playfieldMenuButton">
+            <Button fx:id="playfieldMenuButton" prefWidth="25.0" prefHeight="25.0" styleClass="playfieldMenuButton">
                <StackPane.margin>
                   <Insets left="10.0" />
                </StackPane.margin>
@@ -30,7 +30,7 @@
          <!-- MENU BAR ITEM 3 -->
          <HBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="5.0">
             <Label styleClass="playfieldScore" text="500" />
-            <ImageView fitHeight="15.0" fitWidth="15.0">
+            <ImageView fitHeight="20.0" fitWidth="20.0">
                <Image url="@../resources/star.png" />
             </ImageView>
             <padding>
@@ -44,7 +44,7 @@
    </top>
    <!-- LEVEL DISPLAY -->
    <center>
-      <StackPane>
+      <StackPane maxHeight="200.0">
          <Label fx:id="playfieldLevel" alignment="CENTER" styleClass="playfieldLevel" />
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

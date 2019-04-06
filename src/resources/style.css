@@ -14,10 +14,13 @@
 .playfieldMenuButton {
     -fx-border-width: 0 0 0 0;
     -fx-outline: none;
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
 }
 
 .playfieldScore {
     -fx-text-fill: rgb(230, 230, 230);
+    -fx-font-size: 1.25em;
 }
 
 .playfieldMenuIcon {
@@ -36,6 +39,6 @@
 }
 
 .block {
-    -fx-font-size: 1.3em;
+    -fx-font-size: 1.5em;
     -fx-font-weight: bold;
 }
