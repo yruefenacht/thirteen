@@ -27,18 +27,18 @@ public class ThirteenMain extends Application {
 
         //Font
         Font.loadFont(
-            this.getClass().getResource("SourceSansPro-Regular.ttf").toExternalForm(),
+            this.getClass().getResource("fonts/SourceSansPro-Regular.ttf").toExternalForm(),
             Settings.FONT_SIZE_DEFAULT
         );
         Font.loadFont(
-            this.getClass().getResource("PermanentMarker-Regular.ttf").toExternalForm(),
+            this.getClass().getResource("fonts/PermanentMarker-Regular.ttf").toExternalForm(),
             Settings.FONT_SIZE_DEFAULT
         );
 
         //View
         PlayfieldModel playfieldModel = new PlayfieldModel();
         PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
-        URL playfieldFXML = this.getClass().getResource("view/Playfield.fxml");
+        URL playfieldFXML = this.getClass().getResource("/resources/view/Playfield.fxml");
         FXMLLoader loader = new FXMLLoader(playfieldFXML);
         loader.setLocation(playfieldFXML);
         loader.setController(playfieldController);
@@ -47,13 +47,13 @@ public class ThirteenMain extends Application {
 
         //Scene
         Scene scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
-        scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
+        scene.getStylesheets().add(this.getClass().getResource("css/style.css").toExternalForm());
 
         //Stage
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(Settings.SCENE_WIDTH);
         primaryStage.setMinHeight(Settings.SCENE_HEIGHT);
-        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("app_icon.png")));
+        primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/app_icon.png")));
         primaryStage.setTitle(Settings.APP_TITLE);
         primaryStage.show();
     }

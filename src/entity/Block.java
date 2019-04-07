@@ -40,8 +40,8 @@ public class Block extends StackPane {
         this.setCursor(Cursor.HAND);
         this.setAlignment(Pos.CENTER);
         this.getStyleClass().add("block");
-
         this.getChildren().addAll(this.center, this.valueLabel);
+        this.setOnMouseClicked(e -> this.blockClicked());
     }
 
     /**
@@ -61,6 +61,13 @@ public class Block extends StackPane {
                 new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
                 Insets.EMPTY)
         ));
+    }
+
+    /**
+     * Merge neighbors on click
+     */
+    private void blockClicked() {
+
     }
 
     /**

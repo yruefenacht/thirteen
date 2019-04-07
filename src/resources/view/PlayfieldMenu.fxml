@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER" spacing="20.0" styleClass="playfieldMenu">
+    <Button fx:id="playfieldMenuContinue" text="CONTINUE" styleClass="playfieldMenuButton" prefWidth="150.0" prefHeight="50.0" />
+    <Button fx:id="playfieldMenuStop" text="STOP" styleClass="playfieldMenuButton" prefWidth="150.0" prefHeight="50.0" />
+</VBox>
