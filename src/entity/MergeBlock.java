@@ -21,7 +21,7 @@ public class MergeBlock extends Label {
      * @param height label height
      * @param value number to be displayed
      */
-    MergeBlock(int x, int y, int width, int height, int value) {
+    public MergeBlock(int x, int y, int width, int height, int value) {
 
         this.setLayoutX(x);
         this.setLayoutY(y);

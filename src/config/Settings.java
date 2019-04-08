@@ -13,7 +13,8 @@ public class Settings {
     public static final int FONT_SIZE_DEFAULT = 30;
     public static final int DEFAULT_LEVEL = 6;
 
-    public static int GRID_DIMENSION = 5;
+    public static final int GRID_DIMENSION_X = 5;
+    public static final int GRID_DIMENSION_Y = 5;
     public static final int GRID_SPACING = 8;
     public static final int BLOCK_WIDTH = 80;
     public static final int BLOCK_HEIGHT = 80;
@@ -23,8 +24,8 @@ public class Settings {
     private static final int SCENE_TOP = 250;
 
     private static final int SCENE_SIDE_PADDING = 50;
-    public static final int SCENE_WIDTH = (GRID_DIMENSION * BLOCK_WIDTH) + SCENE_SIDE_PADDING;
-    public static final int SCENE_HEIGHT = (GRID_DIMENSION * BLOCK_HEIGHT) + SCENE_TOP;
+    public static final int SCENE_WIDTH = (GRID_DIMENSION_X * BLOCK_WIDTH) + SCENE_SIDE_PADDING;
+    public static final int SCENE_HEIGHT = (GRID_DIMENSION_Y * BLOCK_HEIGHT) + SCENE_TOP;
 
     public static final Map<Integer, Color> BLOCK_COLORS = Map.of(
         1, Color.rgb(181, 207, 97),

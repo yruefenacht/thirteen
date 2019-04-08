@@ -6,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import model.PlayfieldModel;
 
 /**
  * Block.java
@@ -19,6 +19,7 @@ public class Block extends StackPane {
     private int value;
     private Label center;
     private Label valueLabel;
+    private PlayfieldModel playfieldModel;
 
     /**
      * Class constructor
@@ -26,12 +27,14 @@ public class Block extends StackPane {
      * @param y position y
      * @param value number on label
      */
-    Block(int x, int y, int value) {
+    Block(PlayfieldModel playfieldModel, int x, int y, int value) {
 
         this.x = x;
         this.y = y;
         this.value = value;
+        this.center = new Label();
         this.valueLabel = new Label(Integer.toString(value));
+        this.playfieldModel = playfieldModel;
 
         this.setBackground();
         this.setLayoutX(this.x * Settings.BLOCK_WIDTH);
@@ -49,8 +52,6 @@ public class Block extends StackPane {
      */
     private void setBackground() {
 
-        this.center = new Label();
-
         this.center.setAlignment(Pos.CENTER);
         this.center.setPrefSize(
                 Settings.BLOCK_WIDTH - Settings.GRID_SPACING,
@@ -64,16 +65,17 @@ public class Block extends StackPane {
     }
 
     /**
-     * Merge neighbors on click
+     * Sends coordinates to model
      */
     private void blockClicked() {
 
+        this.playfieldModel.blockClicked(this);
     }
 
     /**
      * Value setter
      */
-    public void updateValue() {
+    void updateValue() {
 
         this.value++;
         this.valueLabel.setText(Integer.toString(value));

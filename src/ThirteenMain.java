@@ -9,8 +9,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import model.PlayfieldModel;
 
-import java.net.URL;
-
 /**
  * ThirteenMain.java
  * This class provides the static main method as entry point for the JVM.
@@ -38,9 +36,7 @@ public class ThirteenMain extends Application {
         //View
         PlayfieldModel playfieldModel = new PlayfieldModel();
         PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
-        URL playfieldFXML = this.getClass().getResource("/resources/view/Playfield.fxml");
-        FXMLLoader loader = new FXMLLoader(playfieldFXML);
-        loader.setLocation(playfieldFXML);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/resources/view/Playfield.fxml"));
         loader.setController(playfieldController);
         Parent root = loader.load();
         playfieldController.addPlayfield();

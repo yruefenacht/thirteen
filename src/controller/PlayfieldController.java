@@ -1,9 +1,9 @@
 package controller;
 
 import entity.Block;
-import entity.BlockMatrix;
 import config.Settings;
 import entity.MergeBlock;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import entity.BlockMatrix;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -34,19 +35,21 @@ public class PlayfieldController implements PropertyChangeListener {
     private Button playfieldMenuContinue;
 
     private int level = Settings.DEFAULT_LEVEL;
+    private PlayfieldModel playfieldModel;
     private BlockMatrix blockMatrix;
     private ImageView menuButtonImg;
     private VBox pauseMenu;
 
     /**
      * Acts as class constructor.
-     * @param model Observable to be attached to
+     * @param playfieldModel Observable to be attached to
      */
-    public PlayfieldController(PlayfieldModel model) {
+    public PlayfieldController(PlayfieldModel playfieldModel) {
 
-        model.addPropertyChangeListener(this);
-        this.blockMatrix = new BlockMatrix(Settings.GRID_DIMENSION);
+        this.blockMatrix = new BlockMatrix(playfieldModel, Settings.GRID_DIMENSION_X, Settings.GRID_DIMENSION_Y);;
         this.menuButtonImg = new ImageView();
+        this.playfieldModel = playfieldModel;
+        this.playfieldModel.addPropertyChangeListener(this);
     }
 
     /**
@@ -55,8 +58,8 @@ public class PlayfieldController implements PropertyChangeListener {
     public void addPlayfield() throws IOException {
 
         //Prepare Blocks
-        ArrayList<Block> blocks = blockMatrix.generateBlocks();
-        ArrayList<MergeBlock> mergeBlocks = blockMatrix.generateMergeBlocks();
+        ArrayList<Block> blocks = this.blockMatrix.generateBlocks();
+        ArrayList<MergeBlock> mergeBlocks = this.blockMatrix.generateMergeBlocks();
 
         //Add Blocks
         this.playfield.getChildren().addAll(mergeBlocks);
@@ -69,8 +72,8 @@ public class PlayfieldController implements PropertyChangeListener {
         FXMLLoader pauseMenuLoader = new FXMLLoader(this.getClass().getResource("/resources/view/PlayfieldMenu.fxml"));
         pauseMenuLoader.setController(this);
         this.pauseMenu = pauseMenuLoader.load();
-        this.pauseMenu.setPrefWidth(Settings.GRID_DIMENSION * Settings.BLOCK_WIDTH);
-        this.pauseMenu.setPrefHeight(Settings.GRID_DIMENSION * Settings.BLOCK_HEIGHT);
+        this.pauseMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
+        this.pauseMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
 
         //Set MenuBar Button Icon
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
@@ -81,6 +84,8 @@ public class PlayfieldController implements PropertyChangeListener {
         //Set click events
         this.playfieldMenuBarButton.setOnMouseClicked(e -> pauseGame());
         this.playfieldMenuContinue.setOnMouseClicked(e -> resumeGame());
+
+        this.playfieldModel.test();
     }
 
     /**
@@ -110,6 +115,7 @@ public class PlayfieldController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+        System.out.println("es fuckking geit");
     }
 
 }

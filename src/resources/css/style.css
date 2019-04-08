@@ -39,7 +39,7 @@
 }
 
 .playfieldMenu {
-    -fx-background-color: rgba(8, 8, 8, 0.5);
+    -fx-background-color: rgba(8, 8, 8, 0.75);
 }
 
 .playfieldMenuButton {

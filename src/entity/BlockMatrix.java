@@ -1,7 +1,13 @@
 package entity;
 
+import config.Event;
 import config.Settings;
+import entity.Block;
+import entity.MergeBlock;
+import model.PlayfieldModel;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,21 +15,26 @@ import java.util.Random;
  * BlockMatrix.java
  * This class creates and manages a matrix of Block elements.
  */
-public class BlockMatrix {
+public class BlockMatrix implements PropertyChangeListener {
 
-    private int dimension;
+    private int dimensionX;
+    private int dimensionY;
     private Block[][] blocks;
     private ArrayList<Block> blockList = new ArrayList<>();
     private Random random = new Random();
+    private PlayfieldModel playfieldModel;
 
     /**
      * Class constructor
-     * @param dimension length of dimensions X, Y
+     * @param dimensionX length of dimensions X, Y
      */
-    public BlockMatrix(int dimension) {
+    public BlockMatrix(PlayfieldModel playfieldModel, int dimensionX, int dimensionY) {
 
-        this.dimension = dimension;
-        this.blocks = new Block[this.dimension][this.dimension];
+        this.dimensionX = dimensionX;
+        this.dimensionY = dimensionY;
+        this.playfieldModel = playfieldModel;
+        this.playfieldModel.addPropertyChangeListener(this);
+        this.blocks = new Block[dimensionX][dimensionY];
     }
 
     /**
@@ -31,15 +42,14 @@ public class BlockMatrix {
      */
     public ArrayList<Block> generateBlocks() {
 
-        for(int i = 0; i < this.dimension; i++) {
-            for(int j = 0; j < this.dimension; j++) {
+        for(int i = 0; i < this.dimensionX; i++) {
+            for(int j = 0; j < this.dimensionY; j++) {
 
-                Block block = new Block(i, j, random.nextInt(5) + 1);
+                Block block = new Block(this.playfieldModel, i, j, this.random.nextInt(5) + 1);
                 this.blocks[i][j] = block;
                 this.blockList.add(block);
             }
         }
-
         return this.blockList;
     }
 
@@ -56,8 +66,8 @@ public class BlockMatrix {
             int blockX = block.getX();
             int blockY = block.getY();
 
-            Block topNeighbor = this.getBlockAt(blockX, blockY - 1);
-            Block rightNeighbor = this.getBlockAt(blockX + 1, blockY);
+            Block topNeighbor = getBlockAt(blockX, blockY - 1);
+            Block rightNeighbor = getBlockAt(blockX + 1, blockY);
 
             if(topNeighbor != null){
                 if(topNeighbor.getValue() == block.getValue()) {
@@ -82,7 +92,6 @@ public class BlockMatrix {
                 }
             }
         }
-
         return mergeBlocks;
     }
 
@@ -94,10 +103,66 @@ public class BlockMatrix {
      */
     private Block getBlockAt(int x, int y) {
 
-        if(x >= 0 && x < this.dimension && y >=0 && y < this.dimension)
+        if(x >= 0 && x < this.dimensionX && y >=0 && y < this.dimensionY)
             return this.blocks[x][y];
         else
             return null;
     }
 
+    /**
+     * Recursively get all equal neighbors
+     * @param block location to start recursion
+     * @return list of Blocks
+     */
+    private ArrayList<Block> getNeighbors(Block block) {
+
+        ArrayList<Block> equalNeighbors = new ArrayList<>();
+        ArrayList<Block> visitedNeighbors = new ArrayList<>();
+
+        if(block == null) return equalNeighbors;
+
+        visitedNeighbors.add(block);
+
+        int x = block.getX();
+        int y = block.getY();
+
+        Block[] neighbors = new Block[] {
+            this.getBlockAt(x, y - 1),
+            this.getBlockAt(x + 1, y),
+            this.getBlockAt(x, y + 1),
+            this.getBlockAt(x - 1, y)
+        };
+
+        for(Block b : neighbors) {
+            if(b != null) {
+                if(b.getValue() == block.getValue()) {
+                    equalNeighbors.add(b);
+                    if(! visitedNeighbors.contains(b))
+                        equalNeighbors.addAll(this.getNeighbors(b));
+                }
+            }
+        }
+
+        return equalNeighbors;
+    }
+
+    private void blockClicked(Block block) {
+
+        ArrayList<Block> neighbors = this.getNeighbors(block);
+        for(Block b : neighbors)
+            b.updateValue();
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+        System.out.println("test");
+        Event event = Event.valueOf(evt.getPropertyName());
+
+        switch(event) {
+            case BLOCK_CLICK:
+                this.blockClicked((Block) evt.getNewValue());
+                break;
+        }
+    }
 }
