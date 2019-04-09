@@ -2,13 +2,16 @@ package entity;
 
 import config.Event;
 import config.Settings;
-import entity.Block;
-import entity.MergeBlock;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import model.PlayfieldModel;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -20,9 +23,10 @@ public class BlockMatrix implements PropertyChangeListener {
     private int dimensionX;
     private int dimensionY;
     private Block[][] blocks;
-    private ArrayList<Block> blockList = new ArrayList<>();
-    private Random random = new Random();
     private PlayfieldModel playfieldModel;
+    private Random random = new Random();
+    private ArrayList<MergeBlock> mergeBlocks = new ArrayList<>();
+    private ArrayList<Block> visitedBlocks = new ArrayList<>();
 
     /**
      * Class constructor
@@ -38,6 +42,20 @@ public class BlockMatrix implements PropertyChangeListener {
     }
 
     /**
+     * Returns 2d Block array as ArrayList
+     * @return Blocks
+     */
+    private ArrayList<Block> getBlocksAsList() {
+
+        ArrayList<Block> blockList = new ArrayList<>();
+
+        for(int i = 0; i < this.dimensionX; i++)
+            blockList.addAll(Arrays.asList(this.blocks[i]).subList(0, this.dimensionY));
+
+        return blockList;
+    }
+
+    /**
      * Fills 2D Block array with newly instantiated objects.
      */
     public ArrayList<Block> generateBlocks() {
@@ -47,10 +65,9 @@ public class BlockMatrix implements PropertyChangeListener {
 
                 Block block = new Block(this.playfieldModel, i, j, this.random.nextInt(5) + 1);
                 this.blocks[i][j] = block;
-                this.blockList.add(block);
             }
         }
-        return this.blockList;
+        return this.getBlocksAsList();
     }
 
     /**
@@ -59,9 +76,7 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     public ArrayList<MergeBlock> generateMergeBlocks() {
 
-        ArrayList<MergeBlock> mergeBlocks = new ArrayList<>();
-
-        for(Block block : this.blockList) {
+        for(Block block : this.getBlocksAsList()) {
 
             int blockX = block.getX();
             int blockY = block.getY();
@@ -71,28 +86,30 @@ public class BlockMatrix implements PropertyChangeListener {
 
             if(topNeighbor != null){
                 if(topNeighbor.getValue() == block.getValue()) {
-                    mergeBlocks.add(new MergeBlock(
+                    this.mergeBlocks.add(new MergeBlock(
                         (topNeighbor.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
                         (topNeighbor.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
                         Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
                         Settings.MERGE_BLOCK_LENGTH,
-                        topNeighbor.getValue()
+                        topNeighbor.getValue(),
+                        topNeighbor, block
                     ));
                 }
             }
             if(rightNeighbor != null){
                 if(rightNeighbor.getValue() == block.getValue()) {
-                    mergeBlocks.add(new MergeBlock(
-                            (block.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
-                            (block.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
-                            Settings.MERGE_BLOCK_LENGTH,
-                            Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
-                            block.getValue()
+                    this.mergeBlocks.add(new MergeBlock(
+                        (block.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
+                        (block.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
+                        Settings.MERGE_BLOCK_LENGTH,
+                        Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
+                        block.getValue(),
+                        rightNeighbor, block
                     ));
                 }
             }
         }
-        return mergeBlocks;
+        return this.mergeBlocks;
     }
 
     /**
@@ -117,11 +134,10 @@ public class BlockMatrix implements PropertyChangeListener {
     private ArrayList<Block> getNeighbors(Block block) {
 
         ArrayList<Block> equalNeighbors = new ArrayList<>();
-        ArrayList<Block> visitedNeighbors = new ArrayList<>();
 
         if(block == null) return equalNeighbors;
 
-        visitedNeighbors.add(block);
+        this.visitedBlocks.add(block);
 
         int x = block.getX();
         int y = block.getY();
@@ -135,10 +151,9 @@ public class BlockMatrix implements PropertyChangeListener {
 
         for(Block b : neighbors) {
             if(b != null) {
-                if(b.getValue() == block.getValue()) {
+                if(b.getValue() == block.getValue() && ! this.visitedBlocks.contains(b)) {
                     equalNeighbors.add(b);
-                    if(! visitedNeighbors.contains(b))
-                        equalNeighbors.addAll(this.getNeighbors(b));
+                    equalNeighbors.addAll(this.getNeighbors(b));
                 }
             }
         }
@@ -146,21 +161,79 @@ public class BlockMatrix implements PropertyChangeListener {
         return equalNeighbors;
     }
 
+    /**
+     * Finds MergeBlocks at same position as block
+     * @param block Block to check
+     * @return List of MergeBlocks
+     */
+    private ArrayList<MergeBlock> findMatchingMergeBlock(Block block) {
+
+        ArrayList<MergeBlock> matchingMergeBlocks = new ArrayList<>();
+
+        for(MergeBlock mergeBlock : this.mergeBlocks)
+            if(mergeBlock.hasBlock(block)) matchingMergeBlocks.add(mergeBlock);
+
+        return matchingMergeBlocks;
+    }
+
+    private Timeline getFallAnimation(Block block) {
+
+        KeyFrame from = new KeyFrame(Duration.ZERO, new KeyValue(
+            block.translateXProperty(), Settings.SCENE_WIDTH
+        ));
+
+        KeyFrame to = new KeyFrame(Duration.millis(Settings.BLOCK_FADEOUT), new KeyValue(
+            block.translateXProperty(), block.translateXProperty().multiply(3).getValue()
+        ));
+
+        return new Timeline(from, to);
+    }
+    /**
+     * Perform rules
+     * @param block clicked Block
+     */
     private void blockClicked(Block block) {
 
         ArrayList<Block> neighbors = this.getNeighbors(block);
-        for(Block b : neighbors)
-            b.updateValue();
+
+        if (neighbors.size() >= 1) {
+
+            for (Block neighborBlock : neighbors) {
+
+                //1. Remove Blocks and their MergeBlocks
+                for(MergeBlock mergeBlock : this.findMatchingMergeBlock(neighborBlock))
+                    this.playfieldModel.removeMergeBlock(mergeBlock);
+
+                FadeTransition fadeTransition = new FadeTransition(
+                    Duration.millis(Settings.BLOCK_FADEOUT),
+                    neighborBlock
+                );
+                fadeTransition.setFromValue(1.0);
+                fadeTransition.setToValue(0.0);
+                fadeTransition.play();
+
+                this.playfieldModel.removeBlock(neighborBlock);
+
+                //2. Blocks must fall down
+                Timeline fallAnimation = this.getFallAnimation(neighborBlock);
+                fallAnimation.play();
+            }
+
+
+            block.updateValue();
+            this.visitedBlocks.clear();
+        }
     }
 
+    /**
+     * Is called whenever model fires propertyChangeEvent
+     * @param evt Properties that have changed
+     */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        System.out.println("test");
-        Event event = Event.valueOf(evt.getPropertyName());
-
-        switch(event) {
-            case BLOCK_CLICK:
+        switch(evt.getPropertyName()) {
+            case Event.BLOCK_CLICKED:
                 this.blockClicked((Block) evt.getNewValue());
                 break;
         }

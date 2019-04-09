@@ -2,6 +2,7 @@ package model;
 
 import config.Event;
 import entity.Block;
+import entity.MergeBlock;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -24,14 +25,24 @@ public class PlayfieldModel {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
+    /**
+     * Informs all Observer that a Block has been clicked
+     * @param block Clicked block
+     */
     public void blockClicked(Block block) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.BLOCK_CLICK.toString(), block, block);
+        this.propertyChangeSupport.firePropertyChange(Event.BLOCK_CLICKED, null, block);
     }
 
-    public void test() {
 
-        this.propertyChangeSupport.firePropertyChange("test", 1, 1);
+    public void removeBlock(Block block) {
+
+        this.propertyChangeSupport.firePropertyChange(Event.REMOVE_BLOCK, null, block);
+    }
+
+    public void removeMergeBlock(MergeBlock mergeBlock) {
+
+        this.propertyChangeSupport.firePropertyChange(Event.REMOVE_MERGE_BLOCK, null, mergeBlock);
     }
 
     /**

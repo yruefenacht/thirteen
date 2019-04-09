@@ -18,6 +18,7 @@ public class Settings {
     public static final int GRID_SPACING = 8;
     public static final int BLOCK_WIDTH = 80;
     public static final int BLOCK_HEIGHT = 80;
+    public static final int BLOCK_FADEOUT = 250;
     public static final int BLOCK_BORDER_RADIUS = 5;
     public static final int MERGE_BLOCK_LENGTH = (2 * BLOCK_WIDTH) - (2 * BLOCK_BORDER_RADIUS);
 

@@ -1,5 +1,6 @@
 package controller;
 
+import config.Event;
 import entity.Block;
 import config.Settings;
 import entity.MergeBlock;
@@ -84,8 +85,6 @@ public class PlayfieldController implements PropertyChangeListener {
         //Set click events
         this.playfieldMenuBarButton.setOnMouseClicked(e -> pauseGame());
         this.playfieldMenuContinue.setOnMouseClicked(e -> resumeGame());
-
-        this.playfieldModel.test();
     }
 
     /**
@@ -108,6 +107,16 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfield.getChildren().remove(this.pauseMenu);
     }
 
+    private void removeBlock(Block block) {
+
+        this.playfield.getChildren().remove(block);
+    }
+
+    private void removeMergeBlock(MergeBlock mergeBlock) {
+
+        this.playfield.getChildren().remove(mergeBlock);
+    }
+
     /**
      * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
@@ -115,7 +124,13 @@ public class PlayfieldController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        System.out.println("es fuckking geit");
+        switch(evt.getPropertyName()) {
+            case Event.REMOVE_BLOCK:
+                this.removeBlock((Block) evt.getNewValue());
+                break;
+            case Event.REMOVE_MERGE_BLOCK:
+                this.removeMergeBlock((MergeBlock) evt.getNewValue());
+        }
     }
 
 }

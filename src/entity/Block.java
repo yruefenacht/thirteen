@@ -37,6 +37,9 @@ public class Block extends StackPane {
         this.playfieldModel = playfieldModel;
 
         this.setBackground();
+        this.center.setAlignment(Pos.CENTER);
+        this.center.setPrefWidth(Settings.BLOCK_WIDTH - Settings.GRID_SPACING);
+        this.center.setPrefHeight(Settings.BLOCK_HEIGHT - Settings.GRID_SPACING);
         this.setLayoutX(this.x * Settings.BLOCK_WIDTH);
         this.setLayoutY(this.y * Settings.BLOCK_HEIGHT);
         this.setPrefSize(Settings.BLOCK_WIDTH, Settings.BLOCK_HEIGHT);
@@ -52,15 +55,10 @@ public class Block extends StackPane {
      */
     private void setBackground() {
 
-        this.center.setAlignment(Pos.CENTER);
-        this.center.setPrefSize(
-                Settings.BLOCK_WIDTH - Settings.GRID_SPACING,
-                Settings.BLOCK_HEIGHT - Settings.GRID_SPACING
-        );
         this.center.setBackground(new Background(new BackgroundFill(
-                Settings.BLOCK_COLORS.get(value),
-                new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
-                Insets.EMPTY)
+            Settings.BLOCK_COLORS.get(this.value),
+            new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
+            Insets.EMPTY)
         ));
     }
 
@@ -79,6 +77,7 @@ public class Block extends StackPane {
 
         this.value++;
         this.valueLabel.setText(Integer.toString(value));
+        this.setBackground();
     }
 
     /**
@@ -98,5 +97,16 @@ public class Block extends StackPane {
      * @return value
      */
     int getValue() { return this.value; }
+
+    /**
+     * Checks whether 2 Block objects have equal position
+     * @param block element to check
+     * @return true or false
+     */
+    boolean equals(Block block) {
+
+        if(block == null) return false;
+        return block.getX() == this.getX() && block.getY() == this.getY();
+    }
 
 }
