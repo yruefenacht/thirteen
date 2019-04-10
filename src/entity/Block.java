@@ -70,6 +70,12 @@ public class Block extends StackPane {
         this.playfieldModel.blockClicked(this);
     }
 
+
+    public void falldown(int blocks) {
+
+
+    }
+
     /**
      * Value setter
      */

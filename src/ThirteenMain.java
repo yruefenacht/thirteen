@@ -1,4 +1,5 @@
 import config.Settings;
+import controller.MainMenuController;
 import controller.PlayfieldController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -34,12 +35,9 @@ public class ThirteenMain extends Application {
         );
 
         //View
-        PlayfieldModel playfieldModel = new PlayfieldModel();
-        PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/resources/view/Playfield.fxml"));
-        loader.setController(playfieldController);
-        Parent root = loader.load();
-        playfieldController.addPlayfield();
+        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("view/MainMenu.fxml"));
+        Parent root = fxmlLoader.load();
+        fxmlLoader.<MainMenuController>getController().init();
 
         //Scene
         Scene scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);

@@ -1,10 +1,11 @@
 package controller;
 
 import config.Event;
+import config.ViewChanger;
 import entity.Block;
 import config.Settings;
 import entity.MergeBlock;
-import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -34,6 +35,8 @@ public class PlayfieldController implements PropertyChangeListener {
     private Button playfieldMenuBarButton;
     @FXML
     private Button playfieldMenuContinue;
+    @FXML
+    private Button playfieldMenuQuit;
 
     private int level = Settings.DEFAULT_LEVEL;
     private PlayfieldModel playfieldModel;
@@ -83,8 +86,9 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldMenuBarButton.setGraphic(menuButtonImg);
 
         //Set click events
-        this.playfieldMenuBarButton.setOnMouseClicked(e -> pauseGame());
-        this.playfieldMenuContinue.setOnMouseClicked(e -> resumeGame());
+        this.playfieldMenuBarButton.setOnMouseClicked(e -> this.pauseGame());
+        this.playfieldMenuContinue.setOnMouseClicked(e -> this.resumeGame());
+        this.playfieldMenuQuit.setOnAction(this::quitGame);
     }
 
     /**
@@ -107,11 +111,27 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfield.getChildren().remove(this.pauseMenu);
     }
 
+    /**
+     * Go back to main view
+     */
+    private void quitGame(ActionEvent event) {
+
+        ViewChanger.changeToMainMenu(event);
+    }
+
+    /**
+     * Remove given block from pane
+     * @param block block to remove
+     */
     private void removeBlock(Block block) {
 
         this.playfield.getChildren().remove(block);
     }
 
+    /**
+     * Remove mergeBlock from pane
+     * @param mergeBlock block to remove
+     */
     private void removeMergeBlock(MergeBlock mergeBlock) {
 
         this.playfield.getChildren().remove(mergeBlock);

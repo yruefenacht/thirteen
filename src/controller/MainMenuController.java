@@ -1,15 +1,14 @@
 package controller;
+
+import config.ViewChanger;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+public class MainMenuController {
 
-
-public class StartfieldController implements PropertyChangeListener {
     @FXML
     private Pane startPane;
     @FXML
@@ -25,13 +24,15 @@ public class StartfieldController implements PropertyChangeListener {
     @FXML
     private Button soundButt;
 
+    public void init() {
 
-    public StartfieldController() {
+        playButt.setOnAction(this::showPlayfield);
     }
 
+    @FXML
+    private void showPlayfield(ActionEvent event) {
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
+        ViewChanger.changeToPlayfield(event);
     }
+
 }

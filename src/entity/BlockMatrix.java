@@ -176,18 +176,12 @@ public class BlockMatrix implements PropertyChangeListener {
         return matchingMergeBlocks;
     }
 
-    private Timeline getFallAnimation(Block block) {
 
-        KeyFrame from = new KeyFrame(Duration.ZERO, new KeyValue(
-            block.translateXProperty(), Settings.SCENE_WIDTH
-        ));
-
-        KeyFrame to = new KeyFrame(Duration.millis(Settings.BLOCK_FADEOUT), new KeyValue(
-            block.translateXProperty(), block.translateXProperty().multiply(3).getValue()
-        ));
-
-        return new Timeline(from, to);
+    private int getEmptyBlocksBelow(Block block) {
+        return 0;
     }
+
+
     /**
      * Perform rules
      * @param block clicked Block
@@ -198,9 +192,9 @@ public class BlockMatrix implements PropertyChangeListener {
 
         if (neighbors.size() >= 1) {
 
+            //1. Remove Blocks and their MergeBlocks
             for (Block neighborBlock : neighbors) {
 
-                //1. Remove Blocks and their MergeBlocks
                 for(MergeBlock mergeBlock : this.findMatchingMergeBlock(neighborBlock))
                     this.playfieldModel.removeMergeBlock(mergeBlock);
 
@@ -212,17 +206,18 @@ public class BlockMatrix implements PropertyChangeListener {
                 fadeTransition.setToValue(0.0);
                 fadeTransition.play();
 
+                this.blocks[neighborBlock.getX()][neighborBlock.getY()] = null;
                 this.playfieldModel.removeBlock(neighborBlock);
-
-                //2. Blocks must fall down
-                Timeline fallAnimation = this.getFallAnimation(neighborBlock);
-                fallAnimation.play();
             }
+
+            //2. Blocks must fall down
+            //for(Block b : this.getBlocksAsList())
+                //b.falldown(this.getEmptyBlocksBelow(b));
 
 
             block.updateValue();
-            this.visitedBlocks.clear();
         }
+        this.visitedBlocks.clear();
     }
 
     /**
