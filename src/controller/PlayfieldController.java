@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import entity.BlockMatrix;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -38,7 +37,6 @@ public class PlayfieldController implements PropertyChangeListener {
 
     private int level = Settings.DEFAULT_LEVEL;
     private PlayfieldModel playfieldModel;
-    private BlockMatrix blockMatrix;
     private ImageView menuButtonImg;
     private VBox pauseMenu;
 
@@ -46,9 +44,8 @@ public class PlayfieldController implements PropertyChangeListener {
      * Acts as class constructor.
      * @param playfieldModel Observable to be attached to
      */
-    public PlayfieldController(PlayfieldModel playfieldModel) {
+    PlayfieldController(PlayfieldModel playfieldModel) {
 
-        this.blockMatrix = new BlockMatrix(playfieldModel, Settings.GRID_DIMENSION_X, Settings.GRID_DIMENSION_Y);;
         this.menuButtonImg = new ImageView();
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
@@ -61,15 +58,7 @@ public class PlayfieldController implements PropertyChangeListener {
      * Sets game menu button and defines click events
      * @throws IOException if PlayfieldMenu.fxml could not be found
      */
-    public void addPlayfield() throws IOException {
-
-        //Prepare Blocks
-        ArrayList<Block> blocks = this.blockMatrix.generateBlocks();
-        ArrayList<MergeBlock> mergeBlocks = this.blockMatrix.generateMergeBlocks();
-
-        //Add Blocks
-        this.playfield.getChildren().addAll(mergeBlocks);
-        this.playfield.getChildren().addAll(blocks);
+    void addPlayfield() throws IOException {
 
         //Display Level
         this.playfieldLevel.setText(Integer.toString(this.level));
@@ -91,6 +80,16 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldMenuBarButton.setOnMouseClicked(e -> this.pauseGame());
         this.playfieldMenuContinue.setOnMouseClicked(e -> this.resumeGame());
         this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
+    }
+
+    private void blocksCreated(ArrayList<Block> blocks) {
+
+        this.playfield.getChildren().addAll(blocks);
+    }
+
+    private void mergeBlocksCreated(ArrayList<MergeBlock> mergeBlocks) {
+
+        this.playfield.getChildren().addAll(mergeBlocks);
     }
 
     /**
@@ -147,11 +146,18 @@ public class PlayfieldController implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
 
         switch(evt.getPropertyName()) {
+            case Event.BLOCKS_CREATED:
+                this.blocksCreated((ArrayList<Block>) evt.getNewValue());
+                break;
+            case Event.MERGE_BLOCKS_CREATED:
+                this.mergeBlocksCreated((ArrayList<MergeBlock>) evt.getNewValue());
+                break;
             case Event.REMOVE_BLOCK:
                 this.removeBlock((Block) evt.getNewValue());
                 break;
             case Event.REMOVE_MERGE_BLOCK:
                 this.removeMergeBlock((MergeBlock) evt.getNewValue());
+                break;
         }
     }
 

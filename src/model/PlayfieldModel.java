@@ -5,6 +5,7 @@ import entity.Block;
 import entity.MergeBlock;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 /**
  * PlayfieldModel.java
@@ -22,6 +23,16 @@ public class PlayfieldModel {
     public PlayfieldModel() {
 
         this.propertyChangeSupport = new PropertyChangeSupport(this);
+    }
+
+    public void blocksCreated(ArrayList<Block> blocks) {
+
+        this.propertyChangeSupport.firePropertyChange(Event.BLOCKS_CREATED, null, blocks);
+    }
+
+    public void mergeBlocksCreated(ArrayList<MergeBlock> mergeBlocks) {
+
+        this.propertyChangeSupport.firePropertyChange(Event.MERGE_BLOCKS_CREATED, null, mergeBlocks);
     }
 
     /**

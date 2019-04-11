@@ -1,12 +1,16 @@
 package entity;
 
 import config.Settings;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.util.Duration;
 import model.PlayfieldModel;
 
 /**
@@ -71,13 +75,21 @@ public class Block extends StackPane {
         this.playfieldModel.blockClicked(this);
     }
 
+    void fadeOut() {
 
-    void fallDown(int blocks) {
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(Settings.BLOCK_FADEOUT), this);
+        fadeTransition.setFromValue(1.0);
+        fadeTransition.setToValue(0.0);
+        fadeTransition.play();
+    }
 
-        System.out.println(blocks);
-        if(blocks == 0) return;
+    void fallDown() {
 
-        Timeline timeLine = new Timeline();
+        Timeline timeline = new Timeline(
+            new KeyFrame(Duration.millis(500),
+            new KeyValue(this.layoutYProperty(), this.getLayoutY() + Settings.BLOCK_HEIGHT))
+        );
+        timeline.play();
     }
 
     /**

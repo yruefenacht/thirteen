@@ -2,16 +2,12 @@ package entity;
 
 import config.Event;
 import config.Settings;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.util.Duration;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -39,6 +35,18 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
         this.blocks = new Block[dimensionX][dimensionY];
+
+    }
+
+    /**
+     * Creates Blocks and informs observable
+     */
+    public void createMatrix() {
+
+        this.generateBlocks();
+        this.generateMergeBlocks();
+        this.playfieldModel.mergeBlocksCreated(this.mergeBlocks);
+        this.playfieldModel.blocksCreated(this.getBlocksAsList());
     }
 
     /**
@@ -58,7 +66,7 @@ public class BlockMatrix implements PropertyChangeListener {
     /**
      * Fills 2D Block array with newly instantiated objects.
      */
-    public ArrayList<Block> generateBlocks() {
+    private void generateBlocks() {
 
         for(int i = 0; i < this.dimensionX; i++) {
             for(int j = 0; j < this.dimensionY; j++) {
@@ -67,14 +75,12 @@ public class BlockMatrix implements PropertyChangeListener {
                 this.blocks[i][j] = block;
             }
         }
-        return this.getBlocksAsList();
     }
 
     /**
      * Analyses grid and creates MergeBlocks from that
-     * @return List of Blocks
      */
-    public ArrayList<MergeBlock> generateMergeBlocks() {
+    private void generateMergeBlocks() {
 
         for(Block block : this.getBlocksAsList()) {
 
@@ -109,7 +115,6 @@ public class BlockMatrix implements PropertyChangeListener {
                 }
             }
         }
-        return this.mergeBlocks;
     }
 
     /**
@@ -162,6 +167,25 @@ public class BlockMatrix implements PropertyChangeListener {
     }
 
     /**
+     * Tells all neighbors above to fall down by one step
+     * @param location x and y of dead neighbor cell
+     */
+    private void notifyUpperBlocksToFallDown(Location location) {
+
+        int x = location.getX();
+        int y = location.getY();
+
+        for(int i = y; i > 0; i--) {
+            Block blockAbove = this.getBlockAt(x, i - 1);
+            if(blockAbove != null) {
+                blockAbove.fallDown();
+                this.blocks[x][i] = blockAbove;
+                this.removeMergeBlocksOfBlock(blockAbove);
+            }
+        }
+    }
+
+    /**
      * Finds MergeBlocks at same position as block
      * @param block Block to check
      * @return List of MergeBlocks
@@ -177,19 +201,13 @@ public class BlockMatrix implements PropertyChangeListener {
     }
 
     /**
-     * Calculate distance to fall down for given block
-     * @param block given block
-     * @return number of blocks to fall down
+     * Removes all MergeBlocks behind given Block
+     * @param block given Block
      */
-    private int getEmptyBlocksBelow(Block block) {
+    private void removeMergeBlocksOfBlock(Block block) {
 
-        int counter = 1;
-        Block currentBlock = this.getBlockAt(block.getX() + counter, block.getY());
-        while(currentBlock == null){
-            currentBlock = this.getBlockAt(block.getX() + counter, block.getY());
-            counter++;
-        }
-        return counter - 1;
+        for(MergeBlock mergeBlock : this.findMatchingMergeBlock(block))
+            this.playfieldModel.removeMergeBlock(mergeBlock);
     }
 
     /**
@@ -199,35 +217,30 @@ public class BlockMatrix implements PropertyChangeListener {
     private void blockClicked(Block block) {
 
         ArrayList<Block> neighbors = this.getNeighbors(block);
-
-        if (neighbors.size() >= 1) {
-
-            //1. Remove Blocks and their MergeBlocks
-            for (Block neighborBlock : neighbors) {
-
-                for(MergeBlock mergeBlock : this.findMatchingMergeBlock(neighborBlock))
-                    this.playfieldModel.removeMergeBlock(mergeBlock);
-
-                FadeTransition fadeTransition = new FadeTransition(
-                    Duration.millis(Settings.BLOCK_FADEOUT),
-                    neighborBlock
-                );
-                fadeTransition.setFromValue(1.0);
-                fadeTransition.setToValue(0.0);
-                fadeTransition.play();
-
-                this.blocks[neighborBlock.getX()][neighborBlock.getY()] = null;
-                this.playfieldModel.removeBlock(neighborBlock);
-            }
-
-            //2. Blocks must fall down
-            for(Block b : this.getBlocksAsList())
-                b.fallDown(this.getEmptyBlocksBelow(b));
-
-
-            block.updateValue();
-        }
+        ArrayList<Location> neighborCorpses = new ArrayList<>();
         this.visitedBlocks.clear();
+
+        if (neighbors.size() < 1) return;
+
+        //1. Remove Blocks and their MergeBlocks
+        for (Block neighborBlock : neighbors) {
+
+            this.removeMergeBlocksOfBlock(neighborBlock);
+
+            neighborBlock.fadeOut();
+
+            neighborCorpses.add(new Location(neighborBlock.getX(), neighborBlock.getY()));
+            this.blocks[neighborBlock.getX()][neighborBlock.getY()] = null;
+            this.playfieldModel.removeBlock(neighborBlock);
+        }
+
+        //2. Blocks must fall down
+        Collections.reverse(neighborCorpses);
+        for(Location location : neighborCorpses)
+            this.notifyUpperBlocksToFallDown(location);
+
+        //3. Increase clicked block's value
+        block.updateValue();
     }
 
     /**

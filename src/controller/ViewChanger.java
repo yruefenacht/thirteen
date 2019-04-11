@@ -1,5 +1,7 @@
 package controller;
 
+import config.Settings;
+import entity.BlockMatrix;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -31,10 +33,12 @@ public class ViewChanger {
         try {
             PlayfieldModel playfieldModel = new PlayfieldModel();
             PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
+            BlockMatrix blockMatrix = new BlockMatrix(playfieldModel, Settings.GRID_DIMENSION_X, Settings.GRID_DIMENSION_Y);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"));
             loader.setController(playfieldController);
             Parent playfield = loader.load();
             playfieldController.addPlayfield();
+            blockMatrix.createMatrix();
             root.setCenter(playfield);
 
         } catch (IOException e) { e.printStackTrace(); }
