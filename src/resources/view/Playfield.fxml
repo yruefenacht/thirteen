@@ -11,13 +11,16 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane styleClass="playfieldBorderPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<!-- PLAYFIELD -->
+<BorderPane styleClass="playfield"
+            xmlns="http://javafx.com/javafx/8.0.172-ea"
+            xmlns:fx="http://javafx.com/fxml/1">
    <!-- MENU BAR -->
    <top>
-      <HBox styleClass="playfieldMenuBar">
+      <HBox styleClass="playfield__menuBar">
          <!-- MENU BAR ITEM 1 -->
          <StackPane alignment="CENTER_LEFT" prefWidth="100.0">
-            <Button fx:id="playfieldMenuBarButton" prefHeight="25.0" prefWidth="25.0" styleClass="playfieldMenuBarButton">
+            <Button fx:id="playfieldMenuBarButton" prefHeight="25.0" prefWidth="25.0" styleClass="playfield__menuBarButton">
                <StackPane.margin>
                   <Insets left="10.0" />
                </StackPane.margin>
@@ -25,11 +28,11 @@
          </StackPane>
          <!-- MENU BAR ITEM 2 -->
          <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
-         <Label styleClass="playfieldMenuIcon" text="13" BorderPane.alignment="CENTER" />
+         <Label styleClass="playfield__menuIcon" text="13" BorderPane.alignment="CENTER" />
          <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
          <!-- MENU BAR ITEM 3 -->
          <HBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="5.0">
-            <Label styleClass="playfieldScore" text="500" />
+            <Label styleClass="playfield__score" text="500" />
             <ImageView fitHeight="20.0" fitWidth="20.0">
                <Image url="@../images/star.png" />
             </ImageView>
@@ -45,7 +48,7 @@
    <!-- LEVEL DISPLAY -->
    <center>
       <StackPane maxHeight="200.0">
-         <Label fx:id="playfieldLevel" alignment="CENTER" styleClass="playfieldLevel" />
+         <Label fx:id="playfieldLevel" alignment="CENTER" styleClass="playfield__level" />
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>

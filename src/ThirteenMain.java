@@ -1,14 +1,11 @@
 import config.Settings;
-import controller.MainMenuController;
-import controller.PlayfieldController;
+import config.ViewChanger;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import model.PlayfieldModel;
 
 /**
  * ThirteenMain.java
@@ -35,9 +32,8 @@ public class ThirteenMain extends Application {
         );
 
         //View
-        FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource("view/MainMenu.fxml"));
-        Parent root = fxmlLoader.load();
-        fxmlLoader.<MainMenuController>getController().init();
+        Parent root = ViewChanger.init();
+        ViewChanger.changeToMainMenu();
 
         //Scene
         Scene scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);

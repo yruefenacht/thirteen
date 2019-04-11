@@ -3,9 +3,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 
+<!-- PLAYFIELD MENU -->
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      alignment="CENTER" spacing="20.0" styleClass="playfieldMenu">
-    <Button fx:id="playfieldMenuContinue" text="CONTINUE" styleClass="playfieldMenuButton" prefWidth="150.0" prefHeight="50.0" />
-    <Button fx:id="playfieldMenuQuit" text="STOP" styleClass="playfieldMenuButton" prefWidth="150.0" prefHeight="50.0" />
+      alignment="CENTER"
+      spacing="20.0"
+      styleClass="playfieldMenu">
+    <!-- MENU BUTTONS -->
+    <Button fx:id="playfieldMenuContinue" text="CONTINUE" styleClass="playfieldMenu__Button" prefWidth="150.0" prefHeight="50.0" />
+    <Button fx:id="playfieldMenuQuit" text="QUIT" styleClass="playfieldMenu__Button" prefWidth="150.0" prefHeight="50.0" />
 </VBox>

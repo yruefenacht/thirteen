@@ -45,7 +45,7 @@ public class Block extends StackPane {
         this.setPrefSize(Settings.BLOCK_WIDTH, Settings.BLOCK_HEIGHT);
         this.setCursor(Cursor.HAND);
         this.setAlignment(Pos.CENTER);
-        this.getStyleClass().add("block");
+        this.getStyleClass().add("playfield__block");
         this.getChildren().addAll(this.center, this.valueLabel);
         this.setOnMouseClicked(e -> this.blockClicked());
     }

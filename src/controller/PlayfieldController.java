@@ -5,7 +5,6 @@ import config.ViewChanger;
 import entity.Block;
 import config.Settings;
 import entity.MergeBlock;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -57,7 +56,11 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
     /**
-     * Retrieves Block elements and adds them to grid.
+     * Essentially prepares playfield
+     * Retrieves and adds Blocks
+     * Loads and saves game menu
+     * Sets game menu button and defines click events
+     * @throws IOException if PlayfieldMenu.fxml could not be found
      */
     public void addPlayfield() throws IOException {
 
@@ -88,7 +91,7 @@ public class PlayfieldController implements PropertyChangeListener {
         //Set click events
         this.playfieldMenuBarButton.setOnMouseClicked(e -> this.pauseGame());
         this.playfieldMenuContinue.setOnMouseClicked(e -> this.resumeGame());
-        this.playfieldMenuQuit.setOnAction(this::quitGame);
+        this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
     }
 
     /**
@@ -114,9 +117,9 @@ public class PlayfieldController implements PropertyChangeListener {
     /**
      * Go back to main view
      */
-    private void quitGame(ActionEvent event) {
+    private void quitGame() {
 
-        ViewChanger.changeToMainMenu(event);
+        ViewChanger.changeToMainMenu();
     }
 
     /**

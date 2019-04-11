@@ -1,13 +1,9 @@
 package config;
 
-import controller.MainMenuController;
 import controller.PlayfieldController;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
 import model.PlayfieldModel;
 import java.io.IOException;
 
@@ -16,34 +12,45 @@ import java.io.IOException;
  */
 public class ViewChanger {
 
-    public static void changeToPlayfield(ActionEvent event){
+    private static BorderPane root;
+
+    /**
+     * Creates and returns root element
+     * @return root element
+     */
+    public static BorderPane init() {
+
+        root = new BorderPane();
+        return root;
+    }
+
+    /**
+     * Show Playfield.fxml
+     */
+    public static void changeToPlayfield() {
+
         try {
             PlayfieldModel playfieldModel = new PlayfieldModel();
             PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"));
             loader.setController(playfieldController);
-            Parent root = loader.load();
+            Parent playfield = loader.load();
             playfieldController.addPlayfield();
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(ViewChanger.class.getResource("/css/style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            root.setCenter(playfield);
+
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
-    public static void changeToMainMenu(ActionEvent event){
+    /**
+     * Show MainMenu.fxml
+     */
+    public static void changeToMainMenu() {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(ViewChanger.class.getResource("/view/MainMenu.fxml"));
-            Parent root = fxmlLoader.load();
-            fxmlLoader.<MainMenuController>getController().init();
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(ViewChanger.class.getResource("/css/style.css").toExternalForm());
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            Parent mainMenu = fxmlLoader.load();
+            root.setCenter(mainMenu);
+
+        } catch (IOException e) { e.printStackTrace(); }
     }
 }

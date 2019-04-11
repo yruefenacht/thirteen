@@ -4,38 +4,37 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<Pane fx:id="startPane" prefHeight="487.0" prefWidth="573.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
-   <VBox layoutX="180.0" layoutY="154.0" prefHeight="158.0" prefWidth="223.0" spacing="20.0">
-      <Button fx:id="playButt" mnemonicParsing="false" prefHeight="60.0" prefWidth="223.0" text="Button"/>
-      <Button fx:id="levelsButt" mnemonicParsing="false" prefHeight="59.0" prefWidth="231.0" text="Button"/>
+<!-- MAIN MENU -->
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controller.MainMenuController"
+      alignment="CENTER"
+      spacing="50.0"
+      styleClass="mainMenu">
+   <!-- TOP LABEL -->
+   <Label styleClass="mainMenu__icon" text="13" alignment="CENTER" />
+   <!-- MAIN BUTTONS -->
+   <VBox alignment="CENTER">
+      <Button styleClass="mainMenu__MainButton" onAction="#showPlayfield" prefHeight="60.0" prefWidth="250.0" text="Play"/>
    </VBox>
-   <HBox alignment="CENTER" layoutX="123.0" layoutY="348.0" prefHeight="59.0" prefWidth="336.0" spacing="50.0">
-      <Button fx:id="soundsButt" contentDisplay="CENTER" mnemonicParsing="false" styleClass="startHboxButtons"
-              text="Button">
+   <!-- SETTINGS BUTTONS -->
+   <HBox alignment="CENTER" prefHeight="59.0" prefWidth="336.0" spacing="50.0">
+      <Button styleClass="mainMenu__SettingsButtons" text="Button">
          <HBox.margin>
             <Insets/>
          </HBox.margin>
       </Button>
-      <Button fx:id="settingsButt" mnemonicParsing="false" text="Button">
+      <Button styleClass="mainMenu__SettingsButtons" text="Button">
          <HBox.margin>
             <Insets/>
          </HBox.margin>
       </Button>
-      <Button fx:id="languageButt" mnemonicParsing="false" text="Button">
+      <Button styleClass="mainMenu__SettingsButtons" text="Button">
          <HBox.margin>
             <Insets/>
          </HBox.margin>
       </Button>
    </HBox>
-   <Label fx:id="startLabel" alignment="CENTER" contentDisplay="TOP" layoutX="235.0" layoutY="50.0" prefHeight="71.0"
-          prefWidth="112.0" text="13">
-      <font>
-         <Font name="Book Antiqua Italic" size="18.0"/>
-      </font>
-   </Label>
-</Pane>
+</VBox>

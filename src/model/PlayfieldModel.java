@@ -3,7 +3,6 @@ package model;
 import config.Event;
 import entity.Block;
 import entity.MergeBlock;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -34,12 +33,19 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Event.BLOCK_CLICKED, null, block);
     }
 
-
+    /**
+     * Tells BlockMatrix to remove this block
+     * @param block Block to remove
+     */
     public void removeBlock(Block block) {
 
         this.propertyChangeSupport.firePropertyChange(Event.REMOVE_BLOCK, null, block);
     }
 
+    /**
+     * Tells BlockMatrix to remove this mergeBlock
+     * @param mergeBlock mergeBlock to remove
+     */
     public void removeMergeBlock(MergeBlock mergeBlock) {
 
         this.propertyChangeSupport.firePropertyChange(Event.REMOVE_MERGE_BLOCK, null, mergeBlock);
