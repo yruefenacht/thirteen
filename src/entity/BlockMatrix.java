@@ -18,10 +18,10 @@ public class BlockMatrix implements PropertyChangeListener {
 
     private int dimensionX;
     private int dimensionY;
-    private Block[][] blocks;
+    private int[][] blocks;
+    private int[][] mergeBlocks;
     private PlayfieldModel playfieldModel;
     private Random random = new Random();
-    private ArrayList<MergeBlock> mergeBlocks = new ArrayList<>();
     private ArrayList<Block> visitedBlocks = new ArrayList<>();
 
     /**
@@ -34,7 +34,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.dimensionY = dimensionY;
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
-        this.blocks = new Block[dimensionX][dimensionY];
+        this.blocks = new int[dimensionX][dimensionY];
 
     }
 
@@ -46,14 +46,14 @@ public class BlockMatrix implements PropertyChangeListener {
         this.generateBlocks();
         this.generateMergeBlocks();
         this.playfieldModel.mergeBlocksCreated(this.mergeBlocks);
-        this.playfieldModel.blocksCreated(this.getBlocksAsList());
+        this.playfieldModel.blocksCreated(this.blocks);
     }
 
     /**
      * Returns 2d Block array as ArrayList
      * @return Blocks
      */
-    private ArrayList<Block> getBlocksAsList() {
+    /*private ArrayList<Block> getBlocksAsList() {
 
         ArrayList<Block> blockList = new ArrayList<>();
 
@@ -61,7 +61,7 @@ public class BlockMatrix implements PropertyChangeListener {
             blockList.addAll(Arrays.asList(this.blocks[i]).subList(0, this.dimensionY));
 
         return blockList;
-    }
+    }*/
 
     /**
      * Fills 2D Block array with newly instantiated objects.
@@ -70,9 +70,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
         for(int i = 0; i < this.dimensionX; i++) {
             for(int j = 0; j < this.dimensionY; j++) {
-
-                Block block = new Block(this.playfieldModel, i, j, this.random.nextInt(5) + 1);
-                this.blocks[i][j] = block;
+                this.blocks[i][j] = this.random.nextInt(5) + 1;
             }
         }
     }
@@ -82,36 +80,37 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void generateMergeBlocks() {
 
-        for(Block block : this.getBlocksAsList()) {
+        for(int i = 0; i < this.dimensionX; i++) {
+            for(int j = 0; j < this.dimensionY; j++) {
 
-            int blockX = block.getX();
-            int blockY = block.getY();
+                int block = this.blocks[i][j];
+                int topNeighbor = this.getBlockAt(i, j - 1);
+                int rightNeighbor = this.getBlockAt(i + 1, j);
 
-            Block topNeighbor = getBlockAt(blockX, blockY - 1);
-            Block rightNeighbor = getBlockAt(blockX + 1, blockY);
-
-            if(topNeighbor != null){
-                if(topNeighbor.getValue() == block.getValue()) {
-                    this.mergeBlocks.add(new MergeBlock(
-                        (topNeighbor.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
-                        (topNeighbor.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
-                        Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
-                        Settings.MERGE_BLOCK_LENGTH,
-                        topNeighbor.getValue(),
-                        topNeighbor, block
-                    ));
+                if (topNeighbor != -1) {
+                    if (topNeighbor == block) {
+                        this.mergeBlocks[i][j] = block;
+                        /*this.mergeBlocks.add(new MergeBlock(
+                                (topNeighbor.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
+                                (topNeighbor.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
+                                Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
+                                Settings.MERGE_BLOCK_LENGTH,
+                                topNeighbor.getValue(),
+                                topNeighbor, block
+                        ));*/
+                    }
                 }
-            }
-            if(rightNeighbor != null){
-                if(rightNeighbor.getValue() == block.getValue()) {
-                    this.mergeBlocks.add(new MergeBlock(
-                        (block.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
-                        (block.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
-                        Settings.MERGE_BLOCK_LENGTH,
-                        Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
-                        block.getValue(),
-                        rightNeighbor, block
-                    ));
+                if (rightNeighbor != -1) {
+                    if (rightNeighbor == block) {
+                        /*this.mergeBlocks.add(new MergeBlock(
+                                (block.getX() * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2),
+                                (block.getY() * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2),
+                                Settings.MERGE_BLOCK_LENGTH,
+                                Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1),
+                                block.getValue(),
+                                rightNeighbor, block
+                        ));*/
+                    }
                 }
             }
         }
@@ -121,14 +120,14 @@ public class BlockMatrix implements PropertyChangeListener {
      * Retrieves Block at specific location
      * @param x Value x axis
      * @param y Value y axis
-     * @return Block
+     * @return value
      */
-    private Block getBlockAt(int x, int y) {
+    private int getBlockAt(int x, int y) {
 
         if(x >= 0 && x < this.dimensionX && y >=0 && y < this.dimensionY)
             return this.blocks[x][y];
         else
-            return null;
+            return -1;
     }
 
     /**
@@ -166,48 +165,27 @@ public class BlockMatrix implements PropertyChangeListener {
         return equalNeighbors;
     }
 
-    /**
-     * Tells all neighbors above to fall down by one step
-     * @param location x and y of dead neighbor cell
-     */
-    private void notifyUpperBlocksToFallDown(Location location) {
 
-        int x = location.getX();
-        int y = location.getY();
+    private int getFallDownSteps(Block block) {
 
-        for(int i = y; i > 0; i--) {
-            Block blockAbove = this.getBlockAt(x, i - 1);
-            if(blockAbove != null) {
-                blockAbove.fallDown();
-                this.blocks[x][i] = blockAbove;
-                this.removeMergeBlocksOfBlock(blockAbove);
+        int stepCounter = 0;
+        for(int i = block.getY(); i < Settings.GRID_DIMENSION_Y - 1; i++) {
+            if(this.blocks[block.getX()][i + 1] == null) {
+                stepCounter++;
+                this.removeMatchingMergeBlock(block);
             }
         }
+        return stepCounter;
     }
 
     /**
      * Finds MergeBlocks at same position as block
      * @param block Block to check
-     * @return List of MergeBlocks
      */
-    private ArrayList<MergeBlock> findMatchingMergeBlock(Block block) {
-
-        ArrayList<MergeBlock> matchingMergeBlocks = new ArrayList<>();
+    private void removeMatchingMergeBlock(Block block) {
 
         for(MergeBlock mergeBlock : this.mergeBlocks)
-            if(mergeBlock.hasBlock(block)) matchingMergeBlocks.add(mergeBlock);
-
-        return matchingMergeBlocks;
-    }
-
-    /**
-     * Removes all MergeBlocks behind given Block
-     * @param block given Block
-     */
-    private void removeMergeBlocksOfBlock(Block block) {
-
-        for(MergeBlock mergeBlock : this.findMatchingMergeBlock(block))
-            this.playfieldModel.removeMergeBlock(mergeBlock);
+            if(mergeBlock.hasBlock(block)) this.playfieldModel.removeMergeBlock(mergeBlock);
     }
 
     /**
@@ -217,7 +195,6 @@ public class BlockMatrix implements PropertyChangeListener {
     private void blockClicked(Block block) {
 
         ArrayList<Block> neighbors = this.getNeighbors(block);
-        ArrayList<Location> neighborCorpses = new ArrayList<>();
         this.visitedBlocks.clear();
 
         if (neighbors.size() < 1) return;
@@ -225,19 +202,28 @@ public class BlockMatrix implements PropertyChangeListener {
         //1. Remove Blocks and their MergeBlocks
         for (Block neighborBlock : neighbors) {
 
-            this.removeMergeBlocksOfBlock(neighborBlock);
+            this.removeMatchingMergeBlock(neighborBlock);
 
             neighborBlock.fadeOut();
 
-            neighborCorpses.add(new Location(neighborBlock.getX(), neighborBlock.getY()));
             this.blocks[neighborBlock.getX()][neighborBlock.getY()] = null;
             this.playfieldModel.removeBlock(neighborBlock);
         }
 
         //2. Blocks must fall down
-        Collections.reverse(neighborCorpses);
-        for(Location location : neighborCorpses)
-            this.notifyUpperBlocksToFallDown(location);
+        for(Block b : this.getBlocksAsList()) {
+            if (b != null) {
+                int steps = this.getFallDownSteps(b);
+                b.fallDown(steps);
+                this.blocks[b.getX()][b.getY() + b.getFallenDown()] = b;
+                this.blocks[b.getX()][b.getY()] = null;
+            }
+        }
+
+        for(Block block1 : this.getBlocksAsList()) {
+            if(block != null)
+                block.updateValue();
+        }
 
         //3. Increase clicked block's value
         block.updateValue();

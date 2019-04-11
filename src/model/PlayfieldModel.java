@@ -25,12 +25,12 @@ public class PlayfieldModel {
         this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
-    public void blocksCreated(ArrayList<Block> blocks) {
+    public void blocksCreated(int[][] blocks) {
 
         this.propertyChangeSupport.firePropertyChange(Event.BLOCKS_CREATED, null, blocks);
     }
 
-    public void mergeBlocksCreated(ArrayList<MergeBlock> mergeBlocks) {
+    public void mergeBlocksCreated(int[][] mergeBlocks) {
 
         this.propertyChangeSupport.firePropertyChange(Event.MERGE_BLOCKS_CREATED, null, mergeBlocks);
     }

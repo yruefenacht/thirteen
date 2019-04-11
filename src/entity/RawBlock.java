@@ -1,11 +1,11 @@
 package entity;
 
-class Location {
+class RawBlock {
 
     private int x;
     private int y;
 
-    Location(int x, int y) {
+    RawBlock(int x, int y) {
 
         this.x = x;
         this.y = y;

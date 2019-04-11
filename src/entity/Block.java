@@ -25,6 +25,7 @@ public class Block extends StackPane {
     private Label center;
     private Label valueLabel;
     private PlayfieldModel playfieldModel;
+    private int fallenDown = 0;
 
     /**
      * Class constructor
@@ -83,13 +84,19 @@ public class Block extends StackPane {
         fadeTransition.play();
     }
 
-    void fallDown() {
+    void fallDown(int steps) {
 
+        this.fallenDown = steps;
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.millis(500),
-            new KeyValue(this.layoutYProperty(), this.getLayoutY() + Settings.BLOCK_HEIGHT))
+            new KeyValue(this.layoutYProperty(), this.getLayoutY() + (Settings.BLOCK_HEIGHT * steps)))
         );
         timeline.play();
+    }
+
+    int getFallenDown() {
+
+        return this.fallenDown;
     }
 
     /**
@@ -98,7 +105,8 @@ public class Block extends StackPane {
     void updateValue() {
 
         this.value++;
-        this.valueLabel.setText(Integer.toString(value));
+        //this.valueLabel.setText(Integer.toString(value));
+        this.valueLabel.setText("F");
         this.setBackground();
     }
 

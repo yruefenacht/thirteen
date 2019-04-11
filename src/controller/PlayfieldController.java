@@ -37,6 +37,8 @@ public class PlayfieldController implements PropertyChangeListener {
 
     private int level = Settings.DEFAULT_LEVEL;
     private PlayfieldModel playfieldModel;
+    private ArrayList<Block> blocks = new ArrayList<>();
+    private ArrayList<MergeBlock> mergeBlocks = new ArrayList<>();
     private ImageView menuButtonImg;
     private VBox pauseMenu;
 
