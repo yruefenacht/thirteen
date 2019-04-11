@@ -1,6 +1,7 @@
 package entity;
 
 import config.Settings;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -71,9 +72,12 @@ public class Block extends StackPane {
     }
 
 
-    public void falldown(int blocks) {
+    void fallDown(int blocks) {
 
+        System.out.println(blocks);
+        if(blocks == 0) return;
 
+        Timeline timeLine = new Timeline();
     }
 
     /**

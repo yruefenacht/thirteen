@@ -1,7 +1,6 @@
 package controller;
 
 import config.Event;
-import config.ViewChanger;
 import entity.Block;
 import config.Settings;
 import entity.MergeBlock;

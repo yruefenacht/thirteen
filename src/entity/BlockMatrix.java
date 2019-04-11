@@ -176,11 +176,21 @@ public class BlockMatrix implements PropertyChangeListener {
         return matchingMergeBlocks;
     }
 
-
+    /**
+     * Calculate distance to fall down for given block
+     * @param block given block
+     * @return number of blocks to fall down
+     */
     private int getEmptyBlocksBelow(Block block) {
-        return 0;
-    }
 
+        int counter = 1;
+        Block currentBlock = this.getBlockAt(block.getX() + counter, block.getY());
+        while(currentBlock == null){
+            currentBlock = this.getBlockAt(block.getX() + counter, block.getY());
+            counter++;
+        }
+        return counter - 1;
+    }
 
     /**
      * Perform rules
@@ -211,8 +221,8 @@ public class BlockMatrix implements PropertyChangeListener {
             }
 
             //2. Blocks must fall down
-            //for(Block b : this.getBlocksAsList())
-                //b.falldown(this.getEmptyBlocksBelow(b));
+            for(Block b : this.getBlocksAsList())
+                b.fallDown(this.getEmptyBlocksBelow(b));
 
 
             block.updateValue();

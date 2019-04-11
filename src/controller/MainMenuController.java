@@ -1,6 +1,5 @@
 package controller;
 
-import config.ViewChanger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 

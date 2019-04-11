@@ -1,6 +1,5 @@
-package config;
+package controller;
 
-import controller.PlayfieldController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
