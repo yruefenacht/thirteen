@@ -1,10 +1,10 @@
 package entity;
 
 import config.Settings;
-import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -25,7 +25,6 @@ public class Block extends StackPane {
     private Label center;
     private Label valueLabel;
     private PlayfieldModel playfieldModel;
-    private int fallenDown = 0;
 
     /**
      * Class constructor
@@ -33,7 +32,7 @@ public class Block extends StackPane {
      * @param y position y
      * @param value number on label
      */
-    Block(PlayfieldModel playfieldModel, int x, int y, int value) {
+    public Block(PlayfieldModel playfieldModel, int x, int y, int value) {
 
         this.x = x;
         this.y = y;
@@ -73,40 +72,30 @@ public class Block extends StackPane {
      */
     private void blockClicked() {
 
-        this.playfieldModel.blockClicked(this);
+        this.playfieldModel.blockClicked(new Location(this.x, this.y));
     }
 
-    void fadeOut() {
+    /**
+     * Sink this block by n steps
+     * @param steps number
+     */
+    public void sink(int steps) {
 
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(Settings.BLOCK_FADEOUT), this);
-        fadeTransition.setFromValue(1.0);
-        fadeTransition.setToValue(0.0);
-        fadeTransition.play();
-    }
-
-    void fallDown(int steps) {
-
-        this.fallenDown = steps;
         Timeline timeline = new Timeline(
-            new KeyFrame(Duration.millis(500),
+            new KeyFrame(Duration.millis(Settings.BLOCK_ANIMATION),
             new KeyValue(this.layoutYProperty(), this.getLayoutY() + (Settings.BLOCK_HEIGHT * steps)))
         );
         timeline.play();
     }
 
-    int getFallenDown() {
-
-        return this.fallenDown;
-    }
-
     /**
      * Value setter
      */
-    void updateValue() {
+    public void updateValue() {
 
         this.value++;
-        //this.valueLabel.setText(Integer.toString(value));
-        this.valueLabel.setText("F");
+        this.valueLabel.setText(Integer.toString(value));
+        //this.valueLabel.setText("F");
         this.setBackground();
     }
 
@@ -114,29 +103,18 @@ public class Block extends StackPane {
      * X value getter
      * @return x
      */
-    int getX() { return this.x; }
+    public int getX() { return this.x; }
 
     /**
      * Y value getter
      * @return y
      */
-    int getY() { return this.y; }
+    public int getY() { return this.y; }
 
     /**
      * Value getter
      * @return value
      */
     int getValue() { return this.value; }
-
-    /**
-     * Checks whether 2 Block objects have equal position
-     * @param block element to check
-     * @return true or false
-     */
-    boolean equals(Block block) {
-
-        if(block == null) return false;
-        return block.getX() == this.getX() && block.getY() == this.getY();
-    }
 
 }

@@ -1,9 +1,8 @@
 package controller;
 
 import config.Event;
-import entity.Block;
+import entity.*;
 import config.Settings;
-import entity.MergeBlock;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -35,10 +34,10 @@ public class PlayfieldController implements PropertyChangeListener {
     @FXML
     private Button playfieldMenuQuit;
 
+    private ArrayList<Block> blocks;
+    private ArrayList<MergeBlock> mergeBlocks;
     private int level = Settings.DEFAULT_LEVEL;
     private PlayfieldModel playfieldModel;
-    private ArrayList<Block> blocks = new ArrayList<>();
-    private ArrayList<MergeBlock> mergeBlocks = new ArrayList<>();
     private ImageView menuButtonImg;
     private VBox pauseMenu;
 
@@ -62,6 +61,8 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     void addPlayfield() throws IOException {
 
+        this.playfield.getChildren().clear();
+
         //Display Level
         this.playfieldLevel.setText(Integer.toString(this.level));
 
@@ -84,14 +85,52 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
     }
 
-    private void blocksCreated(ArrayList<Block> blocks) {
+
+    private void blocksCreated(ArrayList<RawBlock> rawBlocks) {
+
+        this.blocks = new ArrayList<>();
+
+        for(RawBlock rawBlock : rawBlocks)
+            this.blocks.add(new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue()));
 
         this.playfield.getChildren().addAll(blocks);
     }
 
-    private void mergeBlocksCreated(ArrayList<MergeBlock> mergeBlocks) {
 
+    private void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
+
+        this.mergeBlocks = new ArrayList<>();
+
+        for(RawMergeBlock rawMergeBlock : rawMergeBlocks) {
+
+            this.mergeBlocks.add(new MergeBlock(
+                rawMergeBlock.getX1(),
+                rawMergeBlock.getY1(),
+                rawMergeBlock.getX2(),
+                rawMergeBlock.getY2(),
+                rawMergeBlock.getValue()
+            ));
+        }
         this.playfield.getChildren().addAll(mergeBlocks);
+    }
+
+
+    private MergeBlock getMergeBlockAt(int x1, int y1, int x2, int y2) {
+
+        for(MergeBlock mergeBlock : this.mergeBlocks)
+            if(x1 == mergeBlock.getX1() && y1 == mergeBlock.getY1()
+            && x2 == mergeBlock.getX2() && y2 == mergeBlock.getY2())
+                return mergeBlock;
+        return null;
+    }
+
+
+    private Block getBlockAt(int x, int y) {
+
+        for(Block block : this.blocks)
+            if(block.getX() == x && block.getY() == y)
+                return block;
+        return null;
     }
 
     /**
@@ -124,20 +163,39 @@ public class PlayfieldController implements PropertyChangeListener {
 
     /**
      * Remove given block from pane
-     * @param block block to remove
+     * @param rawBlock block to remove
      */
-    private void removeBlock(Block block) {
+    private void removeBlock(RawBlock rawBlock) {
 
-        this.playfield.getChildren().remove(block);
+        this.playfield.getChildren().remove(this.getBlockAt(rawBlock.getX(), rawBlock.getY()));
     }
 
     /**
      * Remove mergeBlock from pane
-     * @param mergeBlock block to remove
+     * @param rawMergeBlock block to remove
      */
-    private void removeMergeBlock(MergeBlock mergeBlock) {
+    private void removeMergeBlock(RawMergeBlock rawMergeBlock) {
 
-        this.playfield.getChildren().remove(mergeBlock);
+        this.playfield.getChildren().remove(this.getMergeBlockAt(
+            rawMergeBlock.getX1(),
+            rawMergeBlock.getY1(),
+            rawMergeBlock.getX2(),
+            rawMergeBlock.getY2()
+        ));
+    }
+
+
+    private void sinkBlock(RawBlock rawBlock, int steps) {
+
+        Block sinkMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
+        if(sinkMe != null) sinkMe.sink(steps);
+    }
+
+
+    private void increaseBlock(Location location) {
+
+        Block updateMe = this.getBlockAt(location.getX(), location.getY());
+        if(updateMe != null) updateMe.updateValue();
     }
 
     /**
@@ -149,17 +207,22 @@ public class PlayfieldController implements PropertyChangeListener {
 
         switch(evt.getPropertyName()) {
             case Event.BLOCKS_CREATED:
-                this.blocksCreated((ArrayList<Block>) evt.getNewValue());
+                this.blocksCreated((ArrayList<RawBlock>) evt.getNewValue());
                 break;
             case Event.MERGE_BLOCKS_CREATED:
-                this.mergeBlocksCreated((ArrayList<MergeBlock>) evt.getNewValue());
+                this.mergeBlocksCreated((ArrayList<RawMergeBlock>) evt.getNewValue());
                 break;
             case Event.REMOVE_BLOCK:
-                this.removeBlock((Block) evt.getNewValue());
+                this.removeBlock((RawBlock) evt.getNewValue());
                 break;
             case Event.REMOVE_MERGE_BLOCK:
-                this.removeMergeBlock((MergeBlock) evt.getNewValue());
+                this.removeMergeBlock((RawMergeBlock) evt.getNewValue());
                 break;
+            case Event.SINK_BLOCK:
+                this.sinkBlock((RawBlock) evt.getNewValue(), (Integer) evt.getOldValue());
+                break;
+            case Event.INCREASE_BLOCK:
+                this.increaseBlock((Location) evt.getNewValue());
         }
     }
 
