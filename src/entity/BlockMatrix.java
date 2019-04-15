@@ -232,6 +232,7 @@ public class BlockMatrix implements PropertyChangeListener {
         //1. Get neighbors
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
         if(neighbors.isEmpty()) return;
+        for(RawBlock neighbor : neighbors) this.playfieldModel.removeBlock(neighbor);
 
         //2. Increase value
         this.rawBlocks[x][y].increaseBlockValue();
@@ -245,8 +246,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
             int rx = rawBlock.getX();
             int ry = rawBlock.getY();
-            this.rawBlocks[rx][ry] = new RawBlock(rx, ry, 7);
-            this.playfieldModel.removeBlock(this.rawBlocks[rx][ry]);
+            this.rawBlocks[rx][ry] = new RawBlock(rx, ry, 0);
         }
 
 
@@ -275,12 +275,12 @@ public class BlockMatrix implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             switch(evt.getPropertyName()) {
                 case Events.BLOCK_CLICKED:
                     this.blockClicked((Location) evt.getNewValue());
                     break;
             }
-        });
+        //});
     }
 }

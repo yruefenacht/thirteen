@@ -250,7 +250,7 @@ public class PlayfieldController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             switch(evt.getPropertyName()) {
                 case Events.BLOCKS_CREATED:
                     this.blocksCreated((ArrayList<RawBlock>) evt.getNewValue());
@@ -271,7 +271,7 @@ public class PlayfieldController implements PropertyChangeListener {
                     this.sinkBlock((RawBlock) evt.getNewValue());
                     break;
             }
-        });
+        //});
     }
 
 }
