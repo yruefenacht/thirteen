@@ -1,23 +1,18 @@
 package entity;
 
 import config.Settings;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.util.Duration;
 import model.PlayfieldModel;
 
 /**
  * Block.java
  * This class represents a single block on the play grid.
  */
-public class Block extends StackPane {
+public class Block extends Entity {
 
     private int x;
     private int y;
@@ -47,7 +42,9 @@ public class Block extends StackPane {
         this.center.setPrefHeight(Settings.BLOCK_HEIGHT - Settings.GRID_SPACING);
         this.setLayoutX(this.x * Settings.BLOCK_WIDTH);
         this.setLayoutY(this.y * Settings.BLOCK_HEIGHT);
-        this.setPrefSize(Settings.BLOCK_WIDTH, Settings.BLOCK_HEIGHT);
+        this.setScaleX(0);
+        this.setScaleY(0);
+        this.setPrefSize(Settings.BLOCK_WIDTH, Settings.BLOCK_HEIGHT );
         this.setCursor(Cursor.HAND);
         this.setAlignment(Pos.CENTER);
         this.getStyleClass().add("playfield__block");
@@ -76,16 +73,12 @@ public class Block extends StackPane {
     }
 
     /**
-     * Sink this block by n steps
-     * @param steps number
+     * Let block fall down by n blocks
      */
-    public void sink(int steps) {
+    public void sink() {
 
-        Timeline timeline = new Timeline(
-            new KeyFrame(Duration.millis(Settings.BLOCK_ANIMATION),
-            new KeyValue(this.layoutYProperty(), this.getLayoutY() + (Settings.BLOCK_HEIGHT * steps)))
-        );
-        timeline.play();
+        this.y++;
+        Animations.getSinkAnimation(this).play();
     }
 
     /**
@@ -95,7 +88,6 @@ public class Block extends StackPane {
 
         this.value++;
         this.valueLabel.setText(Integer.toString(value));
-        //this.valueLabel.setText("F");
         this.setBackground();
     }
 
@@ -111,10 +103,5 @@ public class Block extends StackPane {
      */
     public int getY() { return this.y; }
 
-    /**
-     * Value getter
-     * @return value
-     */
-    int getValue() { return this.value; }
 
 }

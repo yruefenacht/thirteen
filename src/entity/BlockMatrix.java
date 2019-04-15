@@ -1,14 +1,11 @@
 package entity;
 
-import config.Event;
-import config.Settings;
+import config.Events;
+import javafx.application.Platform;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 /**
  * BlockMatrix.java
@@ -21,12 +18,14 @@ public class BlockMatrix implements PropertyChangeListener {
     private PlayfieldModel playfieldModel;
     private RawBlock[][] rawBlocks;
     private ArrayList<RawMergeBlock> rawMergeBlocks;
-    private ArrayList<RawBlock> visitedBlocks = new ArrayList<>();
     private Random random = new Random();
+
 
     /**
      * Class constructor
-     * @param dimensionX length of dimensions X, Y
+     * @param playfieldModel Observable to be attached to
+     * @param dimensionX Matrix dimension X length
+     * @param dimensionY Matrix dimension Y length
      */
     public BlockMatrix(PlayfieldModel playfieldModel, int dimensionX, int dimensionY) {
 
@@ -35,11 +34,11 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
         this.rawBlocks = new RawBlock[dimensionX][dimensionY];
-
     }
 
+
     /**
-     * Creates Blocks and informs observable
+     * Creates RawBlocks matrix and RawMergeBlocks
      */
     public void createMatrix() {
 
@@ -47,11 +46,21 @@ public class BlockMatrix implements PropertyChangeListener {
         this.generateMergeBlocks();
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
+
+        printMatrix();
+        /*Scanner scanner = new Scanner(System.in);
+        while(true) {
+            String line = scanner.nextLine();
+            int x = Integer.parseInt(line.split(" ")[0]);
+            int y = Integer.parseInt(line.split(" ")[1]);
+            this.blockClicked(new Location(x, y));
+        }*/
     }
 
+
     /**
-     * Returns 2d Block array as ArrayList
-     * @return Blocks
+     * Returns 2D RawBlock array as ArrayList
+     * @return List of RawBlocks
      */
     private ArrayList<RawBlock> getBlocksAsList() {
 
@@ -63,8 +72,9 @@ public class BlockMatrix implements PropertyChangeListener {
         return blockList;
     }
 
+
     /**
-     * Fills 2D Block array with newly instantiated objects.
+     * Fills 2D RawBlock array with newly instantiated objects.
      */
     private void generateBlocks() {
 
@@ -75,6 +85,7 @@ public class BlockMatrix implements PropertyChangeListener {
         }
     }
 
+
     /**
      * Analyses grid and creates MergeBlocks from that
      */
@@ -83,6 +94,8 @@ public class BlockMatrix implements PropertyChangeListener {
         this.rawMergeBlocks = new ArrayList<>();
 
         for(RawBlock rawBlock : this.getBlocksAsList()) {
+
+            if(rawBlock == null) break;
 
             int rawBlockX = rawBlock.getX();
             int rawBlockY = rawBlock.getY();
@@ -108,11 +121,12 @@ public class BlockMatrix implements PropertyChangeListener {
         }
     }
 
+
     /**
-     * Retrieves Block at specific location
+     * Retrieves RawBlock at specific location
      * @param x Value x axis
      * @param y Value y axis
-     * @return value
+     * @return RawBlock
      */
     private RawBlock getBlockAt(int x, int y) {
 
@@ -122,32 +136,35 @@ public class BlockMatrix implements PropertyChangeListener {
             return null;
     }
 
-    /**
-     * Recursively get all neighbor cells with equal value
-     * @param x x axis value
-     * @param y y axis value
-     */
-    private ArrayList<RawBlock> getEqualNeighbors(int x, int y) {
 
-        RawBlock block = this.getBlockAt(x, y);
+    /**
+     * Recursively get all equal neighbors from given block
+     * @param x given block x
+     * @param y given block y
+     * @param visitedBlocks Do not visit same block twice
+     * @return list of rawBlocks
+     */
+    private ArrayList<RawBlock> getEqualNeighbors(int x, int y, ArrayList<RawBlock> visitedBlocks) {
+
         ArrayList<RawBlock> equalNeighbors = new ArrayList<>();
+        RawBlock block = this.getBlockAt(x, y);
 
         if(block == null) return equalNeighbors;
 
-        this.visitedBlocks.add(block);
+        visitedBlocks.add(block);
 
         RawBlock[] neighbors = new RawBlock[] {
-                this.getBlockAt(x, y - 1),
-                this.getBlockAt(x + 1, y),
-                this.getBlockAt(x, y + 1),
-                this.getBlockAt(x - 1, y)
+            this.getBlockAt(x, y - 1),
+            this.getBlockAt(x + 1, y),
+            this.getBlockAt(x, y + 1),
+            this.getBlockAt(x - 1, y)
         };
 
-        for(RawBlock b : neighbors) {
-            if(b != null) {
-                if(b.getValue() == block.getValue() && ! this.visitedBlocks.contains(b)) {
-                    equalNeighbors.add(b);
-                    equalNeighbors.addAll(this.getEqualNeighbors(b.getX(),b.getY()));
+        for(RawBlock neighbor : neighbors) {
+            if(neighbor != null) {
+                if(neighbor.getValue() == block.getValue() && ! visitedBlocks.contains(neighbor)) {
+                    equalNeighbors.add(neighbor);
+                    equalNeighbors.addAll(this.getEqualNeighbors(neighbor.getX(),neighbor.getY(), visitedBlocks));
                 }
             }
         }
@@ -155,76 +172,100 @@ public class BlockMatrix implements PropertyChangeListener {
         return equalNeighbors;
     }
 
-    private void killRawBlock(RawBlock rawBlock) {
-
-        int x = rawBlock.getX();
-        int y = rawBlock.getY();
-        this.removeMatchingMergeBlock(this.getBlockAt(x, y));
-        this.playfieldModel.removeBlock(this.getBlockAt(x, y));
-        this.rawBlocks[x][y] = null;
-    }
 
     /**
-     * Counts null blocks below given block
-     * @param block given block
-     * @return count
+     * Puts removed RawBlocks (gaps) to the top of matrix
+     * @param rawBlocks Empty RawBlocks
      */
-    private int getFallDownSteps(RawBlock block) {
+    private void riseBlocksToTop(ArrayList<RawBlock> rawBlocks) {
 
-        int stepCounter = 0;
-        for(int i = block.getY(); i < Settings.GRID_DIMENSION_Y - 1; i++) {
-            if(this.rawBlocks[block.getX()][i + 1] == null) {
-                stepCounter++;
-                this.removeMatchingMergeBlock(block);
+        ArrayList<RawMergeBlock> mergeBlocksToRemove = new ArrayList<>();
+        for(RawBlock rawBlock : rawBlocks) {
+
+            int rx = rawBlock.getX();
+            int ry = rawBlock.getY();
+
+            for(int i = ry; i >= 1; i--) {
+                RawBlock blockAbove = this.rawBlocks[rx][i - 1];
+                this.playfieldModel.sinkBlock(blockAbove);
+                this.rawBlocks[rx][i - 1]  = rawBlock;
+                this.rawBlocks[rx][i] = blockAbove;
+                mergeBlocksToRemove.addAll(this.getMergeBlocksOfBlock(this.getBlockAt(rx, i - 1)));
+                mergeBlocksToRemove.addAll(this.getMergeBlocksOfBlock(this.getBlockAt(rx, i)));
+                rawBlock.rise();
+                blockAbove.fall();
             }
         }
-        return stepCounter;
+        this.rawMergeBlocks.removeAll(mergeBlocksToRemove);
+        for(RawMergeBlock rawMergeBlock : mergeBlocksToRemove)
+            this.playfieldModel.removeMergeBlock(rawMergeBlock);
     }
+
 
     /**
-     * Finds MergeBlocks at same position as block
-     * @param rawBlock Block to check
+     * Finds RawMergeBlocks at same position as RawBlock
+     * @param rawBlock given RawBlock
      */
-    private void removeMatchingMergeBlock(RawBlock rawBlock) {
+    private ArrayList<RawMergeBlock> getMergeBlocksOfBlock(RawBlock rawBlock) {
 
-        for(RawMergeBlock rawMergeBlock : this.rawMergeBlocks)
-            if(rawMergeBlock.hasBlock(rawBlock)) this.playfieldModel.removeMergeBlock(rawMergeBlock);
+        ArrayList<RawMergeBlock> matchingMergeBlocks = new ArrayList<>();
+
+        for(RawMergeBlock rawMergeBlock : this.rawMergeBlocks) {
+
+            if (rawMergeBlock.hasBlock(rawBlock)) {
+                matchingMergeBlocks.add(rawMergeBlock);
+            }
+        }
+        return matchingMergeBlocks;
     }
 
 
+    /**
+     * Apply rules on grid
+     * @param location coordinates from clicked block
+     */
     private void blockClicked(Location location) {
 
         int x = location.getX();
         int y = location.getY();
 
-        //1. Kill neighbors
-        ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y);
-        this.visitedBlocks.clear();
+        //1. Get neighbors
+        ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
         if(neighbors.isEmpty()) return;
 
-        for(RawBlock rawBlock : neighbors) this.killRawBlock(rawBlock);
+        //2. Increase value
+        this.rawBlocks[x][y].increaseBlockValue();
+        this.playfieldModel.increaseBlockValue(this.rawBlocks[x][y]);
 
-        //2. Update value
-        this.rawBlocks[x][y].updateValue();
-        this.playfieldModel.increaseBlockValue(location);
+        //3. Hide neighbors and bring them to top
+        this.riseBlocksToTop(neighbors);
 
-        //3. Blocks must fall down
-        /*for(int i = 0; i < Settings.GRID_DIMENSION_X; i++) {
-            for(int j = Settings.GRID_DIMENSION_Y - 1; j >= 0; j--) {
+        //4. Replace neighbors with new RawBlocks
+        for(RawBlock rawBlock : neighbors) {
 
-                RawBlock rawBlock = this.rawBlocks[i][j];
-                if (rawBlock != null) {
+            int rx = rawBlock.getX();
+            int ry = rawBlock.getY();
+            this.rawBlocks[rx][ry] = new RawBlock(rx, ry, 7);
+            this.playfieldModel.removeBlock(this.rawBlocks[rx][ry]);
+        }
 
-                    int steps = this.getFallDownSteps(rawBlock);
-                    if(steps > 0) {
-                        this.playfieldModel.sinkBlock(rawBlock, steps);
-                        this.rawBlocks[rawBlock.getX()][rawBlock.getY() + steps] = rawBlock;
-                        this.rawBlocks[rawBlock.getX()][rawBlock.getY()] = null;
-                    }
+
+        printMatrix();
+    }
+
+    private void printMatrix() {
+        System.out.println("- - - - -");
+        for(int i = 0; i < this.dimensionX; i++) {
+            for(int j = 0; j < this.dimensionY; j++) {
+                if (this.rawBlocks[j][i] != null) {
+                    System.out.print(this.rawBlocks[j][i].getValue() + " ");
+                }
+                else {
+                    System.out.print("X ");
                 }
             }
-        }*/
-
+            System.out.println(" ");
+        }
     }
 
     /**
@@ -234,10 +275,12 @@ public class BlockMatrix implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        switch(evt.getPropertyName()) {
-            case Event.BLOCK_CLICKED:
-                this.blockClicked((Location) evt.getNewValue());
-                break;
-        }
+        Platform.runLater(() -> {
+            switch(evt.getPropertyName()) {
+                case Events.BLOCK_CLICKED:
+                    this.blockClicked((Location) evt.getNewValue());
+                    break;
+            }
+        });
     }
 }

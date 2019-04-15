@@ -1,10 +1,10 @@
 package config;
 
 /**
- * Event.java
+ * Events.java
  * Enum that defines all propertyChangeEvent names
  */
-public class Event {
+public class Events {
 
     public static final String BLOCK_CLICKED = "blockClicked";
     public static final String REMOVE_BLOCK = "removeBlock";

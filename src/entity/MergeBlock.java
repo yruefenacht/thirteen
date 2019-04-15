@@ -2,7 +2,6 @@ package entity;
 
 import config.Settings;
 import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -11,7 +10,7 @@ import javafx.scene.layout.CornerRadii;
  * MergeBlock.java
  * A MergeBlock connects two Blocks graphically in a background layer.
  */
-public class MergeBlock extends Label {
+public class MergeBlock extends Entity {
 
     private int x1;
     private int x2;
@@ -35,6 +34,9 @@ public class MergeBlock extends Label {
 
         this.setLayoutX((x1 * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2));
         this.setLayoutY((y1 * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2));
+
+        this.setScaleX(0);
+        this.setScaleY(0);
 
         int width;
         int height;

@@ -1,6 +1,6 @@
 package model;
 
-import config.Event;
+import config.Events;
 import entity.Location;
 import entity.RawBlock;
 import entity.RawMergeBlock;
@@ -18,46 +18,39 @@ public class PlayfieldModel {
 
     private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-
     public void blocksCreated(ArrayList<RawBlock> rawBlocks) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.BLOCKS_CREATED, null, rawBlocks);
+        this.propertyChangeSupport.firePropertyChange(Events.BLOCKS_CREATED, null, rawBlocks);
     }
-
 
     public void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.MERGE_BLOCKS_CREATED, null, rawMergeBlocks);
+        this.propertyChangeSupport.firePropertyChange(Events.MERGE_BLOCKS_CREATED, null, rawMergeBlocks);
     }
-
 
     public void blockClicked(Location location) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.BLOCK_CLICKED, null, location);
+        this.propertyChangeSupport.firePropertyChange(Events.BLOCK_CLICKED, null, location);
     }
-
 
     public void removeBlock(RawBlock rawBlock) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.REMOVE_BLOCK, null, rawBlock);
+        this.propertyChangeSupport.firePropertyChange(Events.REMOVE_BLOCK, null, rawBlock);
     }
-
 
     public void removeMergeBlock(RawMergeBlock rawMergeBlock) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.REMOVE_MERGE_BLOCK, null, rawMergeBlock);
+        this.propertyChangeSupport.firePropertyChange(Events.REMOVE_MERGE_BLOCK, null, rawMergeBlock);
     }
 
+    public void increaseBlockValue(RawBlock rawBlock) {
 
-    public void sinkBlock(RawBlock rawBlock, int steps) {
-
-        this.propertyChangeSupport.firePropertyChange(Event.SINK_BLOCK, steps, rawBlock);
+        this.propertyChangeSupport.firePropertyChange(Events.INCREASE_BLOCK, null, rawBlock);
     }
 
+    public void sinkBlock(RawBlock rawBlock) {
 
-    public void increaseBlockValue(Location location) {
-
-        this.propertyChangeSupport.firePropertyChange(Event.INCREASE_BLOCK, null, location);
+        this.propertyChangeSupport.firePropertyChange(Events.SINK_BLOCK, null, rawBlock);
     }
 
     /**

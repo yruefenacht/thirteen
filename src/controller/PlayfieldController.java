@@ -1,8 +1,9 @@
 package controller;
 
-import config.Event;
+import config.Events;
 import entity.*;
 import config.Settings;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -24,7 +25,9 @@ import java.util.ArrayList;
 public class PlayfieldController implements PropertyChangeListener {
 
     @FXML
-    private Pane playfield;
+    private Pane playfieldBlocks;
+    @FXML
+    private Pane playfieldMergeBlocks;
     @FXML
     private Label playfieldLevel;
     @FXML
@@ -36,7 +39,6 @@ public class PlayfieldController implements PropertyChangeListener {
 
     private ArrayList<Block> blocks;
     private ArrayList<MergeBlock> mergeBlocks;
-    private int level = Settings.DEFAULT_LEVEL;
     private PlayfieldModel playfieldModel;
     private ImageView menuButtonImg;
     private VBox pauseMenu;
@@ -52,6 +54,7 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldModel.addPropertyChangeListener(this);
     }
 
+
     /**
      * Essentially prepares playfield
      * Retrieves and adds Blocks
@@ -61,10 +64,8 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     void addPlayfield() throws IOException {
 
-        this.playfield.getChildren().clear();
-
         //Display Level
-        this.playfieldLevel.setText(Integer.toString(this.level));
+        this.playfieldLevel.setText("6");
 
         //Prepare pause menu
         FXMLLoader pauseMenuLoader = new FXMLLoader(this.getClass().getResource("/resources/view/PlayfieldMenu.fxml"));
@@ -86,17 +87,31 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    /**
+     * Creates Block instances and adds them to GUI
+     * @param rawBlocks given RawBlocks
+     */
     private void blocksCreated(ArrayList<RawBlock> rawBlocks) {
 
         this.blocks = new ArrayList<>();
 
-        for(RawBlock rawBlock : rawBlocks)
-            this.blocks.add(new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue()));
+        for(RawBlock rawBlock : rawBlocks) {
+            Block block = new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
+            this.blocks.add(block);
+            block.show();
+        }
 
-        this.playfield.getChildren().addAll(blocks);
+        for(MergeBlock mergeBlock : this.mergeBlocks) mergeBlock.show();
+
+        this.playfieldBlocks.getChildren().clear();
+        this.playfieldBlocks.getChildren().addAll(blocks);
     }
 
 
+    /**
+     * Creates MergeBlock instances and adds them to GUI
+     * @param rawMergeBlocks
+     */
     private void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
 
         this.mergeBlocks = new ArrayList<>();
@@ -104,17 +119,26 @@ public class PlayfieldController implements PropertyChangeListener {
         for(RawMergeBlock rawMergeBlock : rawMergeBlocks) {
 
             this.mergeBlocks.add(new MergeBlock(
-                rawMergeBlock.getX1(),
-                rawMergeBlock.getY1(),
-                rawMergeBlock.getX2(),
-                rawMergeBlock.getY2(),
-                rawMergeBlock.getValue()
+                    rawMergeBlock.getX1(),
+                    rawMergeBlock.getY1(),
+                    rawMergeBlock.getX2(),
+                    rawMergeBlock.getY2(),
+                    rawMergeBlock.getValue()
             ));
         }
-        this.playfield.getChildren().addAll(mergeBlocks);
+        this.playfieldMergeBlocks.getChildren().clear();
+        this.playfieldMergeBlocks.getChildren().addAll(mergeBlocks);
     }
 
 
+    /**
+     * Retrieves specific MergeBlock
+     * @param x1 start x
+     * @param y1 start y
+     * @param x2 end x
+     * @param y2 end y
+     * @return
+     */
     private MergeBlock getMergeBlockAt(int x1, int y1, int x2, int y2) {
 
         for(MergeBlock mergeBlock : this.mergeBlocks)
@@ -125,6 +149,12 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    /**
+     * Retrieves specific Block
+     * @param x value
+     * @param y value
+     * @return Block or null
+     */
     private Block getBlockAt(int x, int y) {
 
         for(Block block : this.blocks)
@@ -133,6 +163,7 @@ public class PlayfieldController implements PropertyChangeListener {
         return null;
     }
 
+
     /**
      * Show playfield menu
      */
@@ -140,8 +171,9 @@ public class PlayfieldController implements PropertyChangeListener {
 
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/resume.png")));
         this.playfieldMenuBarButton.setDisable(true);
-        this.playfield.getChildren().add(this.pauseMenu);
+        this.playfieldBlocks.getChildren().add(this.pauseMenu);
     }
+
 
     /**
      * Remove playfield menu
@@ -150,8 +182,9 @@ public class PlayfieldController implements PropertyChangeListener {
 
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
         this.playfieldMenuBarButton.setDisable(false);
-        this.playfield.getChildren().remove(this.pauseMenu);
+        this.playfieldBlocks.getChildren().remove(this.pauseMenu);
     }
+
 
     /**
      * Go back to main view
@@ -161,14 +194,16 @@ public class PlayfieldController implements PropertyChangeListener {
         ViewChanger.changeToMainMenu();
     }
 
+
     /**
      * Remove given block from pane
      * @param rawBlock block to remove
      */
     private void removeBlock(RawBlock rawBlock) {
 
-        this.playfield.getChildren().remove(this.getBlockAt(rawBlock.getX(), rawBlock.getY()));
+        this.playfieldBlocks.getChildren().remove(this.getBlockAt(rawBlock.getX(), rawBlock.getY()));
     }
+
 
     /**
      * Remove mergeBlock from pane
@@ -176,7 +211,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void removeMergeBlock(RawMergeBlock rawMergeBlock) {
 
-        this.playfield.getChildren().remove(this.getMergeBlockAt(
+        this.playfieldMergeBlocks.getChildren().remove(this.getMergeBlockAt(
             rawMergeBlock.getX1(),
             rawMergeBlock.getY1(),
             rawMergeBlock.getX2(),
@@ -185,18 +220,28 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
-    private void sinkBlock(RawBlock rawBlock, int steps) {
+    /**
+     * Update block value
+     * @param rawBlock give RawBlock
+     */
+    private void increaseBlock(RawBlock rawBlock) {
 
-        Block sinkMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
-        if(sinkMe != null) sinkMe.sink(steps);
-    }
-
-
-    private void increaseBlock(Location location) {
-
-        Block updateMe = this.getBlockAt(location.getX(), location.getY());
+        Block updateMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
         if(updateMe != null) updateMe.updateValue();
     }
+
+
+    /**
+     * Sink given Block by one Block length
+     * @param rawBlock given Block
+     */
+    private void sinkBlock(RawBlock rawBlock) {
+
+        Block sinkMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
+        if(sinkMe == null) return;
+        sinkMe.sink();
+    }
+
 
     /**
      * This method is fired when changes happen in the model observable.
@@ -205,25 +250,28 @@ public class PlayfieldController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        switch(evt.getPropertyName()) {
-            case Event.BLOCKS_CREATED:
-                this.blocksCreated((ArrayList<RawBlock>) evt.getNewValue());
-                break;
-            case Event.MERGE_BLOCKS_CREATED:
-                this.mergeBlocksCreated((ArrayList<RawMergeBlock>) evt.getNewValue());
-                break;
-            case Event.REMOVE_BLOCK:
-                this.removeBlock((RawBlock) evt.getNewValue());
-                break;
-            case Event.REMOVE_MERGE_BLOCK:
-                this.removeMergeBlock((RawMergeBlock) evt.getNewValue());
-                break;
-            case Event.SINK_BLOCK:
-                this.sinkBlock((RawBlock) evt.getNewValue(), (Integer) evt.getOldValue());
-                break;
-            case Event.INCREASE_BLOCK:
-                this.increaseBlock((Location) evt.getNewValue());
-        }
+        Platform.runLater(() -> {
+            switch(evt.getPropertyName()) {
+                case Events.BLOCKS_CREATED:
+                    this.blocksCreated((ArrayList<RawBlock>) evt.getNewValue());
+                    break;
+                case Events.MERGE_BLOCKS_CREATED:
+                    this.mergeBlocksCreated((ArrayList<RawMergeBlock>) evt.getNewValue());
+                    break;
+                case Events.REMOVE_BLOCK:
+                    this.removeBlock((RawBlock) evt.getNewValue());
+                    break;
+                case Events.REMOVE_MERGE_BLOCK:
+                    this.removeMergeBlock((RawMergeBlock) evt.getNewValue());
+                    break;
+                case Events.INCREASE_BLOCK:
+                    this.increaseBlock((RawBlock) evt.getNewValue());
+                    break;
+                case Events.SINK_BLOCK:
+                    this.sinkBlock((RawBlock) evt.getNewValue());
+                    break;
+            }
+        });
     }
 
 }
