@@ -90,5 +90,35 @@
 }
 
 .mainMenu__SettingsButtons {
+    -fx-background-color:#333 ;
+    -fx-text-fill: rgb(230, 230, 230);
+    -fx-font-size: 2em;
+
+
+}
+.mainMenu__SettingsButtons:hover{
+    -fx-background-color:#892 ;
+}
+.mainMenu__SettingsButtons:pressed {
+    -fx-border-width: 3;
+    -fx-rotate: 10;
+}
+.startPane{
+    -fx-background-color: #4E4949;
+}
+
+.mainMenu__MainButton{
+    -fx-background-color: linear-gradient(to left, rgb(255, 21, 133), rgba(131, 12, 60, 0.97));
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+    -fx-text-fill: rgb(230, 230, 230);
+
+}
+.mainMenu__MainButton:hover{
+    -fx-border-color:rgb(255, 1, 35) ;
+    -fx-border-width:0.2em ;
+
+
+
 
 }
