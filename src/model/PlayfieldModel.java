@@ -48,6 +48,11 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Events.INCREASE_BLOCK, null, rawBlock);
     }
 
+    public void prepareToSinkBlock(RawBlock rawBlock) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.PREPARE_SINK_BLOCK, null, rawBlock);
+    }
+
     public void sinkBlock(RawBlock rawBlock) {
 
         this.propertyChangeSupport.firePropertyChange(Events.SINK_BLOCK, null, rawBlock);

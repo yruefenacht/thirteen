@@ -8,7 +8,8 @@ public class RawMergeBlock {
     private int y2;
     private int value;
 
-    RawMergeBlock(int x1, int y1, int x2, int y2, int value) {
+
+    public  RawMergeBlock(int x1, int y1, int x2, int y2, int value) {
 
         this.x1 = x1;
         this.y1 = y1;
@@ -42,7 +43,7 @@ public class RawMergeBlock {
         return this.value;
     }
 
-    boolean hasBlock(RawBlock rawBlock) {
+    public boolean hasBlock(RawBlock rawBlock) {
 
         if(rawBlock == null) return false;
         return(rawBlock.getX() == this.x1 && rawBlock.getY() == this.y1

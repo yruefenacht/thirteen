@@ -1,7 +1,6 @@
 package controller;
 
 import config.Settings;
-import entity.BlockMatrix;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;

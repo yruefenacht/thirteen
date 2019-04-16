@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import model.PlayfieldModel;
 
 /**
@@ -17,6 +18,7 @@ public class Block extends Entity {
     private int x;
     private int y;
     private int value;
+    private int sink;
     private Label center;
     private Label valueLabel;
     private PlayfieldModel playfieldModel;
@@ -57,8 +59,11 @@ public class Block extends Entity {
      */
     private void setBackground() {
 
+        Color backgroundColor = (this.value == Settings.LEVEL) ?
+            Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(this.value);
+
         this.center.setBackground(new Background(new BackgroundFill(
-            Settings.BLOCK_COLORS.get(this.value),
+            backgroundColor,
             new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
             Insets.EMPTY)
         ));
@@ -75,10 +80,19 @@ public class Block extends Entity {
     /**
      * Let block fall down by n blocks
      */
-    public void sink() {
+    public void prepareToSink() {
 
         this.y++;
-        Animations.getSinkAnimation(this).play();
+        this.sink++;
+    }
+
+    /**
+     * Set Layout Y to this.y
+     */
+    public void sink() {
+
+        Animations.getSinkAnimation(this, this.sink).play();
+        this.sink = 0;
     }
 
     /**

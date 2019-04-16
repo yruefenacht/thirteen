@@ -3,7 +3,6 @@ package controller;
 import config.Events;
 import entity.*;
 import config.Settings;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -235,6 +234,14 @@ public class PlayfieldController implements PropertyChangeListener {
      * Sink given Block by one Block length
      * @param rawBlock given Block
      */
+    private void prepareToSinkBlock(RawBlock rawBlock) {
+
+        Block sinkMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
+        if(sinkMe == null) return;
+        sinkMe.prepareToSink();
+    }
+
+
     private void sinkBlock(RawBlock rawBlock) {
 
         Block sinkMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
@@ -266,6 +273,9 @@ public class PlayfieldController implements PropertyChangeListener {
                     break;
                 case Events.INCREASE_BLOCK:
                     this.increaseBlock((RawBlock) evt.getNewValue());
+                    break;
+                case Events.PREPARE_SINK_BLOCK:
+                    this.prepareToSinkBlock((RawBlock) evt.getNewValue());
                     break;
                 case Events.SINK_BLOCK:
                     this.sinkBlock((RawBlock) evt.getNewValue());

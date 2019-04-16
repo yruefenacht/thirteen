@@ -7,7 +7,7 @@ public class RawBlock {
     private int value;
     private int sink;
 
-    RawBlock(int x, int y, int value) {
+    public RawBlock(int x, int y, int value) {
 
         this.x = x;
         this.y = y;

@@ -33,12 +33,12 @@ class Animations {
      * @param entity given entity
      * @return timeline
      */
-    static Timeline getSinkAnimation(Entity entity) {
+    static Timeline getSinkAnimation(Entity entity, int steps) {
 
         return new Timeline(
             new KeyFrame(
                 Duration.millis(Settings.BLOCK_ANIMATION),
-                new KeyValue(entity.layoutYProperty(), entity.getLayoutY() + Settings.BLOCK_HEIGHT))
+                new KeyValue(entity.layoutYProperty(), entity.getLayoutY() + (Settings.BLOCK_HEIGHT * steps)))
         );
     }
 }

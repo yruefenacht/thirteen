@@ -1,7 +1,11 @@
-package entity;
+package controller;
 
 import config.Events;
-import javafx.application.Platform;
+import config.Settings;
+import entity.Location;
+import entity.NumberGenerator;
+import entity.RawBlock;
+import entity.RawMergeBlock;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -18,6 +22,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private PlayfieldModel playfieldModel;
     private RawBlock[][] rawBlocks;
     private ArrayList<RawMergeBlock> rawMergeBlocks;
+    private NumberGenerator numberGenerator;
     private Random random = new Random();
 
 
@@ -34,6 +39,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
         this.rawBlocks = new RawBlock[dimensionX][dimensionY];
+        this.numberGenerator = new NumberGenerator();
     }
 
 
@@ -46,15 +52,6 @@ public class BlockMatrix implements PropertyChangeListener {
         this.generateMergeBlocks();
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
-
-        printMatrix();
-        /*Scanner scanner = new Scanner(System.in);
-        while(true) {
-            String line = scanner.nextLine();
-            int x = Integer.parseInt(line.split(" ")[0]);
-            int y = Integer.parseInt(line.split(" ")[1]);
-            this.blockClicked(new Location(x, y));
-        }*/
     }
 
 
@@ -80,9 +77,12 @@ public class BlockMatrix implements PropertyChangeListener {
 
         for(int i = 0; i < this.dimensionX; i++) {
             for(int j = 0; j < this.dimensionY; j++) {
-                this.rawBlocks[i][j] = new RawBlock(i, j, this.random.nextInt(5) + 1);
+                this.rawBlocks[i][j] = new RawBlock(i, j, this.numberGenerator.getRandomNumber());
             }
         }
+        int initialX = this.numberGenerator.getInitialBlockX();
+        int initialY = Settings.GRID_DIMENSION_Y - 1;
+        this.rawBlocks[initialX][initialY] = new RawBlock(initialX, initialY, Settings.LEVEL);
     }
 
 
@@ -187,7 +187,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
             for(int i = ry; i >= 1; i--) {
                 RawBlock blockAbove = this.rawBlocks[rx][i - 1];
-                this.playfieldModel.sinkBlock(blockAbove);
+                this.playfieldModel.prepareToSinkBlock(blockAbove);
                 this.rawBlocks[rx][i - 1]  = rawBlock;
                 this.rawBlocks[rx][i] = blockAbove;
                 mergeBlocksToRemove.addAll(this.getMergeBlocksOfBlock(this.getBlockAt(rx, i - 1)));
@@ -240,6 +240,8 @@ public class BlockMatrix implements PropertyChangeListener {
 
         //3. Hide neighbors and bring them to top
         this.riseBlocksToTop(neighbors);
+        for(RawBlock rawBlock : this.getBlocksAsList())
+            this.playfieldModel.sinkBlock(rawBlock);
 
         //4. Replace neighbors with new RawBlocks
         for(RawBlock rawBlock : neighbors) {
@@ -248,7 +250,6 @@ public class BlockMatrix implements PropertyChangeListener {
             int ry = rawBlock.getY();
             this.rawBlocks[rx][ry] = new RawBlock(rx, ry, 0);
         }
-
 
         printMatrix();
     }

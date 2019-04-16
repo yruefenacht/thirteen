@@ -11,7 +11,8 @@ public class Settings {
 
     public static final String APP_TITLE = "Thirteen";
     public static final int FONT_SIZE_DEFAULT = 30;
-    public static final int DEFAULT_LEVEL = 6;
+    public static final int LEVEL = 6;
+    public static final int LEVEL_RANGE = 5;
 
     public static final int GRID_DIMENSION_X = 5;
     public static final int GRID_DIMENSION_Y = 5;
@@ -29,6 +30,7 @@ public class Settings {
     public static final int SCENE_HEIGHT = (GRID_DIMENSION_Y * BLOCK_HEIGHT) + SCENE_TOP;
 
     public static final Map<Integer, Color> BLOCK_COLORS = Map.of(
+        0, Color.rgb(252, 252, 252),
         1, Color.rgb(181, 207, 97),
         2, Color.rgb(230, 194, 74),
         3, Color.rgb(198, 132, 84),
@@ -37,7 +39,6 @@ public class Settings {
         6, Color.rgb(147, 73, 198),
         7, Color.rgb(96, 61, 165),
         8, Color.rgb(54, 65, 181),
-        9, Color.rgb(54, 129, 197),
-        10, Color.rgb(252, 252, 252)
+        9, Color.rgb(54, 129, 197)
     );
 }
