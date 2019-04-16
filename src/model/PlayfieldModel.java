@@ -1,10 +1,12 @@
 package model;
 
-import config.Event;
-import entity.Block;
-import entity.MergeBlock;
+import config.Events;
+import entity.Location;
+import entity.RawBlock;
+import entity.RawMergeBlock;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 
 /**
  * PlayfieldModel.java
@@ -14,41 +16,41 @@ import java.beans.PropertyChangeSupport;
 
 public class PlayfieldModel {
 
-    private PropertyChangeSupport propertyChangeSupport;
+    private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
-    /**
-     * Class constructor
-     */
-    public PlayfieldModel() {
+    public void blocksCreated(ArrayList<RawBlock> rawBlocks) {
 
-        this.propertyChangeSupport = new PropertyChangeSupport(this);
+        this.propertyChangeSupport.firePropertyChange(Events.BLOCKS_CREATED, null, rawBlocks);
     }
 
-    /**
-     * Informs all Observer that a Block has been clicked
-     * @param block Clicked block
-     */
-    public void blockClicked(Block block) {
+    public void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.BLOCK_CLICKED, null, block);
+        this.propertyChangeSupport.firePropertyChange(Events.MERGE_BLOCKS_CREATED, null, rawMergeBlocks);
     }
 
-    /**
-     * Tells BlockMatrix to remove this block
-     * @param block Block to remove
-     */
-    public void removeBlock(Block block) {
+    public void blockClicked(Location location) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.REMOVE_BLOCK, null, block);
+        this.propertyChangeSupport.firePropertyChange(Events.BLOCK_CLICKED, null, location);
     }
 
-    /**
-     * Tells BlockMatrix to remove this mergeBlock
-     * @param mergeBlock mergeBlock to remove
-     */
-    public void removeMergeBlock(MergeBlock mergeBlock) {
+    public void removeBlock(RawBlock rawBlock) {
 
-        this.propertyChangeSupport.firePropertyChange(Event.REMOVE_MERGE_BLOCK, null, mergeBlock);
+        this.propertyChangeSupport.firePropertyChange(Events.REMOVE_BLOCK, null, rawBlock);
+    }
+
+    public void removeMergeBlock(RawMergeBlock rawMergeBlock) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.REMOVE_MERGE_BLOCK, null, rawMergeBlock);
+    }
+
+    public void increaseBlockValue(RawBlock rawBlock) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.INCREASE_BLOCK, null, rawBlock);
+    }
+
+    public void sinkBlock(RawBlock rawBlock) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.SINK_BLOCK, null, rawBlock);
     }
 
     /**
