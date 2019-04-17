@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 /**
  * MergeBlock.java
@@ -52,8 +53,12 @@ public class MergeBlock extends Entity {
 
         this.setPrefWidth(width);
         this.setPrefHeight(height);
+
+        Color backgroundColor = (value == Settings.LEVEL) ?
+                Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(value);
+
         this.setBackground(new Background(new BackgroundFill(
-                Settings.BLOCK_COLORS.get(value),
+                backgroundColor,
                 new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
                 Insets.EMPTY
         )));

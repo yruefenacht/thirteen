@@ -15,4 +15,6 @@ public class Events {
     public static final String PREPARE_SINK_BLOCK = "prepareToSinkBlock";
     public static final String SINK_BLOCK = "sinkBlock";
     public static final String NEW_BLOCK_CREATED = "newBlockCreated";
+    public static final String LEVEL_UP = "levelUp";
+    public static final String GAME_OVER = "gameOver";
 }

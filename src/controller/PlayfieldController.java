@@ -63,8 +63,11 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     void addPlayfield() throws IOException {
 
+        //Prepare MergeBlocks
+        this.mergeBlocks = new ArrayList<>();
+
         //Display Level
-        this.playfieldLevel.setText("6");
+        this.playfieldLevel.setText(Integer.toString(Settings.LEVEL));
 
         //Prepare pause menu
         FXMLLoader pauseMenuLoader = new FXMLLoader(this.getClass().getResource("/resources/view/PlayfieldMenu.fxml"));
@@ -106,22 +109,39 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
+     * Checks if creating a MergeBlock is even necessary
+     * @param rawMergeBlock MergeBlock to check
+     * @return true or false
+     */
+    private boolean mergeBlockExists(RawMergeBlock rawMergeBlock) {
+
+        for(MergeBlock mergeBlock : this.mergeBlocks) {
+            if(mergeBlock.getX1() == rawMergeBlock.getX1()
+            && mergeBlock.getY1() == rawMergeBlock.getY1()
+            && mergeBlock.getX2() == rawMergeBlock.getX2()
+            && mergeBlock.getY2() == rawMergeBlock.getY2())
+                return true;
+        }
+        return false;
+    }
+
+
+    /**
      * Creates MergeBlock instances and adds them to GUI
      * @param rawMergeBlocks given MergeBlocks
      */
     private void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
 
-        this.mergeBlocks = new ArrayList<>();
-        this.playfieldMergeBlocks.getChildren().clear();
-
         for(RawMergeBlock rawMergeBlock : rawMergeBlocks) {
 
+            if(mergeBlockExists(rawMergeBlock)) continue;
+
             MergeBlock newMergeBlock = new MergeBlock(
-                    rawMergeBlock.getX1(),
-                    rawMergeBlock.getY1(),
-                    rawMergeBlock.getX2(),
-                    rawMergeBlock.getY2(),
-                    rawMergeBlock.getValue()
+                rawMergeBlock.getX1(),
+                rawMergeBlock.getY1(),
+                rawMergeBlock.getX2(),
+                rawMergeBlock.getY2(),
+                rawMergeBlock.getValue()
             );
             this.mergeBlocks.add(newMergeBlock);
             this.playfieldMergeBlocks.getChildren().add(newMergeBlock);
@@ -136,7 +156,7 @@ public class PlayfieldController implements PropertyChangeListener {
      * @param y1 start y
      * @param x2 end x
      * @param y2 end y
-     * @return
+     * @return MergeBlock
      */
     private MergeBlock getMergeBlockAt(int x1, int y1, int x2, int y2) {
 
@@ -213,10 +233,10 @@ public class PlayfieldController implements PropertyChangeListener {
     private void removeMergeBlock(RawMergeBlock rawMergeBlock) {
 
         MergeBlock removeMe = this.getMergeBlockAt(
-                rawMergeBlock.getX1(),
-                rawMergeBlock.getY1(),
-                rawMergeBlock.getX2(),
-                rawMergeBlock.getY2()
+            rawMergeBlock.getX1(),
+            rawMergeBlock.getY1(),
+            rawMergeBlock.getX2(),
+            rawMergeBlock.getY2()
         );
         this.playfieldMergeBlocks.getChildren().remove(removeMe);
         this.mergeBlocks.remove(removeMe);
@@ -258,12 +278,31 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    /**
+     * Create and add new Block to GUI
+     * @param rawBlock given location and value
+     */
     private void createNewBlock(RawBlock rawBlock) {
 
         Block newBlock = new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
         this.blocks.add(newBlock);
         this.playfieldBlocks.getChildren().add(newBlock);
         newBlock.show();
+    }
+
+
+    /**
+     * Updates level label
+     * @param level new level
+     */
+    private void levelUp(int level) {
+
+        this.playfieldLevel.setText(Integer.toString(level));
+    }
+
+
+    private void showGameOverScreen() {
+        System.out.println("Game over");
     }
 
     /**
@@ -297,6 +336,12 @@ public class PlayfieldController implements PropertyChangeListener {
                 break;
             case Events.NEW_BLOCK_CREATED:
                 this.createNewBlock((RawBlock) evt.getNewValue());
+                break;
+            case Events.LEVEL_UP:
+                this.levelUp((Integer) evt.getNewValue());
+                break;
+            case Events.GAME_OVER:
+                this.showGameOverScreen();
                 break;
         }
     }

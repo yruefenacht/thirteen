@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 /**
  * PlayfieldModel.java
- * This class acts as observable.
- * It notifies the controller class if any changes occur.
+ * Observable of game logic
+ * Notifies the controllers if any changes occur.
  */
 
 public class PlayfieldModel {
@@ -61,6 +61,16 @@ public class PlayfieldModel {
     public void newBlockCreated(RawBlock rawBlock) {
 
         this.propertyChangeSupport.firePropertyChange(Events.NEW_BLOCK_CREATED, null, rawBlock);
+    }
+
+    public void levelUp(int level) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.LEVEL_UP, null, level);
+    }
+
+    public void showGameOverScreen() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, 0);
     }
 
     /**

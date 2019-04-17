@@ -273,6 +273,28 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
+     * STEP 5
+     * Generate additional MergeBlocks
+     */
+    private void generateNewMergeBlocks() {
+
+        this.generateMergeBlocks();
+        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
+    }
+
+
+    /**
+     * STEP 6
+     * Checks if a pair exists
+     */
+    private void checkForGameOver() {
+
+        if(this.rawMergeBlocks.isEmpty())
+            this.playfieldModel.showGameOverScreen();
+    }
+
+
+    /**
      * Apply rules on grid
      * @param location coordinates from clicked block
      */
@@ -284,6 +306,14 @@ public class BlockMatrix implements PropertyChangeListener {
         //0. Get Neighbors
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
         if(neighbors.isEmpty()) return;
+
+        // Special Case - Check for level up
+        for(RawBlock neighbor : neighbors) {
+            if (neighbor.getValue() == Settings.LEVEL) {
+                Settings.LEVEL++;
+                this.playfieldModel.levelUp(Settings.LEVEL);
+            }
+        }
 
         //1. Remove neighbors
         final KeyFrame step1 = new KeyFrame(
@@ -309,35 +339,22 @@ public class BlockMatrix implements PropertyChangeListener {
             e -> this.createNewBlocks(neighbors)
         );
 
+        //5. Create new MergeBlocks
         final KeyFrame step5 = new KeyFrame(
             Duration.millis(Settings.GRID_ANIMATION),
-            e -> {
-                this.generateMergeBlocks();
-                this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
-            }
+            e -> this.generateNewMergeBlocks()
         );
 
-        final Timeline timeline = new Timeline(step1, step2, step3, step4, step5);
+        //6. Check for game over
+        final KeyFrame step6 = new KeyFrame(
+            Duration.millis(Settings.GRID_ANIMATION),
+            e -> this.checkForGameOver()
+        );
+
+        final Timeline timeline = new Timeline(step1, step2, step3, step4, step5, step6);
         timeline.play();
-
-
-        printMatrix();
     }
 
-    private void printMatrix() {
-        System.out.println("- - - - -");
-        for(int i = 0; i < this.dimensionX; i++) {
-            for(int j = 0; j < this.dimensionY; j++) {
-                if (this.rawBlocks[j][i] != null) {
-                    System.out.print(this.rawBlocks[j][i].getValue() + " ");
-                }
-                else {
-                    System.out.print("X ");
-                }
-            }
-            System.out.println(" ");
-        }
-    }
 
     /**
      * Is called whenever model fires propertyChangeEvent
@@ -352,4 +369,5 @@ public class BlockMatrix implements PropertyChangeListener {
                 break;
         }
     }
+
 }
