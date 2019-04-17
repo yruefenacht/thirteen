@@ -14,4 +14,5 @@ public class Events {
     public static final String MERGE_BLOCKS_CREATED = "mergeBlocksCreated";
     public static final String PREPARE_SINK_BLOCK = "prepareToSinkBlock";
     public static final String SINK_BLOCK = "sinkBlock";
+    public static final String NEW_BLOCK_CREATED = "newBlockCreated";
 }

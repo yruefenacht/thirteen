@@ -58,6 +58,11 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Events.SINK_BLOCK, null, rawBlock);
     }
 
+    public void newBlockCreated(RawBlock rawBlock) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.NEW_BLOCK_CREATED, null, rawBlock);
+    }
+
     /**
      * This method adds Observers to this observable
      * @param pcl Observer to add

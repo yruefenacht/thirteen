@@ -93,40 +93,40 @@ public class PlayfieldController implements PropertyChangeListener {
     private void blocksCreated(ArrayList<RawBlock> rawBlocks) {
 
         this.blocks = new ArrayList<>();
+        this.playfieldBlocks.getChildren().clear();
 
         for(RawBlock rawBlock : rawBlocks) {
+
             Block block = new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
             this.blocks.add(block);
+            this.playfieldBlocks.getChildren().add(block);
             block.show();
         }
-
-        for(MergeBlock mergeBlock : this.mergeBlocks) mergeBlock.show();
-
-        this.playfieldBlocks.getChildren().clear();
-        this.playfieldBlocks.getChildren().addAll(blocks);
     }
 
 
     /**
      * Creates MergeBlock instances and adds them to GUI
-     * @param rawMergeBlocks
+     * @param rawMergeBlocks given MergeBlocks
      */
     private void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
 
         this.mergeBlocks = new ArrayList<>();
+        this.playfieldMergeBlocks.getChildren().clear();
 
         for(RawMergeBlock rawMergeBlock : rawMergeBlocks) {
 
-            this.mergeBlocks.add(new MergeBlock(
+            MergeBlock newMergeBlock = new MergeBlock(
                     rawMergeBlock.getX1(),
                     rawMergeBlock.getY1(),
                     rawMergeBlock.getX2(),
                     rawMergeBlock.getY2(),
                     rawMergeBlock.getValue()
-            ));
+            );
+            this.mergeBlocks.add(newMergeBlock);
+            this.playfieldMergeBlocks.getChildren().add(newMergeBlock);
+            newMergeBlock.show();
         }
-        this.playfieldMergeBlocks.getChildren().clear();
-        this.playfieldMergeBlocks.getChildren().addAll(mergeBlocks);
     }
 
 
@@ -200,7 +200,9 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void removeBlock(RawBlock rawBlock) {
 
-        this.playfieldBlocks.getChildren().remove(this.getBlockAt(rawBlock.getX(), rawBlock.getY()));
+        Block removeMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
+        this.playfieldBlocks.getChildren().remove(removeMe);
+        this.blocks.remove(removeMe);
     }
 
 
@@ -210,12 +212,14 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void removeMergeBlock(RawMergeBlock rawMergeBlock) {
 
-        this.playfieldMergeBlocks.getChildren().remove(this.getMergeBlockAt(
-            rawMergeBlock.getX1(),
-            rawMergeBlock.getY1(),
-            rawMergeBlock.getX2(),
-            rawMergeBlock.getY2()
-        ));
+        MergeBlock removeMe = this.getMergeBlockAt(
+                rawMergeBlock.getX1(),
+                rawMergeBlock.getY1(),
+                rawMergeBlock.getX2(),
+                rawMergeBlock.getY2()
+        );
+        this.playfieldMergeBlocks.getChildren().remove(removeMe);
+        this.mergeBlocks.remove(removeMe);
     }
 
 
@@ -231,7 +235,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Sink given Block by one Block length
+     * Increase y of Block
      * @param rawBlock given Block
      */
     private void prepareToSinkBlock(RawBlock rawBlock) {
@@ -242,6 +246,10 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    /**
+     * Sink given Block
+     * @param rawBlock given Block
+     */
     private void sinkBlock(RawBlock rawBlock) {
 
         Block sinkMe = this.getBlockAt(rawBlock.getX(), rawBlock.getY());
@@ -250,6 +258,14 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    private void createNewBlock(RawBlock rawBlock) {
+
+        Block newBlock = new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
+        this.blocks.add(newBlock);
+        this.playfieldBlocks.getChildren().add(newBlock);
+        newBlock.show();
+    }
+
     /**
      * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
@@ -257,31 +273,32 @@ public class PlayfieldController implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
-        //Platform.runLater(() -> {
-            switch(evt.getPropertyName()) {
-                case Events.BLOCKS_CREATED:
-                    this.blocksCreated((ArrayList<RawBlock>) evt.getNewValue());
-                    break;
-                case Events.MERGE_BLOCKS_CREATED:
-                    this.mergeBlocksCreated((ArrayList<RawMergeBlock>) evt.getNewValue());
-                    break;
-                case Events.REMOVE_BLOCK:
-                    this.removeBlock((RawBlock) evt.getNewValue());
-                    break;
-                case Events.REMOVE_MERGE_BLOCK:
-                    this.removeMergeBlock((RawMergeBlock) evt.getNewValue());
-                    break;
-                case Events.INCREASE_BLOCK:
-                    this.increaseBlock((RawBlock) evt.getNewValue());
-                    break;
-                case Events.PREPARE_SINK_BLOCK:
-                    this.prepareToSinkBlock((RawBlock) evt.getNewValue());
-                    break;
-                case Events.SINK_BLOCK:
-                    this.sinkBlock((RawBlock) evt.getNewValue());
-                    break;
-            }
-        //});
+        switch(evt.getPropertyName()) {
+            case Events.BLOCKS_CREATED:
+                this.blocksCreated((ArrayList<RawBlock>) evt.getNewValue());
+                break;
+            case Events.MERGE_BLOCKS_CREATED:
+                this.mergeBlocksCreated((ArrayList<RawMergeBlock>) evt.getNewValue());
+                break;
+            case Events.REMOVE_BLOCK:
+                this.removeBlock((RawBlock) evt.getNewValue());
+                break;
+            case Events.REMOVE_MERGE_BLOCK:
+                this.removeMergeBlock((RawMergeBlock) evt.getNewValue());
+                break;
+            case Events.INCREASE_BLOCK:
+                this.increaseBlock((RawBlock) evt.getNewValue());
+                break;
+            case Events.PREPARE_SINK_BLOCK:
+                this.prepareToSinkBlock((RawBlock) evt.getNewValue());
+                break;
+            case Events.SINK_BLOCK:
+                this.sinkBlock((RawBlock) evt.getNewValue());
+                break;
+            case Events.NEW_BLOCK_CREATED:
+                this.createNewBlock((RawBlock) evt.getNewValue());
+                break;
+        }
     }
 
 }
