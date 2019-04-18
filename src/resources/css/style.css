@@ -56,11 +56,18 @@
 }
 
 .playfieldMenu__Button {
-    -fx-text-fill: rgb(230, 230, 230);
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 1.5em;
     -fx-padding: 15 5 15 5;
     -fx-cursor: hand;
+    -fx-pref-width: 150.0;
+    -fx-pref-height: 50.0;
+}
+
+.playfieldMenu__Button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 #playfieldMenuContinue {
@@ -69,6 +76,10 @@
 
 #playfieldMenuQuit {
     -fx-background-color: #df0054;
+}
+
+#playfieldMenuRestart {
+    -fx-background-color: #eac100;
 }
 
 /*
@@ -85,13 +96,27 @@
 }
 
 .mainMenu__MainButton {
+    -fx-background-color: linear-gradient(to left, rgb(255, 21, 133), rgba(131, 12, 60, 0.97));
+    -fx-font-weight: bold;
+    -fx-font-size: 2em;
+    -fx-text-fill: rgb(230, 230, 230);
+    -fx-cursor: hand;
+}
 
+.mainMenu__MainButton:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 .mainMenu__SettingsButtons {
-    -fx-background-color:#333 ;
+    -fx-background-color: transparent;
     -fx-text-fill: rgb(230, 230, 230);
-    -fx-font-size: 2em;
+    -fx-font-size: 1.5em;
+    -fx-cursor: hand;
+    -fx-border-color: rgb(230, 230, 230);
+    -fx-border-width: 1;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
 }
 
 .mainMenu__SettingsButtons:hover {
@@ -101,16 +126,4 @@
 .mainMenu__SettingsButtons:pressed {
     -fx-border-width: 3;
     -fx-rotate: 10;
-}
-
-.mainMenu__MainButton {
-    -fx-background-color: linear-gradient(to left, rgb(255, 21, 133), rgba(131, 12, 60, 0.97));
-    -fx-font-weight: bold;
-    -fx-font-size: 2em;
-    -fx-text-fill: rgb(230, 230, 230);
-}
-
-.mainMenu__MainButton:hover {
-    -fx-border-color:rgb(255, 1, 35) ;
-    -fx-border-width:0.2em ;
 }

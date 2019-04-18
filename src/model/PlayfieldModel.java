@@ -73,6 +73,11 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, 0);
     }
 
+    public void restartGame() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.RESTART_GAME, null, 0);
+    }
+
     /**
      * This method adds Observers to this observable
      * @param pcl Observer to add

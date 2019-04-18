@@ -34,6 +34,8 @@ public class PlayfieldController implements PropertyChangeListener {
     @FXML
     private Button playfieldMenuContinue;
     @FXML
+    private Button playfieldMenuRestart;
+    @FXML
     private Button playfieldMenuQuit;
 
     private ArrayList<Block> blocks;
@@ -83,8 +85,9 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldMenuBarButton.setGraphic(menuButtonImg);
 
         //Set click events
-        this.playfieldMenuBarButton.setOnMouseClicked(e -> this.pauseGame());
-        this.playfieldMenuContinue.setOnMouseClicked(e -> this.resumeGame());
+        this.playfieldMenuBarButton.setOnAction(e -> this.pauseGame());
+        this.playfieldMenuContinue.setOnAction(e -> this.resumeGame());
+        this.playfieldMenuRestart.setOnAction(e -> this.restartGame());
         this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
     }
 
@@ -206,10 +209,23 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
+     * Regenerate grid
+     */
+    private void restartGame() {
+
+        Settings.LEVEL = Settings.LEVEL_DEFAULT;
+        this.levelUp(Settings.LEVEL);
+        ViewChanger.changeToPlayfield();
+    }
+
+
+    /**
      * Go back to main view
      */
     private void quitGame() {
 
+        Settings.LEVEL = Settings.LEVEL_DEFAULT;
+        this.levelUp(Settings.LEVEL);
         ViewChanger.changeToMainMenu();
     }
 

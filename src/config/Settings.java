@@ -12,6 +12,7 @@ public class Settings {
     public static final String APP_TITLE = "Thirteen";
     public static final int FONT_SIZE_DEFAULT = 30;
     public static int LEVEL = 6;
+    public static int LEVEL_DEFAULT = 6;
     public static int LEVEL_RANGE = 5;
 
     public static final int GRID_DIMENSION_X = 5;
