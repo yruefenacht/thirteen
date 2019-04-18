@@ -314,12 +314,14 @@ public class PlayfieldController implements PropertyChangeListener {
     private void levelUp(int level) {
 
         this.playfieldLevel.setText(Integer.toString(level));
+        for(Block block : this.blocks) block.setBackground();
     }
 
 
     private void showGameOverScreen() {
         System.out.println("Game over");
     }
+
 
     /**
      * This method is fired when changes happen in the model observable.

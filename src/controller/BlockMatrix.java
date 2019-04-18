@@ -158,6 +158,43 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
+     * Retrieves smallest blocks
+     * @return list of blocks
+     */
+    private ArrayList<RawBlock> getMinBlocks() {
+
+        ArrayList<RawBlock> minBlocks = new ArrayList<>();
+
+        for(RawBlock rawBlock : this.getBlocksAsList())
+            if(rawBlock.getValue() == Settings.LEVEL - Settings.LEVEL_RANGE)
+                minBlocks.add(rawBlock);
+
+        return minBlocks;
+    }
+
+    
+    /**
+     * SPECIAL CASE
+     * Check for level up and remove smallest blocks
+     * @param neighbors blocks to check
+     * @return smallest block or empty list
+     */
+    private ArrayList<RawBlock> checkForLevelUp(ArrayList<RawBlock> neighbors) {
+
+        ArrayList<RawBlock> minBlocks = new ArrayList<>();
+
+        for(RawBlock neighbor : neighbors) {
+            if (neighbor.getValue() == Settings.LEVEL) {
+                minBlocks.addAll(this.getMinBlocks());
+                Settings.LEVEL++;
+                this.playfieldModel.levelUp(Settings.LEVEL);
+                break;
+            }
+        }
+        return minBlocks;
+    }
+
+    /**
      * STEP 0
      * Recursively get all equal neighbors from given block
      * @param x given block x
@@ -197,11 +234,11 @@ public class BlockMatrix implements PropertyChangeListener {
     /**
      * STEP 1
      * Remove neighbors and their MergeBlocks from GUI
-     * @param neighbors given Blocks
+     * @param blocks given Blocks
      */
-    private void removeNeighbors(ArrayList<RawBlock> neighbors) {
+    private void removeBlocks(ArrayList<RawBlock> blocks) {
 
-        for(RawBlock neighbor : neighbors) {
+        for(RawBlock neighbor : blocks) {
             this.playfieldModel.removeBlock(neighbor);
             for(RawMergeBlock rawMergeBlock : this.getMergeBlocksOfBlock(neighbor))
                 this.playfieldModel.removeMergeBlock(rawMergeBlock);
@@ -307,18 +344,13 @@ public class BlockMatrix implements PropertyChangeListener {
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
         if(neighbors.isEmpty()) return;
 
-        // Special Case - Check for level up
-        for(RawBlock neighbor : neighbors) {
-            if (neighbor.getValue() == Settings.LEVEL) {
-                Settings.LEVEL++;
-                this.playfieldModel.levelUp(Settings.LEVEL);
-            }
-        }
+        //Special case - Check for level up
+        neighbors.addAll(this.checkForLevelUp(neighbors));
 
         //1. Remove neighbors
         final KeyFrame step1 = new KeyFrame(
             Duration.ZERO,
-            e -> this.removeNeighbors(neighbors)
+            e -> this.removeBlocks(neighbors)
         );
 
         //2. Increase value

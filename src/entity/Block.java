@@ -57,7 +57,7 @@ public class Block extends Entity {
     /**
      * Set background color and connectors
      */
-    private void setBackground() {
+    public void setBackground() {
 
         Color backgroundColor = (this.value == Settings.LEVEL) ?
             Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(this.value);

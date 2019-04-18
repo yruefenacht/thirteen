@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+
+<!-- GAME OVER MENU -->
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER"
+      spacing="20.0"
+      styleClass="gameOverMenu">
+    <!-- TITLE -->
+    <!-- SCORE -->
+    <!-- MENU BUTTONS -->
+    <Button fx:id="gameOverMenuPlayAgain" text="PLAY AGAIN" styleClass="playfieldMenu__Button" />
+    <Button fx:id="gameOverMenuQuit" text="MAIN MENU" styleClass="playfieldMenu__Button" />
+</VBox>
