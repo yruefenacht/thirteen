@@ -37,12 +37,17 @@ public class PlayfieldController implements PropertyChangeListener {
     private Button playfieldMenuRestart;
     @FXML
     private Button playfieldMenuQuit;
+    @FXML
+    private Button gameOverMenuPlayAgain;
+    @FXML
+    private Button gameOverMenuQuit;
 
     private ArrayList<Block> blocks;
     private ArrayList<MergeBlock> mergeBlocks;
     private PlayfieldModel playfieldModel;
     private ImageView menuButtonImg;
     private VBox pauseMenu;
+    private VBox gameOverScreen;
 
     /**
      * Acts as class constructor.
@@ -72,11 +77,22 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldLevel.setText(Integer.toString(Settings.LEVEL));
 
         //Prepare pause menu
-        FXMLLoader pauseMenuLoader = new FXMLLoader(this.getClass().getResource("/resources/view/PlayfieldMenu.fxml"));
+        FXMLLoader pauseMenuLoader = new FXMLLoader(
+            this.getClass().getResource("/resources/view/PlayfieldMenu.fxml")
+        );
         pauseMenuLoader.setController(this);
         this.pauseMenu = pauseMenuLoader.load();
         this.pauseMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
         this.pauseMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+
+        //Prepare game over screen
+        FXMLLoader gameOverScreenLoader = new FXMLLoader(
+            this.getClass().getResource("/resources/view/GameOverMenu.fxml")
+        );
+        gameOverScreenLoader.setController(this);
+        this.gameOverScreen = gameOverScreenLoader.load();
+        this.gameOverScreen.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
+        this.gameOverScreen.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
 
         //Set MenuBar Button Icon
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
@@ -89,6 +105,8 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldMenuContinue.setOnAction(e -> this.resumeGame());
         this.playfieldMenuRestart.setOnAction(e -> this.restartGame());
         this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
+        this.gameOverMenuPlayAgain.setOnAction(e -> this.restartGame());
+        this.gameOverMenuQuit.setOnAction(e -> this.quitGame());
     }
 
 
@@ -318,8 +336,14 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    /**
+     * Shows Game Over Screen over grid
+     */
     private void showGameOverScreen() {
-        System.out.println("Game over");
+
+        this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/resume.png")));
+        this.playfieldMenuBarButton.setDisable(true);
+        this.playfieldBlocks.getChildren().add(this.gameOverScreen);
     }
 
 

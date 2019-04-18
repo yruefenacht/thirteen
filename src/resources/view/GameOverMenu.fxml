@@ -2,15 +2,16 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 
 <!-- GAME OVER MENU -->
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       alignment="CENTER"
       spacing="20.0"
-      styleClass="gameOverMenu">
+      styleClass="playfieldMenu">
     <!-- TITLE -->
-    <!-- SCORE -->
+    <Label fx:id="gameOverMenuTitle" text="GAME OVER" />
     <!-- MENU BUTTONS -->
     <Button fx:id="gameOverMenuPlayAgain" text="PLAY AGAIN" styleClass="playfieldMenu__Button" />
     <Button fx:id="gameOverMenuQuit" text="MAIN MENU" styleClass="playfieldMenu__Button" />

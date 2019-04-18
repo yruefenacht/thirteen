@@ -58,10 +58,10 @@
 .playfieldMenu__Button {
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 1.5em;
+    -fx-font-size: 1.45em;
     -fx-padding: 15 5 15 5;
     -fx-cursor: hand;
-    -fx-pref-width: 150.0;
+    -fx-pref-width: 160.0;
     -fx-pref-height: 50.0;
 }
 
@@ -126,4 +126,23 @@
 .mainMenu__SettingsButtons:pressed {
     -fx-border-width: 3;
     -fx-rotate: 10;
+}
+
+/*
+    GAME OVER SCREEN
+*/
+#gameOverMenuTitle {
+    -fx-text-fill: rgb(230, 230, 230);
+    -fx-font-family: "Permanent Marker Regular";
+    -fx-font-size: 3.5em;
+    -fx-padding: 0 0 35 0;
+}
+
+#gameOverMenuPlayAgain {
+    -fx-background-color: #00bd56;
+
+}
+
+#gameOverMenuQuit {
+    -fx-background-color: #df0054;
 }

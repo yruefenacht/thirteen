@@ -399,9 +399,6 @@ public class BlockMatrix implements PropertyChangeListener {
             case Events.BLOCK_CLICKED:
                 this.blockClicked((Location) evt.getNewValue());
                 break;
-            case Events.RESTART_GAME:
-                this.createMatrix();
-                break;
         }
     }
 
