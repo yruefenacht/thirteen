@@ -41,6 +41,10 @@ public class PlayfieldController implements PropertyChangeListener {
     private Button gameOverMenuPlayAgain;
     @FXML
     private Button gameOverMenuQuit;
+    @FXML
+    private Button playfieldToolUndo;
+    @FXML
+    private Button playfieldToolBomb;
 
     private ArrayList<Block> blocks;
     private ArrayList<MergeBlock> mergeBlocks;
@@ -107,6 +111,8 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
         this.gameOverMenuPlayAgain.setOnAction(e -> this.restartGame());
         this.gameOverMenuQuit.setOnAction(e -> this.quitGame());
+        this.playfieldToolUndo.setOnAction(e -> this.undoLatestStep());
+        this.playfieldToolBomb.setOnAction(e -> this.placeBomb());
     }
 
 
@@ -247,6 +253,14 @@ public class PlayfieldController implements PropertyChangeListener {
         ViewChanger.changeToMainMenu();
     }
 
+
+    private void undoLatestStep() {
+        System.out.println("undo");
+    }
+
+    private void placeBomb() {
+        System.out.println("placing bomb");
+    }
 
     /**
      * Remove given block from pane

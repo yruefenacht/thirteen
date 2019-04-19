@@ -132,10 +132,12 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private RawBlock getBlockAt(int x, int y) {
 
-        if(x >= 0 && x < this.dimensionX && y >=0 && y < this.dimensionY)
+        try {
             return this.rawBlocks[x][y];
-        else
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
             return null;
+        }
     }
 
 

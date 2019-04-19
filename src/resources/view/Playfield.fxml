@@ -47,7 +47,7 @@
    <!-- LEVEL DISPLAY -->
    <center>
       <HBox alignment="CENTER" maxHeight="200.0">
-         <Button styleClass="playfield__tool">
+         <Button fx:id="playfieldToolUndo" styleClass="playfield__tool">
             <HBox.margin>
                <Insets left="50.0" />
             </HBox.margin>
@@ -60,7 +60,7 @@
          <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
          <Label fx:id="playfieldLevel" alignment="CENTER" styleClass="playfield__level" />
          <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
-         <Button styleClass="playfield__tool">
+         <Button fx:id="playfieldToolBomb" styleClass="playfield__tool">
              <graphic>
                  <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true">
                      <Image url="@../images/bomb.png"/>
