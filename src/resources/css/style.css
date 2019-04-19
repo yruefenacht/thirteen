@@ -23,7 +23,7 @@
     -fx-background-color: transparent;
 }
 
-.playfield__score {
+.playfield__stars {
     -fx-text-fill: rgb(230, 230, 230);
     -fx-font-size: 1.25em;
 }
@@ -35,12 +35,34 @@
 }
 
 .playfield__level {
-    -fx-text-fill: rgb(230, 230, 230);
-    -fx-border-color: rgb(90, 90, 90);
-    -fx-border-radius: 50%;
-    -fx-pref-width: 100;
-    -fx-pref-height: 100;
+    -fx-text-fill: #333;
+    -fx-background-color: rgb(230, 230, 230);
+    -fx-pref-width: 90;
+    -fx-pref-height: 90;
     -fx-font-size: 2.75em;
+    -fx-rotate: 45;
+}
+
+.playfield__level > * {
+    -fx-rotate: -45;
+}
+
+.playfield__tool {
+    -fx-border-color: rgb(120, 120, 120);
+    -fx-pref-width: 60;
+    -fx-pref-height: 60;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-rotate: 45;
+}
+
+.playfield__tool > * {
+    -fx-rotate: -45;
+}
+
+.playfield__tool:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 .playfield__block {
