@@ -112,9 +112,16 @@
 }
 
 .mainMenu__icon {
-    -fx-text-fill: rgb(230, 230, 230);
+    -fx-text-fill: #333;
+    -fx-background-color: rgb(230, 230, 230);
     -fx-font-family: "Permanent Marker Regular";
-    -fx-font-size: 7em;
+    -fx-font-size: 5em;
+    -fx-pref-width: 140;
+    -fx-pref-height: 140;
+    -fx-rotate: 45;
+}
+.mainMenu__icon > * {
+    -fx-rotate: -45;
 }
 
 .mainMenu__MainButton {
@@ -123,6 +130,8 @@
     -fx-font-size: 2em;
     -fx-text-fill: rgb(230, 230, 230);
     -fx-cursor: hand;
+    -fx-pref-width: 175;
+    -fx-pref-height: 65;
 }
 
 .mainMenu__MainButton:hover {
