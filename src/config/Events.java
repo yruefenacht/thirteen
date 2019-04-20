@@ -17,4 +17,6 @@ public class Events {
     public static final String NEW_BLOCK_CREATED = "newBlockCreated";
     public static final String LEVEL_UP = "levelUp";
     public static final String GAME_OVER = "gameOver";
+    public static final String BOMB_MODE = "bombMode";
+    public static final String UPDATE_STAR_COUNT = "updateStarCount";
 }

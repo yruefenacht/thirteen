@@ -70,6 +70,12 @@
     -fx-font-weight: bold;
 }
 
+.playfield__block--bomb-mode {
+    -fx-border-color: rgb(230, 230, 230);
+    -fx-border-width: 4;
+    -fx-border-radius: 4;
+}
+
 /*
     PLAYFIELD MENU
 */

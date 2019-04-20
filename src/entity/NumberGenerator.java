@@ -32,7 +32,7 @@ public class NumberGenerator {
                 return (int) probabilities[0][i];
             }
         }
-        return -1;
+        return min;
     }
 
     private void reverseArray(long[] array) {

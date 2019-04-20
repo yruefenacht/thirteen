@@ -69,6 +69,20 @@ public class Block extends Entity {
         ));
     }
 
+
+    /**
+     * Sets or removes red border
+     * @param bombMode activate or deactivate
+     */
+    public void setBombMode(boolean bombMode) {
+
+        if(bombMode)
+            this.center.getStyleClass().add("playfield__block--bomb-mode");
+        else
+            this.center.getStyleClass().remove("playfield__block--bomb-mode");
+    }
+
+
     /**
      * Sends coordinates to model
      */

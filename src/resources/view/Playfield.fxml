@@ -31,7 +31,7 @@
          <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
          <!-- MENU BAR ITEM 3 -->
          <HBox alignment="CENTER_RIGHT" prefWidth="100.0" spacing="5.0">
-            <Label styleClass="playfield__stars" text="500" />
+            <Label fx:id="playfieldStarCount" styleClass="playfield__stars" />
             <ImageView fitHeight="20.0" fitWidth="20.0">
                <Image url="@../images/star.png" />
             </ImageView>

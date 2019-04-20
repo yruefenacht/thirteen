@@ -179,16 +179,19 @@ public class BlockMatrix implements PropertyChangeListener {
      * SPECIAL CASE
      * Check for level up and remove smallest blocks
      * @param neighbors blocks to check
+     * @param bombMode if bombMode, return
      * @return smallest block or empty list
      */
-    private ArrayList<RawBlock> checkForLevelUp(ArrayList<RawBlock> neighbors) {
+    private ArrayList<RawBlock> checkForLevelUp(ArrayList<RawBlock> neighbors, boolean bombMode) {
 
         ArrayList<RawBlock> minBlocks = new ArrayList<>();
+        if(bombMode) return minBlocks;
 
         for(RawBlock neighbor : neighbors) {
             if (neighbor.getValue() == Settings.LEVEL) {
                 minBlocks.addAll(this.getMinBlocks());
                 Settings.LEVEL++;
+                if(Settings.LEVEL < 10) Settings.LEVEL_RANGE++;
                 this.playfieldModel.levelUp(Settings.LEVEL);
                 break;
             }
@@ -341,13 +344,23 @@ public class BlockMatrix implements PropertyChangeListener {
 
         int x = location.getX();
         int y = location.getY();
+        boolean bombMode = Settings.BOMB_MODE;
 
         //0. Get Neighbors
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
+
+        //Special case - Bomb Mode
+        if(bombMode) {
+            neighbors.clear();
+            neighbors.add(this.getBlockAt(x, y));
+            this.playfieldModel.toggleBombMode();
+            this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.BOMB_COST);
+        }
+
         if(neighbors.isEmpty()) return;
 
         //Special case - Check for level up
-        neighbors.addAll(this.checkForLevelUp(neighbors));
+        neighbors.addAll(this.checkForLevelUp(neighbors, bombMode));
 
         //1. Remove neighbors
         final KeyFrame step1 = new KeyFrame(

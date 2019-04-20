@@ -30,6 +30,8 @@ public class PlayfieldController implements PropertyChangeListener {
     @FXML
     private Label playfieldLevel;
     @FXML
+    private Label playfieldStarCount;
+    @FXML
     private Button playfieldMenuBarButton;
     @FXML
     private Button playfieldMenuContinue;
@@ -80,6 +82,9 @@ public class PlayfieldController implements PropertyChangeListener {
         //Display Level
         this.playfieldLevel.setText(Integer.toString(Settings.LEVEL));
 
+        //Display Money
+        this.playfieldStarCount.setText(Integer.toString(Settings.STAR_COUNT));
+
         //Prepare pause menu
         FXMLLoader pauseMenuLoader = new FXMLLoader(
             this.getClass().getResource("/resources/view/PlayfieldMenu.fxml")
@@ -112,7 +117,7 @@ public class PlayfieldController implements PropertyChangeListener {
         this.gameOverMenuPlayAgain.setOnAction(e -> this.restartGame());
         this.gameOverMenuQuit.setOnAction(e -> this.quitGame());
         this.playfieldToolUndo.setOnAction(e -> this.undoLatestStep());
-        this.playfieldToolBomb.setOnAction(e -> this.placeBomb());
+        this.playfieldToolBomb.setOnAction(e -> this.toggleBombMode());
     }
 
 
@@ -237,8 +242,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void restartGame() {
 
-        Settings.LEVEL = Settings.LEVEL_DEFAULT;
-        this.levelUp(Settings.LEVEL);
+        this.resetLevel();
         ViewChanger.changeToPlayfield();
     }
 
@@ -248,9 +252,19 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void quitGame() {
 
-        Settings.LEVEL = Settings.LEVEL_DEFAULT;
-        this.levelUp(Settings.LEVEL);
+        this.resetLevel();
         ViewChanger.changeToMainMenu();
+    }
+
+
+    /**
+     * Resets level and NumberGenerator values
+     */
+    private void resetLevel() {
+
+        Settings.LEVEL = Settings.LEVEL_DEFAULT;
+        Settings.LEVEL_RANGE = Settings.LEVEL_RANGE_DEFAULT;
+        this.levelUp(Settings.LEVEL);
     }
 
 
@@ -258,9 +272,21 @@ public class PlayfieldController implements PropertyChangeListener {
         System.out.println("undo");
     }
 
-    private void placeBomb() {
-        System.out.println("placing bomb");
+
+    /**
+     * Sets GUI to Bomb-Mode
+     */
+    private void toggleBombMode() {
+
+        if(Settings.STAR_COUNT < Settings.BOMB_COST) return;
+
+        Settings.BOMB_MODE = !Settings.BOMB_MODE;
+
+        this.playfieldMergeBlocks.setVisible(!Settings.BOMB_MODE);
+        for (Block block : this.blocks)
+            block.setBombMode(Settings.BOMB_MODE);
     }
+
 
     /**
      * Remove given block from pane
@@ -398,6 +424,12 @@ public class PlayfieldController implements PropertyChangeListener {
                 break;
             case Events.GAME_OVER:
                 this.showGameOverScreen();
+                break;
+            case Events.BOMB_MODE:
+                this.toggleBombMode();
+                break;
+            case Events.UPDATE_STAR_COUNT:
+                this.playfieldStarCount.setText(Integer.toString((Integer) evt.getNewValue()));
                 break;
         }
     }

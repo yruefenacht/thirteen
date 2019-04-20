@@ -73,6 +73,16 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, 0);
     }
 
+    public void toggleBombMode() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.BOMB_MODE, null, 0);
+    }
+
+    public void updateStarCount(int starCount) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.UPDATE_STAR_COUNT, null, starCount);
+    }
+
     /**
      * This method adds Observers to this observable
      * @param pcl Observer to add
