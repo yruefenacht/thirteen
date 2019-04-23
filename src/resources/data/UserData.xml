@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<UserData>
+    <Level>6</Level>
+    <Blocks>
+        <Block x="0" y="0" value="0"/>
+        <Block x="1" y="0" value="0"/>
+        <Block x="2" y="0" value="0"/>
+        <Block x="3" y="0" value="0"/>
+        <Block x="4" y="0" value="0"/>
+        <Block x="0" y="1" value="0"/>
+        <Block x="1" y="1" value="0"/>
+        <Block x="2" y="1" value="0"/>
+        <Block x="3" y="1" value="0"/>
+        <Block x="4" y="1" value="0"/>
+        <Block x="0" y="2" value="0"/>
+        <Block x="1" y="2" value="0"/>
+        <Block x="2" y="2" value="0"/>
+        <Block x="3" y="2" value="0"/>
+        <Block x="4" y="2" value="0"/>
+        <Block x="0" y="3" value="0"/>
+        <Block x="1" y="3" value="0"/>
+        <Block x="2" y="3" value="0"/>
+        <Block x="3" y="3" value="0"/>
+        <Block x="4" y="3" value="0"/>
+        <Block x="0" y="4" value="0"/>
+        <Block x="1" y="4" value="0"/>
+        <Block x="2" y="4" value="0"/>
+        <Block x="3" y="4" value="0"/>
+        <Block x="4" y="4" value="0"/>
+    </Blocks>
+</UserData>

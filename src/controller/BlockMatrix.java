@@ -2,10 +2,7 @@ package controller;
 
 import config.Events;
 import config.Settings;
-import entity.Location;
-import entity.NumberGenerator;
-import entity.RawBlock;
-import entity.RawMergeBlock;
+import entity.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -26,6 +23,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private RawBlock[][] rawBlocks;
     private ArrayList<RawMergeBlock> rawMergeBlocks;
     private NumberGenerator numberGenerator;
+    private AudioPlayer audioPlayer;
 
 
     /**
@@ -42,6 +40,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel.addPropertyChangeListener(this);
         this.rawBlocks = new RawBlock[dimensionX][dimensionY];
         this.numberGenerator = new NumberGenerator();
+        this.audioPlayer = new AudioPlayer();
     }
 
 
@@ -331,8 +330,10 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void checkForGameOver() {
 
-        if(this.rawMergeBlocks.isEmpty())
+        if(this.rawMergeBlocks.isEmpty()) {
             this.playfieldModel.showGameOverScreen();
+            this.audioPlayer.playGameOverSound();
+        }
     }
 
 
@@ -349,7 +350,7 @@ public class BlockMatrix implements PropertyChangeListener {
         //0. Get Neighbors
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
 
-        //Special case - Bomb Mode
+        //Bomb Mode
         if(bombMode) {
             neighbors.clear();
             neighbors.add(this.getBlockAt(x, y));
@@ -357,9 +358,12 @@ public class BlockMatrix implements PropertyChangeListener {
             this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.BOMB_COST);
         }
 
+        //Ignore single blocks
         if(neighbors.isEmpty()) return;
 
-        //Special case - Check for level up
+        //Play sound effect
+
+        //Check for level up
         neighbors.addAll(this.checkForLevelUp(neighbors, bombMode));
 
         //1. Remove neighbors
