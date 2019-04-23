@@ -343,6 +343,8 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void blockClicked(Location location) {
 
+        if(Settings.IS_ANIMATING) return;
+
         int x = location.getX();
         int y = location.getY();
         boolean bombMode = Settings.BOMB_MODE;
@@ -402,7 +404,9 @@ public class BlockMatrix implements PropertyChangeListener {
             e -> this.checkForGameOver()
         );
 
+        Settings.IS_ANIMATING = true;
         final Timeline timeline = new Timeline(step1, step2, step3, step4, step5, step6);
+        timeline.setOnFinished(e -> Settings.IS_ANIMATING = false);
         timeline.play();
     }
 

@@ -22,6 +22,7 @@ public class Settings {
     public static int STAR_COUNT = 100;
 
     public static boolean BOMB_MODE = false;
+    public static boolean IS_ANIMATING = false;
 
     public static final int GRID_DIMENSION_X = 5;
     public static final int GRID_DIMENSION_Y = 5;
