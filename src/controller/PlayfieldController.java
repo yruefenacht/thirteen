@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
@@ -24,6 +25,8 @@ import java.util.ArrayList;
 public class PlayfieldController implements PropertyChangeListener {
 
     @FXML
+    private StackPane playfield;
+    @FXML
     private Pane playfieldBlocks;
     @FXML
     private Pane playfieldMergeBlocks;
@@ -34,16 +37,6 @@ public class PlayfieldController implements PropertyChangeListener {
     @FXML
     private Button playfieldMenuBarButton;
     @FXML
-    private Button playfieldMenuContinue;
-    @FXML
-    private Button playfieldMenuRestart;
-    @FXML
-    private Button playfieldMenuQuit;
-    @FXML
-    private Button gameOverMenuPlayAgain;
-    @FXML
-    private Button gameOverMenuQuit;
-    @FXML
     private Button playfieldToolUndo;
     @FXML
     private Button playfieldToolBomb;
@@ -52,7 +45,6 @@ public class PlayfieldController implements PropertyChangeListener {
     private ArrayList<MergeBlock> mergeBlocks;
     private PlayfieldModel playfieldModel;
     private ImageView menuButtonImg;
-    private VBox pauseMenu;
     private VBox gameOverScreen;
 
     /**
@@ -85,24 +77,6 @@ public class PlayfieldController implements PropertyChangeListener {
         //Display Money
         this.playfieldStarCount.setText(Integer.toString(Settings.STAR_COUNT));
 
-        //Prepare pause menu
-        FXMLLoader pauseMenuLoader = new FXMLLoader(
-            this.getClass().getResource("/resources/view/PlayfieldMenu.fxml")
-        );
-        pauseMenuLoader.setController(this);
-        this.pauseMenu = pauseMenuLoader.load();
-        this.pauseMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
-        this.pauseMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
-
-        //Prepare game over screen
-        FXMLLoader gameOverScreenLoader = new FXMLLoader(
-            this.getClass().getResource("/resources/view/GameOverMenu.fxml")
-        );
-        gameOverScreenLoader.setController(this);
-        this.gameOverScreen = gameOverScreenLoader.load();
-        this.gameOverScreen.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
-        this.gameOverScreen.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
-
         //Set MenuBar Button Icon
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
         this.menuButtonImg.setFitWidth(this.playfieldMenuBarButton.getPrefWidth());
@@ -111,13 +85,18 @@ public class PlayfieldController implements PropertyChangeListener {
 
         //Set click events
         this.playfieldMenuBarButton.setOnAction(e -> this.pauseGame());
-        this.playfieldMenuContinue.setOnAction(e -> this.resumeGame());
-        this.playfieldMenuRestart.setOnAction(e -> this.restartGame());
-        this.playfieldMenuQuit.setOnAction(e -> this.quitGame());
-        this.gameOverMenuPlayAgain.setOnAction(e -> this.restartGame());
-        this.gameOverMenuQuit.setOnAction(e -> this.quitGame());
         this.playfieldToolUndo.setOnAction(e -> this.undoLatestStep());
         this.playfieldToolBomb.setOnAction(e -> this.toggleBombMode());
+    }
+
+
+    /**
+     * Return Main View
+     * @return playfield
+     */
+    public StackPane getPlayfield() {
+
+        return this.playfield;
     }
 
 
@@ -222,18 +201,18 @@ public class PlayfieldController implements PropertyChangeListener {
 
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/resume.png")));
         this.playfieldMenuBarButton.setDisable(true);
-        this.playfieldBlocks.getChildren().add(this.pauseMenu);
+        ViewChanger.showPauseMenu();
     }
 
 
     /**
      * Remove playfield menu
      */
-    private void resumeGame() {
+    private void continueGame() {
 
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
         this.playfieldMenuBarButton.setDisable(false);
-        this.playfieldBlocks.getChildren().remove(this.pauseMenu);
+        ViewChanger.closePauseMenu();
     }
 
 
@@ -377,17 +356,6 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Shows Game Over Screen over grid
-     */
-    private void showGameOverScreen() {
-
-        this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/resume.png")));
-        this.playfieldMenuBarButton.setDisable(true);
-        this.playfieldBlocks.getChildren().add(this.gameOverScreen);
-    }
-
-
-    /**
      * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
      */
@@ -422,14 +390,20 @@ public class PlayfieldController implements PropertyChangeListener {
             case Events.LEVEL_UP:
                 this.levelUp((Integer) evt.getNewValue());
                 break;
-            case Events.GAME_OVER:
-                this.showGameOverScreen();
-                break;
             case Events.BOMB_MODE:
                 this.toggleBombMode();
                 break;
             case Events.UPDATE_STAR_COUNT:
                 this.playfieldStarCount.setText(Integer.toString((Integer) evt.getNewValue()));
+                break;
+            case Events.CONTINUE_GAME:
+                this.continueGame();
+                break;
+            case Events.RESTART_GAME:
+                this.restartGame();
+                break;
+            case Events.QUIT_GAME:
+                this.quitGame();
                 break;
         }
     }

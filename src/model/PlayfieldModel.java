@@ -68,11 +68,6 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Events.LEVEL_UP, null, level);
     }
 
-    public void showGameOverScreen() {
-
-        this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, 0);
-    }
-
     public void toggleBombMode() {
 
         this.propertyChangeSupport.firePropertyChange(Events.BOMB_MODE, null, 0);
@@ -81,6 +76,21 @@ public class PlayfieldModel {
     public void updateStarCount(int starCount) {
 
         this.propertyChangeSupport.firePropertyChange(Events.UPDATE_STAR_COUNT, null, starCount);
+    }
+
+    public void continueGame() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.CONTINUE_GAME, null, 0);
+    }
+
+    public void restartGame() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.RESTART_GAME, null, 0);
+    }
+
+    public void quitGame() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.QUIT_GAME, null, 0);
     }
 
     /**

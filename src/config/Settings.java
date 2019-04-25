@@ -34,7 +34,7 @@ public class Settings {
     public static final int BLOCK_BORDER_RADIUS = 5;
     public static final int MERGE_BLOCK_LENGTH = (2 * BLOCK_WIDTH) - (2 * BLOCK_BORDER_RADIUS);
 
-    private static final int SCENE_TOP = 300;
+    private static final int SCENE_TOP = 275;
     private static final int SCENE_SIDE_PADDING = 50;
     public static final int SCENE_WIDTH = (GRID_DIMENSION_X * BLOCK_WIDTH) + SCENE_SIDE_PADDING;
     public static final int SCENE_HEIGHT = (GRID_DIMENSION_Y * BLOCK_HEIGHT) + SCENE_TOP;

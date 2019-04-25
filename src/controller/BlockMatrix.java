@@ -22,6 +22,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private PlayfieldModel playfieldModel;
     private RawBlock[][] rawBlocks;
     private ArrayList<RawMergeBlock> rawMergeBlocks;
+    private ArrayList<ArrayList<RawBlock>> previousBlocks;
     private NumberGenerator numberGenerator;
     private AudioPlayer audioPlayer;
 
@@ -39,6 +40,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
         this.rawBlocks = new RawBlock[dimensionX][dimensionY];
+        this.previousBlocks = new ArrayList<>();
         this.numberGenerator = new NumberGenerator();
         this.audioPlayer = new AudioPlayer();
     }
@@ -331,7 +333,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private void checkForGameOver() {
 
         if(this.rawMergeBlocks.isEmpty()) {
-            this.playfieldModel.showGameOverScreen();
+            ViewChanger.showGameOverScreen();
             this.audioPlayer.playGameOverSound();
         }
     }

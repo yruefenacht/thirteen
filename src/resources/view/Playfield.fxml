@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
 <!-- PLAYFIELD -->
-
 <BorderPane styleClass="playfield" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <!-- MENU BAR -->
    <top>
@@ -46,7 +46,9 @@
    </top>
    <!-- LEVEL DISPLAY -->
    <center>
-      <HBox alignment="CENTER" maxHeight="200.0">
+      <StackPane fx:id="playfield">
+      <VBox>
+      <HBox alignment="CENTER">
          <Button fx:id="playfieldToolUndo" styleClass="playfield__tool">
             <HBox.margin>
                <Insets left="50.0" />
@@ -71,12 +73,10 @@
             </HBox.margin>
          </Button>
          <padding>
-            <Insets bottom="20.0" top="20.0" />
+            <Insets bottom="50.0" top="50.0" />
          </padding>
       </HBox>
-   </center>
-   <!-- BLOCK MATRIX -->
-   <bottom>
+      <!-- BLOCK MATRIX -->
       <HBox fx:id="playfieldContainer" alignment="CENTER">
          <StackPane>
             <Pane fx:id="playfieldMergeBlocks" />
@@ -86,5 +86,7 @@
             </padding>
          </StackPane>
       </HBox>
-   </bottom>
+      </VBox>
+      </StackPane>
+   </center>
 </BorderPane>
