@@ -1,16 +1,18 @@
 package entity;
 
 import config.Settings;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.Parent;
 import javafx.util.Duration;
 
 /**
  * Animations.java
  * Provides all block animations.
  */
-class Animations {
+public class Animations {
 
     /**
      * Creates initial scale animation on given entity.
@@ -28,6 +30,7 @@ class Animations {
         );
     }
 
+
     /**
      * Creates sinking animation on given entity.
      * @param entity given entity
@@ -41,4 +44,25 @@ class Animations {
                 new KeyValue(entity.layoutYProperty(), entity.getLayoutY() + (Settings.BLOCK_HEIGHT * steps)))
         );
     }
+
+
+    /**
+     * Fades element in
+     * @param element given element
+     * @param delay delay
+     * @param duration duration
+     * @param fadeIn fadeIn or fadeOut
+     * @return FadeTransition
+     */
+    public static FadeTransition getFadeAnimation(Parent element, double delay, double duration, boolean fadeIn) {
+
+        double from = fadeIn ? 0.0 : 1.0;
+        double to = fadeIn ? 1.0 : 0.0;
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(duration), element);
+        fadeTransition.setDelay(Duration.millis(delay));
+        fadeTransition.setFromValue(from);
+        fadeTransition.setToValue(to);
+        return fadeTransition;
+    }
+
 }

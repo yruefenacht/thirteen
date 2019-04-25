@@ -1,7 +1,6 @@
 package config;
 
 import javafx.scene.paint.Color;
-
 import java.util.HashMap;
 import java.util.Map;
 

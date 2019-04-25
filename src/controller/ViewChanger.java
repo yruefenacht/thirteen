@@ -1,6 +1,8 @@
 package controller;
 
 import config.Settings;
+import entity.Animations;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -77,8 +79,10 @@ public class ViewChanger {
             pauseMenu = loader.load();
             pauseMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
             pauseMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+            pauseMenu.setOpacity(0.0);
             playfieldMenuController.setButtons();
             playfieldContainer.getChildren().add(pauseMenu);
+            Animations.getFadeAnimation(pauseMenu, 0.0, 300.0, true).play();
 
         } catch (IOException e) { e.printStackTrace(); }
     }
@@ -89,7 +93,9 @@ public class ViewChanger {
      */
     static void closePauseMenu() {
 
-        playfieldContainer.getChildren().remove(pauseMenu);
+        FadeTransition fadeTransition = Animations.getFadeAnimation(pauseMenu, 0.0, 300.0, false);
+        fadeTransition.setOnFinished(e -> playfieldContainer.getChildren().remove(pauseMenu));
+        fadeTransition.play();
     }
 
 
@@ -105,8 +111,10 @@ public class ViewChanger {
             VBox gameOverMenu = loader.load();
             gameOverMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
             gameOverMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+            gameOverMenu.setOpacity(0.0);
             gameOverMenuController.setButtons();
             playfieldContainer.getChildren().add(gameOverMenu);
+            Animations.getFadeAnimation(gameOverMenu, 500.0, 1000.0, true).play();
 
         } catch (IOException e) { e.printStackTrace(); }
     }
