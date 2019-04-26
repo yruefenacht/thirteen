@@ -200,6 +200,7 @@ public class BlockMatrix implements PropertyChangeListener {
         return minBlocks;
     }
 
+
     /**
      * STEP 0
      * Recursively get all equal neighbors from given block
@@ -225,11 +226,10 @@ public class BlockMatrix implements PropertyChangeListener {
         };
 
         for(RawBlock neighbor : neighbors) {
-            if(neighbor != null) {
-                if(neighbor.getValue() == block.getValue() && ! visitedBlocks.contains(neighbor)) {
-                    equalNeighbors.add(neighbor);
-                    equalNeighbors.addAll(this.getEqualNeighbors(neighbor.getX(),neighbor.getY(), visitedBlocks));
-                }
+            if(neighbor == null) continue;
+            if(neighbor.getValue() == block.getValue() && ! visitedBlocks.contains(neighbor)) {
+                equalNeighbors.add(neighbor);
+                equalNeighbors.addAll(this.getEqualNeighbors(neighbor.getX(),neighbor.getY(), visitedBlocks));
             }
         }
 
@@ -333,7 +333,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private void checkForGameOver() {
 
         if(this.rawMergeBlocks.isEmpty()) {
-            ViewChanger.showGameOverScreen();
+            this.playfieldModel.gameOver();
             this.audioPlayer.playGameOverSound();
         }
     }
@@ -351,7 +351,7 @@ public class BlockMatrix implements PropertyChangeListener {
         int y = location.getY();
         boolean bombMode = Settings.BOMB_MODE;
 
-        //0. Get Neighbors
+        //STEP 0 - Get neighbors
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
 
         //Bomb Mode
@@ -367,40 +367,40 @@ public class BlockMatrix implements PropertyChangeListener {
 
         //Play sound effect
 
-        //Check for level up
+        //SPECIAL CASE - Check for level up
         neighbors.addAll(this.checkForLevelUp(neighbors, bombMode));
 
-        //1. Remove neighbors
+        //STEP 1 - Remove neighbors
         final KeyFrame step1 = new KeyFrame(
             Duration.ZERO,
             e -> this.removeBlocks(neighbors)
         );
 
-        //2. Increase value
+        //STEP 2 - Increase value
         final KeyFrame step2 = new KeyFrame(
             Duration.ZERO,
             e -> this.increaseBlockValue(x, y)
         );
 
-        //3. Hide neighbors and bring them to top
+        //STEP 3 - Hide neighbors and bring them to top
         final KeyFrame step3 = new KeyFrame(
             Duration.ZERO,
             e -> this.riseBlocksToTop(neighbors)
         );
 
-        //4. Replace neighbors with new RawBlocks
+        //STEP 4 - Replace neighbors with new RawBlocks
         final KeyFrame step4 = new KeyFrame(
             Duration.millis(Settings.GRID_ANIMATION),
             e -> this.createNewBlocks(neighbors)
         );
 
-        //5. Create new MergeBlocks
+        //STEP 5 - Create new MergeBlocks
         final KeyFrame step5 = new KeyFrame(
             Duration.millis(Settings.GRID_ANIMATION),
             e -> this.generateNewMergeBlocks()
         );
 
-        //6. Check for game over
+        //STEP 6 - Check for game over
         final KeyFrame step6 = new KeyFrame(
             Duration.millis(Settings.GRID_ANIMATION),
             e -> this.checkForGameOver()

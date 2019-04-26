@@ -59,7 +59,7 @@ public class ViewChanger {
             loader.setController(playfieldController);
             Parent playfield = loader.load();
             playfieldContainer = playfieldController.getPlayfield();
-            playfieldController.addPlayfield();
+            playfieldController.createPlayfield();
             blockMatrix.createMatrix();
             root.setCenter(playfield);
 

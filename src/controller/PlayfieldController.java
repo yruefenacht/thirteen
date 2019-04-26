@@ -4,7 +4,6 @@ import config.Events;
 import entity.*;
 import config.Settings;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -47,6 +46,7 @@ public class PlayfieldController implements PropertyChangeListener {
     private ImageView menuButtonImg;
     private VBox gameOverScreen;
 
+
     /**
      * Acts as class constructor.
      * @param playfieldModel Observable to be attached to
@@ -60,13 +60,9 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Essentially prepares playfield
-     * Retrieves and adds Blocks
-     * Loads and saves game menu
-     * Sets game menu button and defines click events
-     * @throws IOException if PlayfieldMenu.fxml could not be found
+     * Prepares playfield
      */
-    void addPlayfield() throws IOException {
+    void createPlayfield() {
 
         //Prepare MergeBlocks
         this.mergeBlocks = new ArrayList<>();
@@ -91,10 +87,10 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Return Main View
+     * Return playfield view so that pause menu can be attached
      * @return playfield
      */
-    public StackPane getPlayfield() {
+    StackPane getPlayfield() {
 
         return this.playfield;
     }
@@ -247,6 +243,9 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    /**
+     * Revert blocks to previous state
+     */
     private void undoLatestStep() {
         System.out.println("undo");
     }
@@ -260,10 +259,8 @@ public class PlayfieldController implements PropertyChangeListener {
         if(Settings.STAR_COUNT < Settings.BOMB_COST) return;
 
         Settings.BOMB_MODE = !Settings.BOMB_MODE;
-
         this.playfieldMergeBlocks.setVisible(!Settings.BOMB_MODE);
-        for (Block block : this.blocks)
-            block.setBombMode(Settings.BOMB_MODE);
+        for (Block block : this.blocks) block.setBombMode(Settings.BOMB_MODE);
     }
 
 
@@ -356,6 +353,16 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
+     * Shake blocks and show game over screen
+     */
+    private void showGameOverScreen() {
+
+        for(Block block : this.blocks) block.shake();
+        ViewChanger.showGameOverScreen();
+    }
+
+
+    /**
      * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
      */
@@ -404,6 +411,9 @@ public class PlayfieldController implements PropertyChangeListener {
                 break;
             case Events.QUIT_GAME:
                 this.quitGame();
+                break;
+            case Events.GAME_OVER:
+                this.showGameOverScreen();
                 break;
         }
     }

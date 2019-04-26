@@ -2,7 +2,7 @@ package config;
 
 /**
  * Events.java
- * Enum that defines all propertyChangeEvent names
+ * Defines all propertyChangeEvent names as static access
  */
 public class Events {
 
@@ -21,4 +21,5 @@ public class Events {
     public static final String CONTINUE_GAME = "continueGame";
     public static final String RESTART_GAME = "restartGame";
     public static final String QUIT_GAME = "quitGame";
+    public static final String GAME_OVER = "gameOver";
 }

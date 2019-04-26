@@ -109,6 +109,12 @@ public class Block extends Entity {
         this.sink = 0;
     }
 
+
+    public void shake() {
+
+        Animations.getShakeAnimation(this).play();
+    }
+
     /**
      * Value setter
      */

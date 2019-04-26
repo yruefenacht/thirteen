@@ -1,10 +1,7 @@
 package entity;
 
 import config.Settings;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.scene.Parent;
 import javafx.util.Duration;
 
@@ -63,6 +60,30 @@ public class Animations {
         fadeTransition.setFromValue(from);
         fadeTransition.setToValue(to);
         return fadeTransition;
+    }
+
+
+    /**
+     * Get Shake Animation
+     * @param entity animate this entity
+     * @return TimeLine
+     */
+    static Timeline getShakeAnimation(Entity entity) {
+
+        return new Timeline(
+            new KeyFrame(
+                Duration.millis(100),
+                new KeyValue(entity.rotateProperty(), 30.0)
+            ),
+            new KeyFrame(
+                Duration.millis(300),
+                new KeyValue(entity.rotateProperty(), -30.0)
+            ),
+            new KeyFrame(
+                Duration.millis(400),
+                new KeyValue(entity.rotateProperty(), 0.0)
+            )
+        );
     }
 
 }

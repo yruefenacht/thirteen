@@ -4,6 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import model.PlayfieldModel;
 
+/**
+ * PlayfieldMenuController.java
+ * Defines click events of buttons from playfield menu
+ */
 class PlayfieldMenuController {
 
     private PlayfieldModel playfieldModel;
@@ -15,12 +19,19 @@ class PlayfieldMenuController {
     private Button playfieldMenuQuit;
 
 
+    /**
+     * Class constructor
+     * @param playfieldModel observable
+     */
     PlayfieldMenuController(PlayfieldModel playfieldModel) {
 
         this.playfieldModel = playfieldModel;
     }
 
 
+    /**
+     * Defines button click events
+     */
     void setButtons() {
 
         this.playfieldMenuContinue.setOnAction(e -> this.playfieldModel.continueGame());
