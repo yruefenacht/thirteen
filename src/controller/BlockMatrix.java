@@ -28,7 +28,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param playfieldModel Observable to be attached to
      * @param dimensionX Matrix dimension X length
      * @param dimensionY Matrix dimension Y length
@@ -47,7 +47,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Creates RawBlocks matrix and RawMergeBlocks
+     * Creates RawBlocks matrix and RawMergeBlocks.
      */
     void createMatrix() {
 
@@ -59,7 +59,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Returns 2D RawBlock array as ArrayList
+     * Returns 2D RawBlock array as ArrayList.
      * @return List of RawBlocks
      */
     private ArrayList<RawBlock> getBlocksAsList() {
@@ -90,7 +90,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Analyses grid and creates MergeBlocks from that
+     * Analyses grid and creates MergeBlocks from that.
      */
     private void generateMergeBlocks() {
 
@@ -126,7 +126,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Retrieves RawBlock at specific location
+     * Retrieves RawBlock at specific location.
      * @param x Value x axis
      * @param y Value y axis
      * @return RawBlock
@@ -143,7 +143,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Finds RawMergeBlocks at same position as RawBlock
+     * Finds RawMergeBlocks at same position as RawBlock.
      * @param rawBlock given RawBlock
      */
     private ArrayList<RawMergeBlock> getMergeBlocksOfBlock(RawBlock rawBlock) {
@@ -161,7 +161,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Retrieves smallest blocks
+     * Retrieves smallest blocks.
      * @return list of blocks
      */
     private ArrayList<RawBlock> getMinBlocks() {
@@ -178,7 +178,7 @@ public class BlockMatrix implements PropertyChangeListener {
     
     /**
      * SPECIAL CASE
-     * Check for level up and remove smallest blocks
+     * Check for level up and remove smallest blocks.
      * @param neighbors blocks to check
      * @param bombMode if bombMode, return
      * @return smallest block or empty list
@@ -194,6 +194,7 @@ public class BlockMatrix implements PropertyChangeListener {
                 Settings.LEVEL++;
                 if(Settings.LEVEL < 10) Settings.LEVEL_RANGE++;
                 this.playfieldModel.levelUp(Settings.LEVEL);
+                this.audioPlayer.playLevelUpSound();
                 break;
             }
         }
@@ -203,7 +204,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
     /**
      * STEP 0
-     * Recursively get all equal neighbors from given block
+     * Recursively get all equal neighbors from given block.
      * @param x given block x
      * @param y given block y
      * @param visitedBlocks Do not visit same block twice
@@ -239,7 +240,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
     /**
      * STEP 1
-     * Remove neighbors and their MergeBlocks from GUI
+     * Remove neighbors and their MergeBlocks from GUI.
      * @param blocks given Blocks
      */
     private void removeBlocks(ArrayList<RawBlock> blocks) {
@@ -267,7 +268,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
     /**
      * STEP 3
-     * Puts removed RawBlocks (gaps) to the top of matrix
+     * Puts removed RawBlocks (gaps) to the top of matrix.
      * @param rawBlocks Empty RawBlocks
      */
     private void riseBlocksToTop(ArrayList<RawBlock> rawBlocks) {
@@ -299,7 +300,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
     /**
      * STEP 4
-     * Create new Blocks at null positions
+     * Create new Blocks at null positions.
      * @param nullBlocks null positions
      */
     private void createNewBlocks(ArrayList<RawBlock> nullBlocks) {
@@ -317,7 +318,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
     /**
      * STEP 5
-     * Generate additional MergeBlocks
+     * Generate additional MergeBlocks.
      */
     private void generateNewMergeBlocks() {
 
@@ -328,7 +329,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
     /**
      * STEP 6
-     * Checks if a pair exists
+     * Checks if a pair exists.
      */
     private void checkForGameOver() {
 
@@ -340,7 +341,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Apply rules on grid
+     * Apply rules on grid.
      * @param location coordinates from clicked block
      */
     private void blockClicked(Location location) {
@@ -366,6 +367,7 @@ public class BlockMatrix implements PropertyChangeListener {
         if(neighbors.isEmpty()) return;
 
         //Play sound effect
+        this.audioPlayer.playPopSound();
 
         //SPECIAL CASE - Check for level up
         neighbors.addAll(this.checkForLevelUp(neighbors, bombMode));
@@ -414,7 +416,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Is called whenever model fires propertyChangeEvent
+     * Is called whenever model fires propertyChangeEvent.
      * @param evt Properties that have changed
      */
     @Override

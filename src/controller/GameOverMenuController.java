@@ -18,7 +18,7 @@ class GameOverMenuController {
 
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param playfieldModel observable
      */
     GameOverMenuController(PlayfieldModel playfieldModel) {
@@ -28,7 +28,7 @@ class GameOverMenuController {
 
 
     /**
-     * Defines click events
+     * Defines click events.
      */
     void setButtons() {
 

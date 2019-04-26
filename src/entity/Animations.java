@@ -7,7 +7,7 @@ import javafx.util.Duration;
 
 /**
  * Animations.java
- * Provides all block animations.
+ * Provides all animations.
  */
 public class Animations {
 
@@ -44,7 +44,7 @@ public class Animations {
 
 
     /**
-     * Fades element in
+     * Fades element in.
      * @param element given element
      * @param delay delay
      * @param duration duration
@@ -64,7 +64,25 @@ public class Animations {
 
 
     /**
-     * Get Shake Animation
+     * Returns heart beat animation.
+     * @param element on this element
+     * @return ScaleTransition
+     */
+    public static ScaleTransition getScaleAnimation(Parent element) {
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(200), element);
+        scaleTransition.setFromX(1.0);
+        scaleTransition.setFromY(1.0);
+        scaleTransition.setToX(1.25);
+        scaleTransition.setToY(1.25);
+        scaleTransition.setCycleCount(2);
+        scaleTransition.setAutoReverse(true);
+        return scaleTransition;
+    }
+
+
+    /**
+     * Get Shake Animation.
      * @param entity animate this entity
      * @return TimeLine
      */

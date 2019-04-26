@@ -23,8 +23,9 @@ public class Block extends Entity {
     private Label valueLabel;
     private PlayfieldModel playfieldModel;
 
+
     /**
-     * Class constructor
+     * Class constructor.
      * @param x position x
      * @param y position y
      * @param value number on label
@@ -54,8 +55,9 @@ public class Block extends Entity {
         this.setOnMouseClicked(e -> this.blockClicked());
     }
 
+
     /**
-     * Set background color and connectors
+     * Set background color and connectors.
      */
     public void setBackground() {
 
@@ -71,7 +73,7 @@ public class Block extends Entity {
 
 
     /**
-     * Sets or removes red border
+     * Sets or removes red border.
      * @param bombMode activate or deactivate
      */
     public void setBombMode(boolean bombMode) {
@@ -84,15 +86,16 @@ public class Block extends Entity {
 
 
     /**
-     * Sends coordinates to model
+     * Sends coordinates to model.
      */
     private void blockClicked() {
 
         this.playfieldModel.blockClicked(new Location(this.x, this.y));
     }
 
+
     /**
-     * Let block fall down by n blocks
+     * Let block fall down by n blocks.
      */
     public void prepareToSink() {
 
@@ -100,8 +103,9 @@ public class Block extends Entity {
         this.sink++;
     }
 
+
     /**
-     * Set Layout Y to this.y
+     * Set Layout Y to this.y.
      */
     public void sink() {
 
@@ -110,13 +114,17 @@ public class Block extends Entity {
     }
 
 
+    /**
+     * Shake when game is over.
+     */
     public void shake() {
 
         Animations.getShakeAnimation(this).play();
     }
 
+
     /**
-     * Value setter
+     * Value setter.
      */
     public void updateValue() {
 
@@ -125,17 +133,24 @@ public class Block extends Entity {
         this.setBackground();
     }
 
+
     /**
-     * X value getter
+     * X value getter.
      * @return x
      */
-    public int getX() { return this.x; }
+    public int getX() {
+
+        return this.x;
+    }
+
 
     /**
-     * Y value getter
+     * Y value getter.
      * @return y
      */
-    public int getY() { return this.y; }
+    public int getY() {
 
+        return this.y;
+    }
 
 }

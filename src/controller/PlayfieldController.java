@@ -49,7 +49,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
     /**
      * Acts as class constructor.
-     * @param playfieldModel Observable to be attached to
+     * @param playfieldModel Observable to be attached to.
      */
     PlayfieldController(PlayfieldModel playfieldModel) {
 
@@ -60,7 +60,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Prepares playfield
+     * Prepares playfield.
      */
     void createPlayfield() {
 
@@ -87,7 +87,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Return playfield view so that pause menu can be attached
+     * Return playfield view so that pause menu can be attached.
      * @return playfield
      */
     StackPane getPlayfield() {
@@ -97,7 +97,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Creates Block instances and adds them to GUI
+     * Creates Block instances and adds them to GUI.
      * @param rawBlocks given RawBlocks
      */
     private void blocksCreated(ArrayList<RawBlock> rawBlocks) {
@@ -116,7 +116,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Checks if creating a MergeBlock is even necessary
+     * Checks if creating a MergeBlock is even necessary.
      * @param rawMergeBlock MergeBlock to check
      * @return true or false
      */
@@ -134,7 +134,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Creates MergeBlock instances and adds them to GUI
+     * Creates MergeBlock instances and adds them to GUI.
      * @param rawMergeBlocks given MergeBlocks
      */
     private void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
@@ -158,7 +158,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Retrieves specific MergeBlock
+     * Retrieves specific MergeBlock.
      * @param x1 start x
      * @param y1 start y
      * @param x2 end x
@@ -176,7 +176,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Retrieves specific Block
+     * Retrieves specific Block.
      * @param x value
      * @param y value
      * @return Block or null
@@ -191,7 +191,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Show playfield menu
+     * Show playfield menu.
      */
     private void pauseGame() {
 
@@ -202,7 +202,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Remove playfield menu
+     * Remove playfield menu.
      */
     private void continueGame() {
 
@@ -213,7 +213,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Regenerate grid
+     * Regenerate grid.
      */
     private void restartGame() {
 
@@ -223,7 +223,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Go back to main view
+     * Go back to main view.
      */
     private void quitGame() {
 
@@ -233,7 +233,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Resets level and NumberGenerator values
+     * Resets level and NumberGenerator values.
      */
     private void resetLevel() {
 
@@ -244,7 +244,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Revert blocks to previous state
+     * Revert blocks to previous state.
      */
     private void undoLatestStep() {
         System.out.println("undo");
@@ -252,7 +252,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Sets GUI to Bomb-Mode
+     * Sets GUI to Bomb-Mode.
      */
     private void toggleBombMode() {
 
@@ -265,7 +265,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Remove given block from pane
+     * Remove given block from pane.
      * @param rawBlock block to remove
      */
     private void removeBlock(RawBlock rawBlock) {
@@ -277,7 +277,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Remove mergeBlock from pane
+     * Remove mergeBlock from pane.
      * @param rawMergeBlock block to remove
      */
     private void removeMergeBlock(RawMergeBlock rawMergeBlock) {
@@ -294,7 +294,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Update block value
+     * Update block value.
      * @param rawBlock give RawBlock
      */
     private void increaseBlock(RawBlock rawBlock) {
@@ -305,7 +305,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Increase y of Block
+     * Increase y of Block.
      * @param rawBlock given Block
      */
     private void prepareToSinkBlock(RawBlock rawBlock) {
@@ -317,7 +317,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Sink given Block
+     * Sink given Block.
      * @param rawBlock given Block
      */
     private void sinkBlock(RawBlock rawBlock) {
@@ -329,7 +329,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Create and add new Block to GUI
+     * Create and add new Block to GUI.
      * @param rawBlock given location and value
      */
     private void createNewBlock(RawBlock rawBlock) {
@@ -342,18 +342,19 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Updates level label
+     * Updates level label.
      * @param level new level
      */
     private void levelUp(int level) {
 
         this.playfieldLevel.setText(Integer.toString(level));
+        Animations.getScaleAnimation(this.playfieldLevel).play();
         for(Block block : this.blocks) block.setBackground();
     }
 
 
     /**
-     * Shake blocks and show game over screen
+     * Shake blocks and show game over screen.
      */
     private void showGameOverScreen() {
 

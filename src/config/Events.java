@@ -2,7 +2,7 @@ package config;
 
 /**
  * Events.java
- * Defines all propertyChangeEvent names as static access
+ * Defines all propertyChangeEvent names as static access.
  */
 public class Events {
 

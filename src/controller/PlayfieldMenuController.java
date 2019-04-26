@@ -6,7 +6,7 @@ import model.PlayfieldModel;
 
 /**
  * PlayfieldMenuController.java
- * Defines click events of buttons from playfield menu
+ * Defines click events of buttons from playfield menu.
  */
 class PlayfieldMenuController {
 
@@ -20,7 +20,7 @@ class PlayfieldMenuController {
 
 
     /**
-     * Class constructor
+     * Class constructor.
      * @param playfieldModel observable
      */
     PlayfieldMenuController(PlayfieldModel playfieldModel) {
@@ -30,7 +30,7 @@ class PlayfieldMenuController {
 
 
     /**
-     * Defines button click events
+     * Defines button click events.
      */
     void setButtons() {
 

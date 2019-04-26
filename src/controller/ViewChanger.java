@@ -13,6 +13,8 @@ import java.io.IOException;
 
 /**
  * ViewChange.java
+ * Changes views.
+ * Accessible from everywhere.
  */
 public class ViewChanger {
 
@@ -23,7 +25,7 @@ public class ViewChanger {
 
 
     /**
-     * Creates and returns root element
+     * Creates and returns root element.
      * @return root element
      */
     public static BorderPane init() {
@@ -34,7 +36,7 @@ public class ViewChanger {
 
 
     /**
-     * Show MainMenu.fxml
+     * Show MainMenu.fxml.
      */
     public static void changeToMainMenu() {
 
@@ -47,7 +49,7 @@ public class ViewChanger {
 
 
     /**
-     * Show Playfield.fxml
+     * Show Playfield.fxml.
      */
     static void changeToPlayfield() {
 
@@ -68,7 +70,7 @@ public class ViewChanger {
 
 
     /**
-     * Show PlayfieldMenu.fxml
+     * Show PlayfieldMenu.fxml.
      */
     static void showPauseMenu() {
 
@@ -89,7 +91,7 @@ public class ViewChanger {
 
 
     /**
-     * Remove PlayfieldMenu.fxml
+     * Remove PlayfieldMenu.fxml.
      */
     static void closePauseMenu() {
 
@@ -100,7 +102,7 @@ public class ViewChanger {
 
 
     /**
-     * Show GameOverMenu.fxml
+     * Show GameOverMenu.fxml.
      */
     static void showGameOverScreen() {
 

@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 
 /**
  * MainMenuController.java
- * Defines click events of main menu screen
+ * Defines click events of main menu screen.
  */
 public class MainMenuController {
 
@@ -14,7 +14,7 @@ public class MainMenuController {
 
 
     /**
-     * Define main button click event
+     * Define main button click event.
      */
     @FXML
     private void showPlayfield() {

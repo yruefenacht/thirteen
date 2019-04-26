@@ -18,8 +18,9 @@ public class MergeBlock extends Entity {
     private int y1;
     private int y2;
 
+
     /**
-     * Class constructor
+     * Class constructor.
      * @param x1 start x
      * @param y1 start y
      * @param x2 end x
@@ -33,12 +34,14 @@ public class MergeBlock extends Entity {
         this.x2 = x2;
         this.y2 = y2;
 
+        //Set position
         this.setLayoutX((x1 * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2));
         this.setLayoutY((y1 * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2));
 
         this.setScaleX(0);
         this.setScaleY(0);
 
+        //Set width and height
         int width;
         int height;
 
@@ -54,6 +57,7 @@ public class MergeBlock extends Entity {
         this.setPrefWidth(width);
         this.setPrefHeight(height);
 
+        //Set background color
         Color backgroundColor = (value == Settings.LEVEL) ?
                 Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(value);
 
@@ -64,21 +68,41 @@ public class MergeBlock extends Entity {
         )));
     }
 
+
+    /**
+     * X1 getter.
+     * @return x1
+     */
     public int getX1() {
 
         return this.x1;
     }
 
+
+    /**
+     * X2 getter.
+     * @return x2
+     */
     public int getX2() {
 
         return this.x2;
     }
 
+
+    /**
+     * Y1 getter.
+     * @return y1
+     */
     public int getY1() {
 
         return this.y1;
     }
 
+
+    /**
+     * Y2 getter.
+     * @return y2
+     */
     public int getY2() {
 
         return this.y2;

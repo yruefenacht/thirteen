@@ -4,7 +4,7 @@ import javafx.scene.layout.StackPane;
 
 /**
  * Entity.java
- * Defines basic methods of all entities
+ * Defines basic methods of all entities.
  */
 public class Entity extends StackPane {
 
@@ -15,4 +15,5 @@ public class Entity extends StackPane {
 
         Animations.getScaleAnimation(this).play();
     }
+
 }

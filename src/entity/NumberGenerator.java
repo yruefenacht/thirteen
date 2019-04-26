@@ -4,15 +4,30 @@ import config.Settings;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * NumberGenerator.java
+ * Generates random number for each block.
+ */
 public class NumberGenerator {
 
     private Random random = new Random();
 
+
+    /**
+     * Get random x value
+     * @return value
+     */
     public int getInitialBlockX() {
 
         return this.random.nextInt(Settings.GRID_DIMENSION_X);
     }
 
+
+    /**
+     * Retrieves random number based on level.
+     * Creates probabilities with binomial distribution.
+     * @return number
+     */
     public int getRandomNumber() {
 
         int max = Settings.LEVEL;
@@ -35,6 +50,11 @@ public class NumberGenerator {
         return min;
     }
 
+
+    /**
+     * Reverses indexes of values in array.
+     * @param array affected array
+     */
     private void reverseArray(long[] array) {
 
         for(int i = 0; i < array.length / 2; i++)
@@ -45,6 +65,14 @@ public class NumberGenerator {
         }
     }
 
+
+    /**
+     * Generates probabilities with binomial distribution.
+     * @param min start
+     * @param max end
+     * @param total number of probabilities to distribute
+     * @return 1. array containing values 2. array containing probabilities
+     */
     private long[][] getBinomialDistribution(int min, int max, long total) {
 
         int n = max - min;
@@ -74,7 +102,15 @@ public class NumberGenerator {
         return ret;
     }
 
+
+    /**
+     * Calculates combination.
+     * @param n numerator
+     * @param k denominator
+     * @return combination
+     */
     private double combination(int n, int k) {
+
         double ret = 1;
         while (k > 0) {
             ret = ret * ((double) n / (double) k);
@@ -83,4 +119,5 @@ public class NumberGenerator {
         }
         return ret;
     }
+
 }
