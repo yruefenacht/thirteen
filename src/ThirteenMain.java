@@ -23,11 +23,11 @@ public class ThirteenMain extends Application {
 
         //Font
         Font.loadFont(
-            this.getClass().getResource("resources/fonts/SourceSansPro-Regular.ttf").toExternalForm(),
+            this.getClass().getResource("fonts/SourceSansPro-Regular.ttf").toExternalForm(),
             Settings.FONT_SIZE_DEFAULT
         );
         Font.loadFont(
-            this.getClass().getResource("resources/fonts/PermanentMarker-Regular.ttf").toExternalForm(),
+            this.getClass().getResource("fonts/PermanentMarker-Regular.ttf").toExternalForm(),
             Settings.FONT_SIZE_DEFAULT
         );
 

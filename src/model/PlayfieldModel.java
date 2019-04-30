@@ -183,6 +183,15 @@ public class PlayfieldModel {
 
 
     /**
+     * Notify to update undo button.
+     * @param enabled true to enable, vice versa
+     */
+    public void setUndoButtonEnabled(boolean enabled) {
+
+        this.propertyChangeSupport.firePropertyChange(Events.UNDO_SET_ENABLED, null, enabled);
+    }
+
+    /**
      * Notify to clear all MergeBlocks
      */
     public void resetMergeBlocks() {

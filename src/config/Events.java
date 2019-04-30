@@ -23,6 +23,6 @@ public class Events {
     public static final String QUIT_GAME = "quitGame";
     public static final String GAME_OVER = "gameOver";
     public static final String UNDO = "undo";
-    public static final String DISABLE_UNDO = "disableUndo";
+    public static final String UNDO_SET_ENABLED = "undoSetEnabled";
     public static final String MERGE_BLOCKS_RESET = "mergeBlocksReset";
 }

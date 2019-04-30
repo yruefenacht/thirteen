@@ -183,15 +183,17 @@ public class BlockMatrix implements PropertyChangeListener {
     private void undo() {
 
         if(previousBlocks.isEmpty()) return;
+        if(previousBlocks.size() == 1) this.playfieldModel.setUndoButtonEnabled(false);
 
         this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.TOOL_COST);
 
+        if(Settings.STAR_COUNT < Settings.TOOL_COST)
+            this.playfieldModel.setUndoButtonEnabled(false);
+
         ArrayList<RawBlock> latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
 
-        for(RawBlock block : latestPreviousBlocks) {
-
+        for(RawBlock block : latestPreviousBlocks)
             this.rawBlocks[block.getX()][block.getY()] = block;
-        }
 
         this.rawMergeBlocks.clear();
         this.generateMergeBlocks();
@@ -407,6 +409,10 @@ public class BlockMatrix implements PropertyChangeListener {
         //Ignore single blocks
         if(neighbors.isEmpty()) return;
 
+        //Enable undo button
+        if(Settings.STAR_COUNT >= Settings.TOOL_COST) this.playfieldModel.setUndoButtonEnabled(true);
+
+        //Store current state
         this.saveCurrentStates();
 
         //Play sound effect

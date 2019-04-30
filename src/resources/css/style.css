@@ -65,6 +65,15 @@
     -fx-scale-y: 1.05;
 }
 
+.playfield__tool:disabled {
+    -fx-opacity: 1.0;
+    -fx-border-color: rgb(50, 50, 50);
+}
+
+.playfield__tool__img:disabled {
+    -fx-opacity: 0.4;
+}
+
 .playfield__block {
     -fx-font-size: 1.75em;
     -fx-font-weight: bold;

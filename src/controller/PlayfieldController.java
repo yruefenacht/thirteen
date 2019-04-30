@@ -71,7 +71,7 @@ public class PlayfieldController implements PropertyChangeListener {
         this.playfieldStarCount.setText(Integer.toString(Settings.STAR_COUNT));
 
         //Disable undo initially
-        this.playfieldToolUndo.setDisable(true);
+        this.setUndoButtonEnabled(false);
 
         //Set MenuBar Button Icon
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
@@ -365,10 +365,15 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
-    private void disableUndoButton() {
+    /**
+     * Disable or enable undo button.
+     * @param enabled true to enable, vice versa
+     */
+    private void setUndoButtonEnabled(boolean enabled) {
 
-        this.playfieldToolUndo.setDisable(true);
+        this.playfieldToolUndo.setDisable(! enabled);
     }
+
 
     /**
      * This method is fired when changes happen in the model observable.
@@ -426,8 +431,8 @@ public class PlayfieldController implements PropertyChangeListener {
             case Events.MERGE_BLOCKS_RESET:
                 this.mergeBlocks.clear(); this.playfieldMergeBlocks.getChildren().clear();
                 break;
-            case Events.DISABLE_UNDO:
-                this.disableUndoButton();
+            case Events.UNDO_SET_ENABLED:
+                this.setUndoButtonEnabled((Boolean) evt.getNewValue());
                 break;
         }
     }
