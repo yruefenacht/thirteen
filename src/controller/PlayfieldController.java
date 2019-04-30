@@ -4,8 +4,6 @@ import config.Events;
 import entity.*;
 import config.Settings;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -16,7 +14,6 @@ import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * PlayfieldController.java
@@ -72,6 +69,9 @@ public class PlayfieldController implements PropertyChangeListener {
 
         //Display Money
         this.playfieldStarCount.setText(Integer.toString(Settings.STAR_COUNT));
+
+        //Disable undo initially
+        this.playfieldToolUndo.setDisable(true);
 
         //Set MenuBar Button Icon
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
@@ -248,7 +248,8 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void undoLatestStep() {
 
-        this.playfieldModel.undo();
+        if(Settings.STAR_COUNT < Settings.TOOL_COST) return;
+        ViewChanger.showUndoMenu();
     }
 
 
@@ -257,7 +258,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void toggleBombMode() {
 
-        if(Settings.STAR_COUNT < Settings.BOMB_COST) return;
+        if(Settings.STAR_COUNT < Settings.TOOL_COST) return;
 
         Settings.BOMB_MODE = !Settings.BOMB_MODE;
         this.playfieldMergeBlocks.setVisible(!Settings.BOMB_MODE);
@@ -364,6 +365,11 @@ public class PlayfieldController implements PropertyChangeListener {
     }
 
 
+    private void disableUndoButton() {
+
+        this.playfieldToolUndo.setDisable(true);
+    }
+
     /**
      * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
@@ -419,6 +425,9 @@ public class PlayfieldController implements PropertyChangeListener {
                 break;
             case Events.MERGE_BLOCKS_RESET:
                 this.mergeBlocks.clear(); this.playfieldMergeBlocks.getChildren().clear();
+                break;
+            case Events.DISABLE_UNDO:
+                this.disableUndoButton();
                 break;
         }
     }

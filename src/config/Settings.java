@@ -23,7 +23,7 @@ public class Settings {
     public static int UPDATE_RANGE_MAX = 11;
 
     //Prices
-    public static final int BOMB_COST = 50;
+    public static final int TOOL_COST = 50;
     public static int STAR_COUNT = 100;
 
     //Boolean

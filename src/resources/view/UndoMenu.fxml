@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<!-- UNDO MENU -->
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      alignment="CENTER"
+      spacing="20.0"
+      styleClass="playfieldMenu">
+    <!-- TITLE -->
+    <Label fx:id="undoMenuTitle" text="Revert to previous move?" />
+    <!-- MENU BUTTONS -->
+    <Button fx:id="undoMenuConfirm" styleClass="playfieldMenu__Button" >
+        <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                <Image url="@../images/star.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <Button fx:id="undoMenuAbort" text="CANCEL" styleClass="playfieldMenu__Button" />
+</VBox>

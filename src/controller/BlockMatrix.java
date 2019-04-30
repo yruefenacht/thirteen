@@ -8,7 +8,6 @@ import javafx.animation.Timeline;
 import javafx.util.Duration;
 import model.PlayfieldModel;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -184,6 +183,8 @@ public class BlockMatrix implements PropertyChangeListener {
     private void undo() {
 
         if(previousBlocks.isEmpty()) return;
+
+        this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.TOOL_COST);
 
         ArrayList<RawBlock> latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
 
@@ -400,7 +401,7 @@ public class BlockMatrix implements PropertyChangeListener {
             neighbors.clear();
             neighbors.add(this.getBlockAt(x, y));
             this.playfieldModel.toggleBombMode();
-            this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.BOMB_COST);
+            this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.TOOL_COST);
         }
 
         //Ignore single blocks

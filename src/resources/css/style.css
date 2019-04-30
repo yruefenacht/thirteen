@@ -2,7 +2,7 @@
     ALL ELEMENTS
 */
 *:not(.playfieldMenuIcon) {
-    -fx-font-family: "Source Sans Pro Regular";
+    -fx-font-family: "Source Sans Pro";
 }
 
 /*
@@ -31,7 +31,7 @@
 .playfield__menuIcon {
     -fx-text-fill: rgb(200, 200, 200);
     -fx-font-size: 2em;
-    -fx-font-family: "Permanent Marker Regular";
+    -fx-font-family: "Permanent Marker";
 }
 
 .playfield__level {
@@ -122,7 +122,7 @@
 .mainMenu__icon {
     -fx-text-fill: #333;
     -fx-background-color: rgb(230, 230, 230);
-    -fx-font-family: "Permanent Marker Regular";
+    -fx-font-family: "Permanent Marker";
     -fx-font-size: 5em;
     -fx-pref-width: 140;
     -fx-pref-height: 140;
@@ -172,7 +172,7 @@
 */
 #gameOverMenuTitle {
     -fx-text-fill: rgb(230, 230, 230);
-    -fx-font-family: "Permanent Marker Regular";
+    -fx-font-family: "Permanent Marker";
     -fx-font-size: 3.5em;
     -fx-padding: 0 0 35 0;
 }
@@ -183,5 +183,22 @@
 }
 
 #gameOverMenuQuit {
+    -fx-background-color: #df0054;
+}
+
+/*
+    UNDO MENU
+*/
+#undoMenuTitle {
+    -fx-text-fill: rgb(230, 230, 230);
+    -fx-font-size: 2.5em;
+    -fx-padding: 0 0 50 0;
+}
+
+#undoMenuConfirm {
+    -fx-background-color: #00bd56;
+}
+
+#undoMenuAbort {
     -fx-background-color: #df0054;
 }

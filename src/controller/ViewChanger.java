@@ -20,8 +20,9 @@ public class ViewChanger {
 
     private static BorderPane root;
     private static PlayfieldModel playfieldModel;
-    private static VBox pauseMenu;
     private static StackPane playfieldContainer;
+    private static VBox pauseMenu;
+    private static VBox undoMenu;
 
 
     /**
@@ -119,6 +120,38 @@ public class ViewChanger {
             Animations.getFadeAnimation(gameOverMenu, 500.0, 1000.0, true).play();
 
         } catch (IOException e) { e.printStackTrace(); }
+    }
+
+
+    /**
+     * Show UndoMenu.fxml
+     */
+    static void showUndoMenu() {
+
+        try {
+            UndoMenuController undoMenuController = new UndoMenuController(playfieldModel);
+            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/UndoMenu.fxml"));
+            loader.setController(undoMenuController);
+            undoMenu = loader.load();
+            undoMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
+            undoMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+            undoMenu.setOpacity(0.0);
+            undoMenuController.setButtons();
+            playfieldContainer.getChildren().add(undoMenu);
+            Animations.getFadeAnimation(undoMenu, 0, 500.0, true).play();
+
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+
+    /**
+     * Remove UndoMenu.fxml
+     */
+    static void closeUndoMenu() {
+
+        FadeTransition fadeTransition = Animations.getFadeAnimation(undoMenu, 0.0, 300.0, false);
+        fadeTransition.setOnFinished(e -> playfieldContainer.getChildren().remove(undoMenu));
+        fadeTransition.play();
     }
 
 }
