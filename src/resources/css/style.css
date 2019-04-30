@@ -1,14 +1,4 @@
 /*
-    FONTS
-*/
-@font-face {
-    src: url("../fonts/PermanentMarker-Regular.ttf"),
-}
-@font-face {
-    src: url("../fonts/SourceSansPro-Regular.ttf"),
-}
-
-/*
     ALL ELEMENTS
 */
 *:not(.playfieldMenuIcon) {
