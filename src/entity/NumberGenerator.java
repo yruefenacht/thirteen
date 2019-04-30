@@ -120,4 +120,16 @@ public class NumberGenerator {
         return ret;
     }
 
+
+    /**
+     * Update level and range.
+     */
+    public void updateLevel() {
+
+        Settings.LEVEL++;
+
+        if(Settings.LEVEL <= Settings.UPDATE_RANGE_MAX && Settings.LEVEL >= Settings.UPDATE_RANGE_MIN)
+            Settings.LEVEL_RANGE++;
+    }
+
 }

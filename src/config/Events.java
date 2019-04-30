@@ -22,4 +22,6 @@ public class Events {
     public static final String RESTART_GAME = "restartGame";
     public static final String QUIT_GAME = "quitGame";
     public static final String GAME_OVER = "gameOver";
+    public static final String UNDO = "undo";
+    public static final String MERGE_BLOCKS_RESET = "mergeBlocksReset";
 }

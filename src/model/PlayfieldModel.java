@@ -174,6 +174,24 @@ public class PlayfieldModel {
 
 
     /**
+     * Notify game to go back one step
+     */
+    public void undo() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.UNDO, null, 0);
+    }
+
+
+    /**
+     * Notify to clear all MergeBlocks
+     */
+    public void resetMergeBlocks() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.MERGE_BLOCKS_RESET, null, 0);
+    }
+
+
+    /**
      * This method adds observers to this observable.
      * @param pcl Observer to add
      */

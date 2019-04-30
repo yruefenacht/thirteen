@@ -9,7 +9,6 @@ public class RawBlock {
     private int x;
     private int y;
     private int value;
-    private int sink;
 
 
     /**
@@ -32,6 +31,24 @@ public class RawBlock {
     public void increaseBlockValue() {
 
         this.value++;
+    }
+
+
+    /**
+     * Increment y.
+     */
+    public void fall() {
+
+        this.y++;
+    }
+
+
+    /**
+     * Decrease y.
+     */
+    public void rise() {
+
+        this.y--;
     }
 
 
@@ -62,24 +79,6 @@ public class RawBlock {
     public int getValue() {
 
         return this.value;
-    }
-
-
-    /**
-     * Increment y.
-     */
-    public void fall() {
-
-        this.y++;
-    }
-
-
-    /**
-     * Decrease y.
-     */
-    public void rise() {
-
-        this.y--;
     }
 
 }

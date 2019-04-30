@@ -7,6 +7,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
 import model.PlayfieldModel;
+
+import java.awt.image.AreaAveragingScaleFilter;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -175,6 +177,45 @@ public class BlockMatrix implements PropertyChangeListener {
         return minBlocks;
     }
 
+
+    /**
+     * Revert matrix back to previous step
+     */
+    private void undo() {
+
+        if(previousBlocks.isEmpty()) return;
+
+        ArrayList<RawBlock> latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
+
+        for(RawBlock block : latestPreviousBlocks) {
+
+            this.rawBlocks[block.getX()][block.getY()] = block;
+        }
+
+        this.rawMergeBlocks.clear();
+        this.generateMergeBlocks();
+        this.playfieldModel.blocksCreated(latestPreviousBlocks);
+        this.playfieldModel.resetMergeBlocks();
+        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
+    }
+
+
+    /**
+     * Save properties for undo action.
+     */
+    private void saveCurrentStates() {
+
+        ArrayList<RawBlock> currentBlocks = new ArrayList<>();
+
+        for(RawBlock block : this.getBlocksAsList())
+            currentBlocks.add(new RawBlock(block.getX(), block.getY(), block.getValue()));
+
+        this.previousBlocks.add(currentBlocks);
+
+        if(this.previousBlocks.size() > Settings.MAX_PREVIOUS_STATES)
+            this.previousBlocks.remove(0);
+    }
+
     
     /**
      * SPECIAL CASE
@@ -191,8 +232,7 @@ public class BlockMatrix implements PropertyChangeListener {
         for(RawBlock neighbor : neighbors) {
             if (neighbor.getValue() == Settings.LEVEL) {
                 minBlocks.addAll(this.getMinBlocks());
-                Settings.LEVEL++;
-                if(Settings.LEVEL < 10) Settings.LEVEL_RANGE++;
+                this.numberGenerator.updateLevel();
                 this.playfieldModel.levelUp(Settings.LEVEL);
                 this.audioPlayer.playLevelUpSound();
                 break;
@@ -366,6 +406,8 @@ public class BlockMatrix implements PropertyChangeListener {
         //Ignore single blocks
         if(neighbors.isEmpty()) return;
 
+        this.saveCurrentStates();
+
         //Play sound effect
         this.audioPlayer.playPopSound();
 
@@ -425,6 +467,9 @@ public class BlockMatrix implements PropertyChangeListener {
         switch(evt.getPropertyName()) {
             case Events.BLOCK_CLICKED:
                 this.blockClicked((Location) evt.getNewValue());
+                break;
+            case Events.UNDO:
+                this.undo();
                 break;
         }
     }

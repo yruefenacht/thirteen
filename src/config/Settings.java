@@ -19,6 +19,8 @@ public class Settings {
     public static int LEVEL_DEFAULT = 6;
     public static int LEVEL_RANGE = 5;
     public static int LEVEL_RANGE_DEFAULT = 5;
+    public static int UPDATE_RANGE_MIN = 8;
+    public static int UPDATE_RANGE_MAX = 11;
 
     //Prices
     public static final int BOMB_COST = 50;
@@ -32,7 +34,7 @@ public class Settings {
     public static final int GRID_DIMENSION_X = 5;
     public static final int GRID_DIMENSION_Y = 5;
     public static final int GRID_SPACING = 8;
-    public static final int GRID_ANIMATION = 300;
+    public static final int GRID_ANIMATION = 350;
 
     //Block
     public static final int BLOCK_WIDTH = 80;
@@ -40,6 +42,7 @@ public class Settings {
     public static final int BLOCK_ANIMATION = 250;
     public static final int BLOCK_BORDER_RADIUS = 5;
     public static final int MERGE_BLOCK_LENGTH = (2 * BLOCK_WIDTH) - (2 * BLOCK_BORDER_RADIUS);
+    public static final int MAX_PREVIOUS_STATES = 3;
 
     //Scene
     private static final int SCENE_TOP = 275;

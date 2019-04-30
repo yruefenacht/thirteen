@@ -4,18 +4,19 @@ import config.Events;
 import entity.*;
 import config.Settings;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * PlayfieldController.java
@@ -44,7 +45,6 @@ public class PlayfieldController implements PropertyChangeListener {
     private ArrayList<MergeBlock> mergeBlocks;
     private PlayfieldModel playfieldModel;
     private ImageView menuButtonImg;
-    private VBox gameOverScreen;
 
 
     /**
@@ -247,7 +247,8 @@ public class PlayfieldController implements PropertyChangeListener {
      * Revert blocks to previous state.
      */
     private void undoLatestStep() {
-        System.out.println("undo");
+
+        this.playfieldModel.undo();
     }
 
 
@@ -415,6 +416,9 @@ public class PlayfieldController implements PropertyChangeListener {
                 break;
             case Events.GAME_OVER:
                 this.showGameOverScreen();
+                break;
+            case Events.MERGE_BLOCKS_RESET:
+                this.mergeBlocks.clear(); this.playfieldMergeBlocks.getChildren().clear();
                 break;
         }
     }

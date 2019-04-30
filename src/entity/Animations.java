@@ -91,11 +91,11 @@ public class Animations {
         return new Timeline(
             new KeyFrame(
                 Duration.millis(100),
-                new KeyValue(entity.rotateProperty(), 30.0)
+                new KeyValue(entity.rotateProperty(), 20.0)
             ),
             new KeyFrame(
                 Duration.millis(300),
-                new KeyValue(entity.rotateProperty(), -30.0)
+                new KeyValue(entity.rotateProperty(), -20.0)
             ),
             new KeyFrame(
                 Duration.millis(400),
