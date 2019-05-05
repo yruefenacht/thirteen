@@ -26,6 +26,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private ArrayList<ArrayList<RawBlock>> previousBlocks;
     private NumberGenerator numberGenerator;
     private AudioPlayer audioPlayer;
+    private UserDataManager userDataManager;
 
 
     /**
@@ -44,6 +45,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.previousBlocks = new ArrayList<>();
         this.numberGenerator = new NumberGenerator();
         this.audioPlayer = new AudioPlayer();
+        this.userDataManager = new UserDataManager();
     }
 
 
@@ -56,6 +58,23 @@ public class BlockMatrix implements PropertyChangeListener {
         this.generateMergeBlocks();
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
+        this.playfieldModel.setUndoButtonEnabled(false);
+        this.playfieldModel.saveGame();
+    }
+
+
+    /**
+     * Loads Matrix from UserData.xml.
+     */
+    void loadMatrix() {
+
+        this.loadBlocks();
+        this.generateMergeBlocks();
+        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
+        this.playfieldModel.blocksCreated(this.getBlocksAsList());
+        this.playfieldModel.levelUp(this.userDataManager.loadLevel());
+        this.playfieldModel.setUndoButtonEnabled(true);
+        this.numberGenerator.setLevel(this.userDataManager.loadLevel());
     }
 
 
@@ -87,6 +106,16 @@ public class BlockMatrix implements PropertyChangeListener {
         int initialX = this.numberGenerator.getInitialBlockX();
         int initialY = Settings.GRID_DIMENSION_Y - 1;
         this.rawBlocks[initialX][initialY] = new RawBlock(initialX, initialY, Settings.LEVEL);
+    }
+
+
+    /**
+     * Loads Blocks and Level from UserData.xml.
+     */
+    private void loadBlocks() {
+
+        ArrayList<RawBlock> rawBlocks = this.userDataManager.loadRawBlocks();
+        for(RawBlock rawBlock : rawBlocks) this.rawBlocks[rawBlock.getX()][rawBlock.getY()] = rawBlock;
     }
 
 
@@ -235,7 +264,7 @@ public class BlockMatrix implements PropertyChangeListener {
         for(RawBlock neighbor : neighbors) {
             if (neighbor.getValue() == Settings.LEVEL) {
                 minBlocks.addAll(this.getMinBlocks());
-                this.numberGenerator.updateLevel();
+                this.numberGenerator.increaseLevel();
                 this.playfieldModel.levelUp(Settings.LEVEL);
                 this.audioPlayer.playLevelUpSound();
                 break;
@@ -459,7 +488,10 @@ public class BlockMatrix implements PropertyChangeListener {
 
         Settings.IS_ANIMATING = true;
         final Timeline timeline = new Timeline(step1, step2, step3, step4, step5, step6);
-        timeline.setOnFinished(e -> Settings.IS_ANIMATING = false);
+        timeline.setOnFinished(e -> {
+            Settings.IS_ANIMATING = false;
+            this.userDataManager.saveGame(this.getBlocksAsList(), Settings.LEVEL);
+        });
         timeline.play();
     }
 
@@ -477,6 +509,9 @@ public class BlockMatrix implements PropertyChangeListener {
                 break;
             case Events.UNDO:
                 this.undo();
+                break;
+            case Events.SAVE_GAME:
+                this.userDataManager.saveGame(this.getBlocksAsList(), Settings.LEVEL);
                 break;
         }
     }

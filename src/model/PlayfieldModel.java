@@ -191,12 +191,22 @@ public class PlayfieldModel {
         this.propertyChangeSupport.firePropertyChange(Events.UNDO_SET_ENABLED, null, enabled);
     }
 
+
     /**
      * Notify to clear all MergeBlocks
      */
     public void resetMergeBlocks() {
 
         this.propertyChangeSupport.firePropertyChange(Events.MERGE_BLOCKS_RESET, null, 0);
+    }
+
+
+    /**
+     * Notify to save game.
+     */
+    public void saveGame() {
+
+        this.propertyChangeSupport.firePropertyChange(Events.SAVE_GAME, null, 0);
     }
 
 

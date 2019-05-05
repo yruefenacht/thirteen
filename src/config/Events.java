@@ -25,4 +25,5 @@ public class Events {
     public static final String UNDO = "undo";
     public static final String UNDO_SET_ENABLED = "undoSetEnabled";
     public static final String MERGE_BLOCKS_RESET = "mergeBlocksReset";
+    public static final String SAVE_GAME = "saveGame";
 }

@@ -19,7 +19,7 @@ public class MainMenuController {
     @FXML
     private void showPlayfield() {
 
-        ViewChanger.changeToPlayfield();
+        ViewChanger.changeToPlayfield(false);
     }
 
 }

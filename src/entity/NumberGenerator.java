@@ -124,9 +124,22 @@ public class NumberGenerator {
     /**
      * Update level and range.
      */
-    public void updateLevel() {
+    public void increaseLevel() {
 
         Settings.LEVEL++;
+
+        if(Settings.LEVEL <= Settings.UPDATE_RANGE_MAX && Settings.LEVEL >= Settings.UPDATE_RANGE_MIN)
+            Settings.LEVEL_RANGE++;
+    }
+
+
+    /**
+     * Sets level to given value
+     * @param level value
+     */
+    public void setLevel(int level) {
+
+        Settings.LEVEL = level;
 
         if(Settings.LEVEL <= Settings.UPDATE_RANGE_MAX && Settings.LEVEL >= Settings.UPDATE_RANGE_MIN)
             Settings.LEVEL_RANGE++;

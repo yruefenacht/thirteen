@@ -6,10 +6,12 @@ import config.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import model.PlayfieldModel;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -23,6 +25,8 @@ public class PlayfieldController implements PropertyChangeListener {
 
     @FXML
     private StackPane playfield;
+    @FXML
+    private VBox playfieldFrame;
     @FXML
     private Pane playfieldBlocks;
     @FXML
@@ -42,6 +46,7 @@ public class PlayfieldController implements PropertyChangeListener {
     private ArrayList<MergeBlock> mergeBlocks;
     private PlayfieldModel playfieldModel;
     private ImageView menuButtonImg;
+    private BoxBlur blurEffect;
 
 
     /**
@@ -70,8 +75,12 @@ public class PlayfieldController implements PropertyChangeListener {
         //Display Money
         this.playfieldStarCount.setText(Integer.toString(Settings.STAR_COUNT));
 
-        //Disable undo initially
-        this.setUndoButtonEnabled(false);
+        //Set blur effect
+        this.blurEffect = new BoxBlur();
+        this.blurEffect.setWidth(5);
+        this.blurEffect.setHeight(5);
+        this.blurEffect.setIterations(0);
+        this.playfieldFrame.setEffect(this.blurEffect);
 
         //Set MenuBar Button Icon
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/pause.png")));
@@ -93,6 +102,17 @@ public class PlayfieldController implements PropertyChangeListener {
     StackPane getPlayfield() {
 
         return this.playfield;
+    }
+
+
+    /**
+     * Sets blur effect.
+     * 0: None, 5: Max.
+     * @param value blur value
+     */
+    void setBlur(int value) {
+
+        this.blurEffect.setIterations(value);
     }
 
 
@@ -218,7 +238,7 @@ public class PlayfieldController implements PropertyChangeListener {
     private void restartGame() {
 
         this.resetLevel();
-        ViewChanger.changeToPlayfield();
+        ViewChanger.changeToPlayfield(true);
     }
 
 

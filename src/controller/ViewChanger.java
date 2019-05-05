@@ -19,6 +19,7 @@ import java.io.IOException;
 public class ViewChanger {
 
     private static BorderPane root;
+    private static PlayfieldController playfieldController;
     private static PlayfieldModel playfieldModel;
     private static StackPane playfieldContainer;
     private static VBox pauseMenu;
@@ -51,19 +52,25 @@ public class ViewChanger {
 
     /**
      * Show Playfield.fxml.
+     * @param restart if true: generate new blocks
      */
-    static void changeToPlayfield() {
+    static void changeToPlayfield(boolean restart) {
 
         try {
             playfieldModel = new PlayfieldModel();
-            PlayfieldController playfieldController = new PlayfieldController(playfieldModel);
+            playfieldController = new PlayfieldController(playfieldModel);
             BlockMatrix blockMatrix = new BlockMatrix(playfieldModel, Settings.GRID_DIMENSION_X, Settings.GRID_DIMENSION_Y);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"));
             loader.setController(playfieldController);
             Parent playfield = loader.load();
             playfieldContainer = playfieldController.getPlayfield();
             playfieldController.createPlayfield();
-            blockMatrix.createMatrix();
+
+            if(restart)
+                blockMatrix.createMatrix();
+            else
+                blockMatrix.loadMatrix();
+
             root.setCenter(playfield);
 
         } catch (IOException e) { e.printStackTrace(); }
@@ -85,6 +92,7 @@ public class ViewChanger {
             pauseMenu.setOpacity(0.0);
             playfieldMenuController.setButtons();
             playfieldContainer.getChildren().add(pauseMenu);
+            playfieldController.setBlur(3);
             Animations.getFadeAnimation(pauseMenu, 0.0, 300.0, true).play();
 
         } catch (IOException e) { e.printStackTrace(); }
@@ -96,6 +104,7 @@ public class ViewChanger {
      */
     static void closePauseMenu() {
 
+        playfieldController.setBlur(0);
         FadeTransition fadeTransition = Animations.getFadeAnimation(pauseMenu, 0.0, 300.0, false);
         fadeTransition.setOnFinished(e -> playfieldContainer.getChildren().remove(pauseMenu));
         fadeTransition.play();
@@ -117,6 +126,7 @@ public class ViewChanger {
             gameOverMenu.setOpacity(0.0);
             gameOverMenuController.setButtons();
             playfieldContainer.getChildren().add(gameOverMenu);
+            playfieldController.setBlur(3);
             Animations.getFadeAnimation(gameOverMenu, 500.0, 1000.0, true).play();
 
         } catch (IOException e) { e.printStackTrace(); }
@@ -138,6 +148,7 @@ public class ViewChanger {
             undoMenu.setOpacity(0.0);
             undoMenuController.setButtons();
             playfieldContainer.getChildren().add(undoMenu);
+            playfieldController.setBlur(3);
             Animations.getFadeAnimation(undoMenu, 0, 500.0, true).play();
 
         } catch (IOException e) { e.printStackTrace(); }
@@ -149,6 +160,7 @@ public class ViewChanger {
      */
     static void closeUndoMenu() {
 
+        playfieldController.setBlur(0);
         FadeTransition fadeTransition = Animations.getFadeAnimation(undoMenu, 0.0, 300.0, false);
         fadeTransition.setOnFinished(e -> playfieldContainer.getChildren().remove(undoMenu));
         fadeTransition.play();

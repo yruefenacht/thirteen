@@ -47,7 +47,7 @@
    <!-- LEVEL DISPLAY -->
    <center>
       <StackPane fx:id="playfield">
-      <VBox>
+      <VBox fx:id="playfieldFrame">
       <HBox alignment="CENTER">
          <Button fx:id="playfieldToolUndo" styleClass="playfield__tool">
             <HBox.margin>
