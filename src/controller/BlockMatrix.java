@@ -60,6 +60,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
         this.playfieldModel.setUndoButtonEnabled(false);
         this.playfieldModel.saveGame();
+        Settings.GAME_OVER = false;
     }
 
 
@@ -70,11 +71,11 @@ public class BlockMatrix implements PropertyChangeListener {
 
         this.loadBlocks();
         this.generateMergeBlocks();
+        this.numberGenerator.setLevel(this.userDataManager.loadLevel());
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
         this.playfieldModel.levelUp(this.userDataManager.loadLevel());
         this.playfieldModel.setUndoButtonEnabled(true);
-        this.numberGenerator.setLevel(this.userDataManager.loadLevel());
     }
 
 
@@ -408,6 +409,7 @@ public class BlockMatrix implements PropertyChangeListener {
         if(this.rawMergeBlocks.isEmpty()) {
             this.playfieldModel.gameOver();
             this.audioPlayer.playGameOverSound();
+            Settings.GAME_OVER = true;
         }
     }
 

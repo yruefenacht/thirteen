@@ -64,6 +64,8 @@ public class Block extends Entity {
         Color backgroundColor = (this.value == Settings.LEVEL) ?
             Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(this.value);
 
+        if(this.value == Settings.LEVEL) backgroundColor = Settings.BLOCK_COLORS.get(0);
+
         this.center.setBackground(new Background(new BackgroundFill(
             backgroundColor,
             new CornerRadii(Settings.BLOCK_BORDER_RADIUS),

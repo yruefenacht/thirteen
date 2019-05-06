@@ -29,6 +29,7 @@ public class Settings {
     //Boolean
     public static boolean BOMB_MODE = false;
     public static boolean IS_ANIMATING = false;
+    public static boolean GAME_OVER = false;
 
     //Grid
     public static final int GRID_DIMENSION_X = 5;

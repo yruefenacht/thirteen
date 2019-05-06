@@ -1,5 +1,6 @@
 package controller;
 
+import config.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
@@ -19,7 +20,7 @@ public class MainMenuController {
     @FXML
     private void showPlayfield() {
 
-        ViewChanger.changeToPlayfield(false);
+        ViewChanger.changeToPlayfield(Settings.GAME_OVER);
     }
 
 }
