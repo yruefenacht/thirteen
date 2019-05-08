@@ -20,7 +20,7 @@ public class MainMenuController {
     @FXML
     private void showPlayfield() {
 
-        ViewChanger.changeToPlayfield(Settings.GAME_OVER);
+        ViewChanger.changeToPlayfield(false);
     }
 
 }

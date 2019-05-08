@@ -52,9 +52,31 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
+     * Creates or loads Matrix.
+     * @param forceRestart forcefully create matrix
+     */
+    void initialise(boolean forceRestart) {
+
+        if(forceRestart) {
+            this.createMatrix();
+            return;
+        }
+
+        this.loadBlocks();
+        this.generateMergeBlocks();
+        if(this.rawMergeBlocks.isEmpty()) {
+            this.createMatrix();
+        }
+        else {
+            this.loadMatrix();
+        }
+    }
+
+
+    /**
      * Creates RawBlocks matrix and RawMergeBlocks.
      */
-    void createMatrix() {
+    private void createMatrix() {
 
         this.generateBlocks();
         this.generateMergeBlocks();
@@ -65,17 +87,14 @@ public class BlockMatrix implements PropertyChangeListener {
         this.game.setRawBlocks(this.getBlocksAsList());
         this.game.setPreviousBlocks(new ArrayList<BlockList>());
         this.gameLoader.saveGame(this.game);
-        Settings.GAME_OVER = false;
     }
 
 
     /**
      * Loads Matrix from Game.xml.
      */
-    void loadMatrix() {
+    private void loadMatrix() {
 
-        this.loadBlocks();
-        this.generateMergeBlocks();
         this.numberGenerator.setLevel(this.game.getCurrentLevel());
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
@@ -419,7 +438,6 @@ public class BlockMatrix implements PropertyChangeListener {
         if(this.rawMergeBlocks.isEmpty()) {
             this.playfieldModel.gameOver();
             this.audioPlayer.playGameOverSound();
-            Settings.GAME_OVER = true;
         }
     }
 

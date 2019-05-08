@@ -52,9 +52,9 @@ public class ViewChanger {
 
     /**
      * Show Playfield.fxml.
-     * @param restart if true: generate new blocks
+     * @param forceRestart if true: generate new blocks
      */
-    static void changeToPlayfield(boolean restart) {
+    static void changeToPlayfield(boolean forceRestart) {
 
         try {
             playfieldModel = new PlayfieldModel();
@@ -65,12 +65,7 @@ public class ViewChanger {
             Parent playfield = loader.load();
             playfieldContainer = playfieldController.getPlayfield();
             playfieldController.createPlayfield();
-
-            if(restart)
-                blockMatrix.createMatrix();
-            else
-                blockMatrix.loadMatrix();
-
+            blockMatrix.initialise(forceRestart);
             root.setCenter(playfield);
 
         } catch (IOException e) { e.printStackTrace(); }
