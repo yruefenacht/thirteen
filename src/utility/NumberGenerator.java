@@ -1,4 +1,4 @@
-package entity;
+package utility;
 
 import config.Settings;
 import java.util.Arrays;

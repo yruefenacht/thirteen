@@ -24,7 +24,8 @@ public class Settings {
 
     //Prices
     public static final int TOOL_COST = 50;
-    public static int STAR_COUNT = 100;
+    public static final int STAR_COUNT_DEFAULT = 50;
+    public static int STAR_COUNT = 50;
 
     //Boolean
     public static boolean BOMB_MODE = false;

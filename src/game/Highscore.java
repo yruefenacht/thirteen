@@ -1,4 +1,4 @@
-package config;
+package game;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,18 +18,6 @@ public class Highscore {
 
     @XmlElement
     private int stars;
-
-
-    /**
-     * Class constructor.
-     * @param level level
-     * @param stars number of stars
-     */
-    public Highscore(int level, int stars) {
-
-        this.level = level;
-        this.stars = stars;
-    }
 
 
     /**

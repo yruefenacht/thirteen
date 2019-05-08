@@ -1,4 +1,4 @@
-package entity;
+package utility;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

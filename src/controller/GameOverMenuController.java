@@ -1,27 +1,33 @@
 package controller;
 
+import game.Highscore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import model.PlayfieldModel;
 
 /**
  * GameOverMenuController.java
  * Defines click events of buttons from game over screen.
  */
-class GameOverMenuController {
+public class GameOverMenuController {
 
     private PlayfieldModel playfieldModel;
     @FXML
     private Button gameOverMenuPlayAgain;
     @FXML
     private Button gameOverMenuQuit;
+    @FXML
+    private Label gameOverMenuLevel;
+    @FXML
+    private Label gameOverMenuStars;
 
 
     /**
      * Class constructor.
      * @param playfieldModel observable
      */
-    GameOverMenuController(PlayfieldModel playfieldModel) {
+    public GameOverMenuController(PlayfieldModel playfieldModel) {
 
         this.playfieldModel = playfieldModel;
     }
@@ -30,10 +36,21 @@ class GameOverMenuController {
     /**
      * Defines click events.
      */
-    void setButtons() {
+    public void setButtons() {
 
         this.gameOverMenuPlayAgain.setOnAction(e -> this.playfieldModel.restartGame());
         this.gameOverMenuQuit.setOnAction(e -> this.playfieldModel.quitGame());
+    }
+
+
+    /**
+     * Shows highscore.
+     * @param highscore Highscore
+     */
+    public void setHighscore(Highscore highscore) {
+
+        this.gameOverMenuLevel.setText(Integer.toString(highscore.getLevel()));
+        this.gameOverMenuStars.setText(Integer.toString(highscore.getStars()));
     }
 
 }

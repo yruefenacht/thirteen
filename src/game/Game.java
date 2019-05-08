@@ -1,9 +1,8 @@
-package config;
+package game;
 
 import entity.BlockList;
 import entity.RawBlock;
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,26 +27,6 @@ public class Game {
 
     @XmlElement
     private int currentLevel;
-
-
-    /**
-     * Class constructor.
-     * @param rawBlocks RawBlocks
-     * @param previousBlocks Previous RawBlocks
-     * @param highscore Highscore
-     * @param currentLevel Level
-     */
-    public Game(
-        ArrayList<RawBlock> rawBlocks,
-        ArrayList<BlockList> previousBlocks,
-        Highscore highscore,
-        int currentLevel
-    ) {
-        this.rawBlocks = rawBlocks;
-        this.previousBlocks = previousBlocks;
-        this.highscore = highscore;
-        this.currentLevel = currentLevel;
-    }
 
 
     /**

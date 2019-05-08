@@ -1,9 +1,13 @@
 package controller;
 
+import game.Highscore;
+import utility.AudioPlayer;
+import utility.NumberGenerator;
 import config.Events;
-import config.Game;
+import game.Game;
 import config.Settings;
 import entity.*;
+import game.GameLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -36,7 +40,7 @@ public class BlockMatrix implements PropertyChangeListener {
      * @param dimensionX Matrix dimension X length
      * @param dimensionY Matrix dimension Y length
      */
-    BlockMatrix(PlayfieldModel playfieldModel, int dimensionX, int dimensionY) {
+    public BlockMatrix(PlayfieldModel playfieldModel, int dimensionX, int dimensionY) {
 
         this.dimensionX = dimensionX;
         this.dimensionY = dimensionY;
@@ -55,7 +59,7 @@ public class BlockMatrix implements PropertyChangeListener {
      * Creates or loads Matrix.
      * @param forceRestart forcefully create matrix
      */
-    void initialise(boolean forceRestart) {
+    public void initialise(boolean forceRestart) {
 
         if(forceRestart) {
             this.createMatrix();
@@ -83,6 +87,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
         this.playfieldModel.setUndoButtonEnabled(false);
+        this.playfieldModel.updateStarCount(Settings.STAR_COUNT_DEFAULT);
         this.game.setCurrentLevel(Settings.LEVEL);
         this.game.setRawBlocks(this.getBlocksAsList());
         this.game.setPreviousBlocks(new ArrayList<BlockList>());
@@ -435,8 +440,23 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void checkForGameOver() {
 
+        Settings.STAR_COUNT++;
+
         if(this.rawMergeBlocks.isEmpty()) {
-            this.playfieldModel.gameOver();
+
+            //Set Highscore
+            Highscore highscore = this.game.getHighscore();
+            if(Settings.LEVEL == highscore.getLevel()) {
+                if(Settings.STAR_COUNT > highscore.getStars())
+                    highscore.setStars(Settings.STAR_COUNT);
+            }
+            if(Settings.LEVEL > this.game.getHighscore().getLevel()) {
+                highscore.setLevel(Settings.LEVEL);
+                highscore.setStars(Settings.STAR_COUNT);
+            }
+
+            //Show Game Over screen
+            this.playfieldModel.gameOver(highscore);
             this.audioPlayer.playGameOverSound();
         }
     }
@@ -519,7 +539,6 @@ public class BlockMatrix implements PropertyChangeListener {
         Settings.IS_ANIMATING = true;
         final Timeline timeline = new Timeline(step1, step2, step3, step4, step5, step6);
         timeline.setOnFinished(e -> {
-            Settings.STAR_COUNT++;
             this.playfieldModel.updateStarCount(Settings.STAR_COUNT);
             this.game.setRawBlocks(this.getBlocksAsList());
             this.game.setCurrentLevel(Settings.LEVEL);

@@ -4,6 +4,8 @@ import config.Events;
 import entity.Location;
 import entity.RawBlock;
 import entity.RawMergeBlock;
+import game.Highscore;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -168,9 +170,9 @@ public class PlayfieldModel {
     /**
      * Notify game to show game over screen.
      */
-    public void gameOver() {
+    public void gameOver(Highscore highscore) {
 
-        this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, 0);
+        this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, highscore);
     }
 
 

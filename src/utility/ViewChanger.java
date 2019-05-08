@@ -1,7 +1,9 @@
-package controller;
+package utility;
 
 import config.Settings;
+import controller.*;
 import entity.Animations;
+import game.Highscore;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,7 +56,7 @@ public class ViewChanger {
      * Show Playfield.fxml.
      * @param forceRestart if true: generate new blocks
      */
-    static void changeToPlayfield(boolean forceRestart) {
+    public static void changeToPlayfield(boolean forceRestart) {
 
         try {
             playfieldModel = new PlayfieldModel();
@@ -75,7 +77,7 @@ public class ViewChanger {
     /**
      * Show PlayfieldMenu.fxml.
      */
-    static void showPauseMenu() {
+    public static void showPauseMenu() {
 
         try {
             PlayfieldMenuController playfieldMenuController = new PlayfieldMenuController(playfieldModel);
@@ -97,7 +99,7 @@ public class ViewChanger {
     /**
      * Remove PlayfieldMenu.fxml.
      */
-    static void closePauseMenu() {
+    public static void closePauseMenu() {
 
         playfieldController.setBlur(0);
         FadeTransition fadeTransition = Animations.getFadeAnimation(pauseMenu, 0.0, 300.0, false);
@@ -109,7 +111,7 @@ public class ViewChanger {
     /**
      * Show GameOverMenu.fxml.
      */
-    static void showGameOverScreen() {
+    public static void showGameOverScreen(Highscore highscore) {
 
         try {
             GameOverMenuController gameOverMenuController = new GameOverMenuController(playfieldModel);
@@ -120,6 +122,7 @@ public class ViewChanger {
             gameOverMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
             gameOverMenu.setOpacity(0.0);
             gameOverMenuController.setButtons();
+            gameOverMenuController.setHighscore(highscore);
             playfieldContainer.getChildren().add(gameOverMenu);
             playfieldController.setBlur(3);
             Animations.getFadeAnimation(gameOverMenu, 500.0, 1000.0, true).play();
@@ -131,7 +134,7 @@ public class ViewChanger {
     /**
      * Show UndoMenu.fxml
      */
-    static void showUndoMenu() {
+    public static void showUndoMenu() {
 
         try {
             UndoMenuController undoMenuController = new UndoMenuController(playfieldModel);
@@ -153,7 +156,7 @@ public class ViewChanger {
     /**
      * Remove UndoMenu.fxml
      */
-    static void closeUndoMenu() {
+    public static void closeUndoMenu() {
 
         playfieldController.setBlur(0);
         FadeTransition fadeTransition = Animations.getFadeAnimation(undoMenu, 0.0, 300.0, false);

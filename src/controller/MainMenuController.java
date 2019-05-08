@@ -1,8 +1,8 @@
 package controller;
 
-import config.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import utility.ViewChanger;
 
 /**
  * MainMenuController.java
