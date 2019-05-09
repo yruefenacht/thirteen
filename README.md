@@ -5,13 +5,12 @@
 *By Yannick Rüfenacht and Mohammed Ali*
 
 
-## !Projekt pullen!
+## **Projekt pullen**
 * "--add-modules java.xml.bind" zu VM-Options hinzufügen
-* Thirteen.iml contains dependencies
+* Thirteen.iml beinhaltet alle dependencies
 
 
 ## Git Workflow
-
 *Vor der Arbeit*
 
 1. git pull
@@ -24,7 +23,7 @@
 
 
 ## Definition of Done
-
-* Unit tests passed
-* Code convention and style requirements met
-* Java doc comments written
+* Unit tests alle bestanden
+* Code-Konventionen eingehalten
+* Clean-Code
+* JavaDoc Kommentare geschrieben
