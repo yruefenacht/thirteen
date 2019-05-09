@@ -5,6 +5,10 @@
 *By Yannick Rüfenacht and Mohammed Ali*
 
 
+## !Projekt pullen!
+* "--add-modules java.xml.bind" zu VM-Options hinzufügen
+* Thirteen.iml contains dependencies
+
 
 ## Git Workflow
 

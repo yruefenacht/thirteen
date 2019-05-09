@@ -1,13 +1,25 @@
 package entity;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * RawBlock.java
  * Defines mathematical properties of a Block.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "x", "y", "value" })
 public class RawBlock {
 
+    @XmlElement
     private int x;
+
+    @XmlElement
     private int y;
+
+    @XmlElement
     private int value;
 
 
@@ -23,6 +35,12 @@ public class RawBlock {
         this.y = y;
         this.value = value;
     }
+
+
+    /**
+     * Default Class constructor for JAXB.
+     */
+    public RawBlock() {}
 
 
     /**

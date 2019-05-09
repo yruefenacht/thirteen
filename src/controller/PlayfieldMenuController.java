@@ -11,7 +11,7 @@ import model.PlayfieldModel;
  * @version    1.0
  * Defines click events of buttons from playfield menu.
  */
-class PlayfieldMenuController {
+public class PlayfieldMenuController {
 
     private PlayfieldModel playfieldModel;
     @FXML
@@ -26,7 +26,7 @@ class PlayfieldMenuController {
      * Class constructor.
      * @param playfieldModel observable
      */
-    PlayfieldMenuController(PlayfieldModel playfieldModel) {
+    public PlayfieldMenuController(PlayfieldModel playfieldModel) {
 
         this.playfieldModel = playfieldModel;
     }
@@ -35,7 +35,7 @@ class PlayfieldMenuController {
     /**
      * Defines button click events.
      */
-    void setButtons() {
+    public void setButtons() {
 
         this.playfieldMenuContinue.setOnAction(e -> this.playfieldModel.continueGame());
         this.playfieldMenuRestart.setOnAction(e -> this.playfieldModel.restartGame());

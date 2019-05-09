@@ -3,6 +3,7 @@ package controller;
 import config.Events;
 import entity.*;
 import config.Settings;
+import game.Highscore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.PlayfieldModel;
+import utility.ViewChanger;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -53,7 +56,7 @@ public class PlayfieldController implements PropertyChangeListener {
      * Acts as class constructor.
      * @param playfieldModel Observable to be attached to.
      */
-    PlayfieldController(PlayfieldModel playfieldModel) {
+    public PlayfieldController(PlayfieldModel playfieldModel) {
 
         this.menuButtonImg = new ImageView();
         this.playfieldModel = playfieldModel;
@@ -64,7 +67,7 @@ public class PlayfieldController implements PropertyChangeListener {
     /**
      * Prepares playfield.
      */
-    void createPlayfield() {
+    public void createPlayfield() {
 
         //Prepare MergeBlocks
         this.mergeBlocks = new ArrayList<>();
@@ -99,7 +102,7 @@ public class PlayfieldController implements PropertyChangeListener {
      * Return playfield view so that pause menu can be attached.
      * @return playfield
      */
-    StackPane getPlayfield() {
+    public StackPane getPlayfield() {
 
         return this.playfield;
     }
@@ -110,7 +113,7 @@ public class PlayfieldController implements PropertyChangeListener {
      * 0: None, 5: Max.
      * @param value blur value
      */
-    void setBlur(int value) {
+    public void setBlur(int value) {
 
         this.blurEffect.setIterations(value);
     }
@@ -381,10 +384,10 @@ public class PlayfieldController implements PropertyChangeListener {
     /**
      * Shake blocks and show game over screen.
      */
-    private void showGameOverScreen() {
+    private void showGameOverScreen(Highscore highscore) {
 
         for(Block block : this.blocks) block.shake();
-        ViewChanger.showGameOverScreen();
+        ViewChanger.showGameOverScreen(highscore);
     }
 
 
@@ -449,7 +452,7 @@ public class PlayfieldController implements PropertyChangeListener {
                 this.quitGame();
                 break;
             case Events.GAME_OVER:
-                this.showGameOverScreen();
+                this.showGameOverScreen((Highscore) evt.getNewValue());
                 break;
             case Events.MERGE_BLOCKS_RESET:
                 this.mergeBlocks.clear(); this.playfieldMergeBlocks.getChildren().clear();

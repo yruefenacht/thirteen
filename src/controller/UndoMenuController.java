@@ -6,14 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import model.PlayfieldModel;
 
-/**
- * UndoMenuController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
- * Defines click events of buttons from undo menu.
- */
-
 class UndoMenuController {
 
     private PlayfieldModel playfieldModel;

@@ -4,9 +4,12 @@ import config.Events;
 import entity.Location;
 import entity.RawBlock;
 import entity.RawMergeBlock;
+import game.Highscore;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * PlayfieldModel.java
@@ -25,7 +28,7 @@ public class PlayfieldModel {
      * Notify that RawBlocks have been created.
      * @param rawBlocks created RawBlocks.
      */
-    public void blocksCreated(ArrayList<RawBlock> rawBlocks) {
+    public void blocksCreated(List<RawBlock> rawBlocks) {
 
         this.propertyChangeSupport.firePropertyChange(Events.BLOCKS_CREATED, null, rawBlocks);
     }
@@ -35,7 +38,7 @@ public class PlayfieldModel {
      * Notify that RawMergeBlocks have been created.
      * @param rawMergeBlocks created RawMergeBlocks
      */
-    public void mergeBlocksCreated(ArrayList<RawMergeBlock> rawMergeBlocks) {
+    public void mergeBlocksCreated(List<RawMergeBlock> rawMergeBlocks) {
 
         this.propertyChangeSupport.firePropertyChange(Events.MERGE_BLOCKS_CREATED, null, rawMergeBlocks);
     }
@@ -170,14 +173,14 @@ public class PlayfieldModel {
     /**
      * Notify game to show game over screen.
      */
-    public void gameOver() {
+    public void gameOver(Highscore highscore) {
 
-        this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, 0);
+        this.propertyChangeSupport.firePropertyChange(Events.GAME_OVER, null, highscore);
     }
 
 
     /**
-     * Notify game to go back one step
+     * Notify game to go back one step.
      */
     public void undo() {
 
@@ -196,20 +199,11 @@ public class PlayfieldModel {
 
 
     /**
-     * Notify to clear all MergeBlocks
+     * Notify to clear all MergeBlocks.
      */
     public void resetMergeBlocks() {
 
         this.propertyChangeSupport.firePropertyChange(Events.MERGE_BLOCKS_RESET, null, 0);
-    }
-
-
-    /**
-     * Notify to save game.
-     */
-    public void saveGame() {
-
-        this.propertyChangeSupport.firePropertyChange(Events.SAVE_GAME, null, 0);
     }
 
 
