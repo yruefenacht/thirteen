@@ -5,8 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import model.PlayfieldModel;
+import utility.ViewChanger;
 
-class UndoMenuController {
+public class UndoMenuController {
 
     private PlayfieldModel playfieldModel;
     @FXML
@@ -19,7 +20,7 @@ class UndoMenuController {
      * Class constructor.
      * @param playfieldModel observable
      */
-    UndoMenuController(PlayfieldModel playfieldModel) {
+    public UndoMenuController(PlayfieldModel playfieldModel) {
 
         this.playfieldModel = playfieldModel;
     }
@@ -28,11 +29,12 @@ class UndoMenuController {
     /**
      * Defines click events
      */
-    void setButtons() {
+    public void setButtons() {
 
         undoMenuConfirm.setText("BUY " + Settings.TOOL_COST);
         undoMenuConfirm.setContentDisplay(ContentDisplay.RIGHT);
         undoMenuConfirm.setOnAction(e ->  { ViewChanger.closeUndoMenu(); this.playfieldModel.undo(); });
         undoMenuAbort.setOnAction(e -> ViewChanger.closeUndoMenu());
     }
+    
 }
