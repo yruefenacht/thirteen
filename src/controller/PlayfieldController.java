@@ -300,6 +300,9 @@ public class PlayfieldController implements PropertyChangeListener {
 
     /**
      * Remove mergeBlock from pane.
+     * @author     Yannick Rüfenacht
+     * @author     Mohammed Ali
+     * @version    1.0
      * @param rawMergeBlock block to remove
      */
     private void removeMergeBlock(RawMergeBlock rawMergeBlock) {

@@ -14,6 +14,9 @@ import java.io.IOException;
 /**
  * ViewChange.java
  * Changes views.
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
  * Accessible from everywhere.
  */
 public class ViewChanger {

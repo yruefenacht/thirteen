@@ -6,6 +6,9 @@ import model.PlayfieldModel;
 
 /**
  * PlayfieldMenuController.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
  * Defines click events of buttons from playfield menu.
  */
 class PlayfieldMenuController {

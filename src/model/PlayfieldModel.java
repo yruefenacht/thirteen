@@ -11,6 +11,9 @@ import java.util.ArrayList;
 /**
  * PlayfieldModel.java
  * Observable of game logic
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
  * Notifies the controllers if any changes occur.
  */
 public class PlayfieldModel {

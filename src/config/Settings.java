@@ -6,6 +6,9 @@ import java.util.Map;
 
 /**
  * Settings.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
  * This class stores all constant variables of the project.
  */
 public class Settings {
