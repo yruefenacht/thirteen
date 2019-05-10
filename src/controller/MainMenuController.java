@@ -32,9 +32,8 @@ public class MainMenuController {
     }
 
     @FXML
-    private void changeSoundIcon() {
-
-        Settings.SOUND=false;
+    private void muteSound() {
+       Settings.SOUND=false;
     }
 
 

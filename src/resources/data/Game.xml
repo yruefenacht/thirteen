@@ -4,17 +4,17 @@
         <block>
             <x>0</x>
             <y>0</y>
-            <value>5</value>
+            <value>3</value>
         </block>
         <block>
             <x>0</x>
             <y>1</y>
-            <value>1</value>
+            <value>4</value>
         </block>
         <block>
             <x>0</x>
             <y>2</y>
-            <value>2</value>
+            <value>5</value>
         </block>
         <block>
             <x>0</x>
@@ -29,12 +29,12 @@
         <block>
             <x>1</x>
             <y>0</y>
-            <value>3</value>
+            <value>1</value>
         </block>
         <block>
             <x>1</x>
             <y>1</y>
-            <value>4</value>
+            <value>2</value>
         </block>
         <block>
             <x>1</x>
@@ -54,67 +54,67 @@
         <block>
             <x>2</x>
             <y>0</y>
-            <value>1</value>
-        </block>
-        <block>
-            <x>2</x>
-            <y>1</y>
             <value>3</value>
         </block>
         <block>
             <x>2</x>
-            <y>2</y>
+            <y>1</y>
             <value>4</value>
+        </block>
+        <block>
+            <x>2</x>
+            <y>2</y>
+            <value>3</value>
         </block>
         <block>
             <x>2</x>
             <y>3</y>
-            <value>2</value>
+            <value>6</value>
         </block>
         <block>
             <x>2</x>
             <y>4</y>
-            <value>4</value>
+            <value>2</value>
         </block>
         <block>
             <x>3</x>
             <y>0</y>
+            <value>4</value>
+        </block>
+        <block>
+            <x>3</x>
+            <y>1</y>
+            <value>2</value>
+        </block>
+        <block>
+            <x>3</x>
+            <y>2</y>
+            <value>5</value>
+        </block>
+        <block>
+            <x>3</x>
+            <y>3</y>
             <value>1</value>
         </block>
         <block>
             <x>3</x>
-            <y>1</y>
-            <value>3</value>
-        </block>
-        <block>
-            <x>3</x>
-            <y>2</y>
-            <value>4</value>
-        </block>
-        <block>
-            <x>3</x>
-            <y>3</y>
-            <value>3</value>
-        </block>
-        <block>
-            <x>3</x>
             <y>4</y>
-            <value>4</value>
+            <value>5</value>
         </block>
         <block>
             <x>4</x>
             <y>0</y>
-            <value>3</value>
+            <value>1</value>
         </block>
         <block>
             <x>4</x>
             <y>1</y>
-            <value>4</value>
+            <value>2</value>
         </block>
         <block>
             <x>4</x>
             <y>2</y>
-            <value>4</value>
+            <value>2</value>
         </block>
         <block>
             <x>4</x>
@@ -124,7 +124,7 @@
         <block>
             <x>4</x>
             <y>4</y>
-            <value>2</value>
+            <value>3</value>
         </block>
     </rawBlocks>
     <previousBlocks>
@@ -133,44 +133,44 @@
                 <block>
                     <x>0</x>
                     <y>0</y>
-                    <value>1</value>
-                </block>
-                <block>
-                    <x>0</x>
-                    <y>1</y>
-                    <value>3</value>
-                </block>
-                <block>
-                    <x>0</x>
-                    <y>2</y>
                     <value>2</value>
                 </block>
                 <block>
                     <x>0</x>
-                    <y>3</y>
-                    <value>3</value>
+                    <y>1</y>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>0</x>
-                    <y>4</y>
-                    <value>6</value>
-                </block>
-                <block>
-                    <x>1</x>
-                    <y>0</y>
-                    <value>1</value>
-                </block>
-                <block>
-                    <x>1</x>
-                    <y>1</y>
-                    <value>3</value>
-                </block>
-                <block>
-                    <x>1</x>
                     <y>2</y>
                     <value>5</value>
                 </block>
                 <block>
+                    <x>0</x>
+                    <y>3</y>
+                    <value>3</value>
+                </block>
+                <block>
+                    <x>0</x>
+                    <y>4</y>
+                    <value>6</value>
+                </block>
+                <block>
+                    <x>1</x>
+                    <y>0</y>
+                    <value>2</value>
+                </block>
+                <block>
+                    <x>1</x>
+                    <y>1</y>
+                    <value>5</value>
+                </block>
+                <block>
+                    <x>1</x>
+                    <y>2</y>
+                    <value>3</value>
+                </block>
+                <block>
                     <x>1</x>
                     <y>3</y>
                     <value>6</value>
@@ -183,52 +183,52 @@
                 <block>
                     <x>2</x>
                     <y>0</y>
-                    <value>1</value>
+                    <value>3</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>1</y>
-                    <value>1</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>2</y>
-                    <value>4</value>
+                    <value>3</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>3</y>
-                    <value>2</value>
+                    <value>6</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>4</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>3</x>
                     <y>0</y>
-                    <value>3</value>
-                </block>
-                <block>
-                    <x>3</x>
-                    <y>1</y>
                     <value>2</value>
                 </block>
                 <block>
                     <x>3</x>
-                    <y>2</y>
-                    <value>4</value>
-                </block>
-                <block>
-                    <x>3</x>
-                    <y>3</y>
+                    <y>1</y>
                     <value>3</value>
                 </block>
                 <block>
                     <x>3</x>
+                    <y>2</y>
+                    <value>3</value>
+                </block>
+                <block>
+                    <x>3</x>
+                    <y>3</y>
+                    <value>1</value>
+                </block>
+                <block>
+                    <x>3</x>
                     <y>4</y>
-                    <value>4</value>
+                    <value>5</value>
                 </block>
                 <block>
                     <x>4</x>
@@ -238,12 +238,12 @@
                 <block>
                     <x>4</x>
                     <y>1</y>
-                    <value>4</value>
+                    <value>3</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>2</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>4</x>
@@ -253,7 +253,7 @@
                 <block>
                     <x>4</x>
                     <y>4</y>
-                    <value>2</value>
+                    <value>3</value>
                 </block>
             </blocks>
         </blockList>
@@ -267,12 +267,12 @@
                 <block>
                     <x>0</x>
                     <y>1</y>
-                    <value>1</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>0</x>
                     <y>2</y>
-                    <value>2</value>
+                    <value>5</value>
                 </block>
                 <block>
                     <x>0</x>
@@ -287,12 +287,12 @@
                 <block>
                     <x>1</x>
                     <y>0</y>
-                    <value>1</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>1</x>
                     <y>1</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>1</x>
@@ -312,12 +312,12 @@
                 <block>
                     <x>2</x>
                     <y>0</y>
-                    <value>1</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>1</y>
-                    <value>1</value>
+                    <value>3</value>
                 </block>
                 <block>
                     <x>2</x>
@@ -327,17 +327,17 @@
                 <block>
                     <x>2</x>
                     <y>3</y>
-                    <value>2</value>
+                    <value>6</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>4</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>3</x>
                     <y>0</y>
-                    <value>3</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>3</x>
@@ -352,27 +352,27 @@
                 <block>
                     <x>3</x>
                     <y>3</y>
-                    <value>3</value>
+                    <value>1</value>
                 </block>
                 <block>
                     <x>3</x>
                     <y>4</y>
-                    <value>4</value>
+                    <value>5</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>0</y>
-                    <value>3</value>
+                    <value>1</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>1</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>2</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>4</x>
@@ -382,7 +382,7 @@
                 <block>
                     <x>4</x>
                     <y>4</y>
-                    <value>2</value>
+                    <value>3</value>
                 </block>
             </blocks>
         </blockList>
@@ -396,12 +396,12 @@
                 <block>
                     <x>0</x>
                     <y>1</y>
-                    <value>1</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>0</x>
                     <y>2</y>
-                    <value>2</value>
+                    <value>5</value>
                 </block>
                 <block>
                     <x>0</x>
@@ -421,7 +421,7 @@
                 <block>
                     <x>1</x>
                     <y>1</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>1</x>
@@ -441,32 +441,32 @@
                 <block>
                     <x>2</x>
                     <y>0</y>
-                    <value>2</value>
+                    <value>3</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>1</y>
-                    <value>2</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>2</y>
-                    <value>4</value>
+                    <value>3</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>3</y>
-                    <value>2</value>
+                    <value>6</value>
                 </block>
                 <block>
                     <x>2</x>
                     <y>4</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>3</x>
                     <y>0</y>
-                    <value>3</value>
+                    <value>4</value>
                 </block>
                 <block>
                     <x>3</x>
@@ -476,32 +476,32 @@
                 <block>
                     <x>3</x>
                     <y>2</y>
-                    <value>4</value>
+                    <value>5</value>
                 </block>
                 <block>
                     <x>3</x>
                     <y>3</y>
-                    <value>3</value>
+                    <value>1</value>
                 </block>
                 <block>
                     <x>3</x>
                     <y>4</y>
-                    <value>4</value>
+                    <value>5</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>0</y>
-                    <value>3</value>
+                    <value>1</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>1</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>4</x>
                     <y>2</y>
-                    <value>4</value>
+                    <value>2</value>
                 </block>
                 <block>
                     <x>4</x>
@@ -511,7 +511,7 @@
                 <block>
                     <x>4</x>
                     <y>4</y>
-                    <value>2</value>
+                    <value>3</value>
                 </block>
             </blocks>
         </blockList>
