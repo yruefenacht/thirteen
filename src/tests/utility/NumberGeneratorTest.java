@@ -1,6 +1,7 @@
 package utility;
 
 import config.Settings;
+import game.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ class NumberGeneratorTest {
     @BeforeEach
     void setUp() {
 
-        this.numberGenerator = new NumberGenerator();
+        this.numberGenerator = new NumberGenerator(new Level(0, 0, 0, 0));
         assertNotNull(this.numberGenerator);
     }
 
