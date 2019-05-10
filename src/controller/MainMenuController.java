@@ -1,7 +1,9 @@
 package controller;
 
+import config.Settings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import utility.AudioPlayer;
 import utility.ViewChanger;
 
 /**
@@ -16,6 +18,9 @@ public class MainMenuController {
     @FXML
     private Button playButton;
 
+    @FXML
+    private Button soundButton;
+
 
     /**
      * Define main button click event.
@@ -25,5 +30,12 @@ public class MainMenuController {
 
         ViewChanger.changeToPlayfield(false);
     }
+
+    @FXML
+    private void changeSoundIcon() {
+
+        Settings.SOUND=false;
+    }
+
 
 }

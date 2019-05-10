@@ -11,5 +11,8 @@
     <orderEntry type="module" module-name="vendor-extensions" />
     <orderEntry type="module" module-name="inline-customize" />
     <orderEntry type="module" module-name="streaming-unmarshalling" />
+    <orderEntry type="module" module-name="streaming-unmarshalling" />
+    <orderEntry type="module" module-name="vendor-extensions" />
+    <orderEntry type="module" module-name="inline-customize" />
   </component>
 </module>

@@ -129,7 +129,6 @@ public class ViewChanger {
             playfieldContainer.getChildren().add(gameOverMenu);
             playfieldController.setBlur(3);
             Animations.getFadeAnimation(gameOverMenu, 500.0, 1000.0, true).play();
-
         } catch (IOException e) { e.printStackTrace(); }
     }
 

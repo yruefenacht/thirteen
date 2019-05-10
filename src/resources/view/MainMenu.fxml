@@ -24,7 +24,6 @@
       </padding>
    </VBox>
 
-   <!--
    <HBox alignment="CENTER" prefHeight="59.0" prefWidth="336.0" spacing="50.0">
 
       <Button styleClass="mainMenu__SettingsButtons" prefHeight="59.0" prefWidth="62.0">
@@ -45,5 +44,5 @@
          </graphic>
       </Button>
    </HBox>
-   -->
+
 </VBox>

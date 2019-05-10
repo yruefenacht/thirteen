@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import model.PlayfieldModel;
+import utility.AudioPlayer;
 
 /**
  * GameOverMenuController.java
@@ -55,5 +56,6 @@ public class GameOverMenuController {
         this.gameOverMenuLevel.setText(Integer.toString(highscore.getLevel()));
         this.gameOverMenuStars.setText(Integer.toString(highscore.getStars()));
     }
+
 
 }

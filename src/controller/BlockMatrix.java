@@ -498,6 +498,7 @@ public class BlockMatrix implements PropertyChangeListener {
         this.saveCurrentStates();
 
         //Play sound effect
+
         this.audioPlayer.playPopSound();
 
         //SPECIAL CASE - Check for level up

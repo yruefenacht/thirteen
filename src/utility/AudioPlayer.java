@@ -1,7 +1,11 @@
 package utility;
 
+import config.Settings;
+import javafx.scene.media.AudioClip;
+
 import javax.sound.sampled.*;
 import java.io.IOException;
+import java.util.Set;
 
 /**
  * AudioPlayer.java
@@ -48,9 +52,10 @@ public class AudioPlayer {
      * Played when blocks merge.
      */
     public void playPopSound() {
-
-        this.popSound.setMicrosecondPosition(0);
-        this.popSound.start();
+        if(Settings.SOUND==true) {
+            this.popSound.setMicrosecondPosition(0);
+            this.popSound.start();
+        }
     }
 
 
@@ -58,9 +63,11 @@ public class AudioPlayer {
      * Played when level increases.
      */
     public void playLevelUpSound() {
+        if(Settings.SOUND==true) {
+            this.levelUpSound.setMicrosecondPosition(0);
+            this.levelUpSound.start();
+        }
 
-        this.levelUpSound.setMicrosecondPosition(0);
-        this.levelUpSound.start();
     }
 
 
@@ -68,9 +75,10 @@ public class AudioPlayer {
      * Played when player clicks Block.
      */
     public void playGameOverSound() {
-
-        this.gameOverSoundSound.setMicrosecondPosition(0);
-        this.gameOverSoundSound.start();
+        if(Settings.SOUND==true) {
+            this.gameOverSoundSound.setMicrosecondPosition(0);
+            this.gameOverSoundSound.start();
+        }
     }
 
 }
