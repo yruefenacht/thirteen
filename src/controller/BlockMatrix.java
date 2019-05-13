@@ -50,10 +50,10 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel = playfieldModel;
         this.playfieldModel.addPropertyChangeListener(this);
         this.rawBlocks = new RawBlock[dimensionX][dimensionY];
-        this.numberGenerator = new NumberGenerator();
         this.audioPlayer = new AudioPlayer();
         this.gameLoader = new GameLoader();
         this.game = this.gameLoader.loadGame();
+        this.numberGenerator = new NumberGenerator(this.game.getLevel());
         this.previousBlocks = this.game.getPreviousBlocks();
     }
 
@@ -91,7 +91,8 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
         this.playfieldModel.setUndoButtonEnabled(false);
         this.playfieldModel.updateStarCount(Settings.STAR_COUNT_DEFAULT);
-        this.game.setCurrentLevel(Settings.LEVEL);
+        this.numberGenerator.resetLevel();
+        this.game.setLevel(this.numberGenerator.getLevel());
         this.game.setRawBlocks(this.getBlocksAsList());
         this.game.setPreviousBlocks(new ArrayList<BlockList>());
         this.gameLoader.saveGame(this.game);
@@ -103,10 +104,11 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void loadMatrix() {
 
-        this.numberGenerator.setLevel(this.game.getCurrentLevel());
+        this.numberGenerator.setLevel(this.game.getLevel());
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
-        this.playfieldModel.levelUp(this.game.getCurrentLevel());
+        this.playfieldModel.levelUp(this.game.getLevel().getLevel());
+        this.playfieldModel.updateStarCount(this.game.getLevel().getStars());
         this.playfieldModel.setUndoButtonEnabled(! this.previousBlocks.isEmpty());
     }
 
@@ -444,6 +446,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private void checkForGameOver() {
 
         Settings.STAR_COUNT++;
+        this.numberGenerator.increaseStarCount();
 
         if(this.rawMergeBlocks.isEmpty()) {
 
@@ -545,7 +548,7 @@ public class BlockMatrix implements PropertyChangeListener {
         timeline.setOnFinished(e -> {
             this.playfieldModel.updateStarCount(Settings.STAR_COUNT);
             this.game.setRawBlocks(this.getBlocksAsList());
-            this.game.setCurrentLevel(Settings.LEVEL);
+            this.game.setLevel(this.numberGenerator.getLevel());
             this.gameLoader.saveGame(this.game);
             Settings.IS_ANIMATING = false;
         });

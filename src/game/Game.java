@@ -11,7 +11,7 @@ import java.util.List;
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "rawBlocks", "previousBlocks", "highscore", "currentLevel" })
+@XmlType(propOrder = { "rawBlocks", "previousBlocks", "highscore", "level" })
 public class Game {
 
     @XmlElementWrapper(name="rawBlocks")
@@ -25,8 +25,8 @@ public class Game {
     @XmlElement(name="highscore")
     private Highscore highscore;
 
-    @XmlElement
-    private int currentLevel;
+    @XmlElement(name="level")
+    private Level level;
 
 
     /**
@@ -69,9 +69,9 @@ public class Game {
      * Level getter.
      * @return Level
      */
-    public int getCurrentLevel() {
+    public Level getLevel() {
 
-        return this.currentLevel;
+        return this.level;
     }
 
 
@@ -107,11 +107,11 @@ public class Game {
 
     /**
      * Level setter.
-     * @param currentLevel level
+     * @param level level
      */
-    public void setCurrentLevel(int currentLevel) {
+    public void setLevel(Level level) {
 
-        this.currentLevel = currentLevel;
+        this.level = level;
     }
 
 }

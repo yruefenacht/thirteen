@@ -22,8 +22,8 @@ public class Settings {
     public static int LEVEL_DEFAULT = 6;
     public static int LEVEL_RANGE = 5;
     public static int LEVEL_RANGE_DEFAULT = 5;
-    public static int UPDATE_RANGE_MIN = 7;
-    public static int UPDATE_RANGE_MAX = 11;
+    public static int LEVEL_RANGE_HALT = 3;
+    public static int LEVEL_RANGE_HALT_COUNTER = 0;
 
     //Prices
     public static final int TOOL_COST = 50;
