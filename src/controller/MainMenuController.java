@@ -1,8 +1,11 @@
 package controller;
 
 import config.Settings;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import utility.AudioPlayer;
 import utility.ViewChanger;
 
@@ -33,8 +36,7 @@ public class MainMenuController {
 
     @FXML
     private void muteSound() {
-       Settings.SOUND=false;
+        Settings.SOUND=!Settings.SOUND;
     }
-
-
 }
+
