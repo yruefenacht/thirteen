@@ -24,6 +24,9 @@ public class MainMenuController {
     @FXML
     private Button soundButton;
 
+    private ImageView soundButtonImg;
+    private Image soundIcon;
+    private Image noSoundIcon;
 
     /**
      * Define main button click event.
@@ -37,6 +40,21 @@ public class MainMenuController {
     @FXML
     private void muteSound() {
         Settings.SOUND=!Settings.SOUND;
+        Image soundImage = (Settings.SOUND) ? this.soundIcon : this.noSoundIcon;
+        this.soundButtonImg.setImage(soundImage);
+
+    }
+
+    public void setButtons(){
+        this.soundButtonImg = new ImageView();
+        this.soundButtonImg.setFitHeight(40);
+        this.soundButtonImg.setFitWidth(40);
+        this.soundIcon = new Image("/images/musicIcon.png");
+        this.noSoundIcon = new Image("/images/noMusicIcon.png");
+        this.soundButton.setGraphic(soundButtonImg);
+        Image soundImage = (Settings.SOUND) ? this.soundIcon : this.noSoundIcon;
+        this.soundButtonImg.setImage(soundImage);
+
     }
 }
 

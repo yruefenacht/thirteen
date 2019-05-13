@@ -48,8 +48,12 @@ public class ViewChanger {
     public static void changeToMainMenu() {
 
         try {
-            Parent mainMenu = FXMLLoader.load(ViewChanger.class.getResource("/view/MainMenu.fxml"));
-            root.setCenter(mainMenu);
+            MainMenuController mainMenuController = new MainMenuController();
+            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/MainMenu.fxml"));
+            loader.setController(mainMenuController);
+            root.setCenter(loader.load());
+            mainMenuController.setButtons();
+
 
         } catch (IOException e) { e.printStackTrace(); }
     }

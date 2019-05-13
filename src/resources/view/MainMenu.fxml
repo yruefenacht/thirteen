@@ -10,7 +10,7 @@
 
 <?import javafx.geometry.Insets?>
 
-<VBox alignment="CENTER" spacing="50.0" styleClass="mainMenu" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+<VBox alignment="CENTER" spacing="50.0" styleClass="mainMenu" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <!-- TOP LABEL -->
       <Label alignment="CENTER" styleClass="mainMenu__icon" text="13" />
@@ -36,15 +36,8 @@
       <children>
       
             <Button fx:id="soundButton" onAction="#muteSound" prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/musicIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
             </Button>
-      
+
             <Button prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons" text="EN" />
       
             <Button prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons">
