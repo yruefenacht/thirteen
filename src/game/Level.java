@@ -106,6 +106,7 @@ public class Level {
      * Range setter.
      */
     public void increaseLevelRange() {
+
         this.levelRange++;
     }
 

@@ -5,10 +5,8 @@ import entity.Location;
 import entity.RawBlock;
 import entity.RawMergeBlock;
 import game.Highscore;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

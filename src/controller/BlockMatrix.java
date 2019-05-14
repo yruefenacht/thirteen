@@ -1,11 +1,11 @@
 package controller;
 
+import config.Config;
 import game.Highscore;
 import utility.AudioPlayer;
 import utility.NumberGenerator;
 import config.Events;
 import game.Game;
-import config.Settings;
 import entity.*;
 import game.GameLoader;
 import javafx.animation.KeyFrame;
@@ -90,9 +90,8 @@ public class BlockMatrix implements PropertyChangeListener {
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
         this.playfieldModel.setUndoButtonEnabled(false);
-        this.playfieldModel.updateStarCount(Settings.STAR_COUNT_DEFAULT);
+        this.playfieldModel.updateStarCount(Config.STAR_COUNT_DEFAULT);
         this.numberGenerator.resetLevel();
-        this.game.setLevel(this.numberGenerator.getLevel());
         this.game.setRawBlocks(this.getBlocksAsList());
         this.game.setPreviousBlocks(new ArrayList<BlockList>());
         this.gameLoader.saveGame(this.game);
@@ -139,8 +138,8 @@ public class BlockMatrix implements PropertyChangeListener {
             }
         }
         int initialX = this.numberGenerator.getInitialBlockX();
-        int initialY = Settings.GRID_DIMENSION_Y - 1;
-        this.rawBlocks[initialX][initialY] = new RawBlock(initialX, initialY, Settings.LEVEL);
+        int initialY = Config.GRID_DIMENSION_Y - 1;
+        this.rawBlocks[initialX][initialY] = new RawBlock(initialX, initialY, Config.LEVEL);
     }
 
 
@@ -234,7 +233,7 @@ public class BlockMatrix implements PropertyChangeListener {
         ArrayList<RawBlock> minBlocks = new ArrayList<>();
 
         for(RawBlock rawBlock : this.getBlocksAsList())
-            if(rawBlock.getValue() == Settings.LEVEL - Settings.LEVEL_RANGE)
+            if(rawBlock.getValue() == Config.LEVEL - Config.LEVEL_RANGE)
                 minBlocks.add(rawBlock);
 
         return minBlocks;
@@ -249,9 +248,9 @@ public class BlockMatrix implements PropertyChangeListener {
         if(this.previousBlocks.isEmpty()) return;
         if(this.previousBlocks.size() == 1) this.playfieldModel.setUndoButtonEnabled(false);
 
-        this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.TOOL_COST);
+        this.playfieldModel.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
 
-        if(Settings.STAR_COUNT < Settings.TOOL_COST)
+        if(Config.STAR_COUNT < Config.TOOL_COST)
             this.playfieldModel.setUndoButtonEnabled(false);
 
         BlockList latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
@@ -282,7 +281,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
         this.previousBlocks.add(new BlockList(currentBlocks));
 
-        if(this.previousBlocks.size() > Settings.MAX_PREVIOUS_STATES)
+        if(this.previousBlocks.size() > Config.MAX_PREVIOUS_STATES)
             this.previousBlocks.remove(0);
 
         this.game.setPreviousBlocks(this.previousBlocks);
@@ -302,10 +301,10 @@ public class BlockMatrix implements PropertyChangeListener {
         if(bombMode) return minBlocks;
 
         for(RawBlock neighbor : neighbors) {
-            if (neighbor.getValue() == Settings.LEVEL) {
+            if (neighbor.getValue() == Config.LEVEL) {
                 minBlocks.addAll(this.getMinBlocks());
                 this.numberGenerator.increaseLevel();
-                this.playfieldModel.levelUp(Settings.LEVEL);
+                this.playfieldModel.levelUp(Config.LEVEL);
                 this.audioPlayer.playLevelUpSound();
                 break;
             }
@@ -445,20 +444,20 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void checkForGameOver() {
 
-        Settings.STAR_COUNT++;
+        Config.STAR_COUNT++;
         this.numberGenerator.increaseStarCount();
 
         if(this.rawMergeBlocks.isEmpty()) {
 
             //Set Highscore
             Highscore highscore = this.game.getHighscore();
-            if(Settings.LEVEL == highscore.getLevel()) {
-                if(Settings.STAR_COUNT > highscore.getStars())
-                    highscore.setStars(Settings.STAR_COUNT);
+            if(Config.LEVEL == highscore.getLevel()) {
+                if(Config.STAR_COUNT > highscore.getStars())
+                    highscore.setStars(Config.STAR_COUNT);
             }
-            if(Settings.LEVEL > this.game.getHighscore().getLevel()) {
-                highscore.setLevel(Settings.LEVEL);
-                highscore.setStars(Settings.STAR_COUNT);
+            if(Config.LEVEL > this.game.getHighscore().getLevel()) {
+                highscore.setLevel(Config.LEVEL);
+                highscore.setStars(Config.STAR_COUNT);
             }
 
             //Show Game Over screen
@@ -474,11 +473,11 @@ public class BlockMatrix implements PropertyChangeListener {
      */
     private void blockClicked(Location location) {
 
-        if(Settings.IS_ANIMATING) return;
+        if(Config.IS_ANIMATING) return;
 
         int x = location.getX();
         int y = location.getY();
-        boolean bombMode = Settings.BOMB_MODE;
+        boolean bombMode = Config.BOMB_MODE;
 
         //STEP 0 - Get neighbors
         ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
@@ -488,14 +487,14 @@ public class BlockMatrix implements PropertyChangeListener {
             neighbors.clear();
             neighbors.add(this.getBlockAt(x, y));
             this.playfieldModel.toggleBombMode();
-            this.playfieldModel.updateStarCount(Settings.STAR_COUNT -= Settings.TOOL_COST);
+            this.playfieldModel.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
         }
 
         //Ignore single blocks
         if(neighbors.isEmpty()) return;
 
         //Enable undo button
-        if(Settings.STAR_COUNT >= Settings.TOOL_COST) this.playfieldModel.setUndoButtonEnabled(true);
+        if(Config.STAR_COUNT >= Config.TOOL_COST) this.playfieldModel.setUndoButtonEnabled(true);
 
         //Store current state
         this.saveCurrentStates();
@@ -527,30 +526,29 @@ public class BlockMatrix implements PropertyChangeListener {
 
         //STEP 4 - Replace neighbors with new RawBlocks
         final KeyFrame step4 = new KeyFrame(
-            Duration.millis(Settings.GRID_ANIMATION),
+            Duration.millis(Config.GRID_ANIMATION),
             e -> this.createNewBlocks(neighbors)
         );
 
         //STEP 5 - Create new MergeBlocks
         final KeyFrame step5 = new KeyFrame(
-            Duration.millis(Settings.GRID_ANIMATION),
+            Duration.millis(Config.GRID_ANIMATION),
             e -> this.generateNewMergeBlocks()
         );
 
         //STEP 6 - Check for game over
         final KeyFrame step6 = new KeyFrame(
-            Duration.millis(Settings.GRID_ANIMATION),
+            Duration.millis(Config.GRID_ANIMATION),
             e -> this.checkForGameOver()
         );
 
-        Settings.IS_ANIMATING = true;
+        Config.IS_ANIMATING = true;
         final Timeline timeline = new Timeline(step1, step2, step3, step4, step5, step6);
         timeline.setOnFinished(e -> {
-            this.playfieldModel.updateStarCount(Settings.STAR_COUNT);
+            this.playfieldModel.updateStarCount(Config.STAR_COUNT);
             this.game.setRawBlocks(this.getBlocksAsList());
-            this.game.setLevel(this.numberGenerator.getLevel());
             this.gameLoader.saveGame(this.game);
-            Settings.IS_ANIMATING = false;
+            Config.IS_ANIMATING = false;
         });
         timeline.play();
     }

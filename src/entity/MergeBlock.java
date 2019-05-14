@@ -1,6 +1,6 @@
 package entity;
 
-import config.Settings;
+import config.Config;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -35,8 +35,8 @@ public class MergeBlock extends Entity {
         this.y2 = y2;
 
         //Set position
-        this.setLayoutX((x1 * Settings.BLOCK_WIDTH) + (Settings.GRID_SPACING / 2));
-        this.setLayoutY((y1 * Settings.BLOCK_HEIGHT) + (Settings.GRID_SPACING / 2));
+        this.setLayoutX((x1 * Config.BLOCK_WIDTH) + (Config.GRID_SPACING / 2));
+        this.setLayoutY((y1 * Config.BLOCK_HEIGHT) + (Config.GRID_SPACING / 2));
 
         this.setScaleX(0);
         this.setScaleY(0);
@@ -46,24 +46,24 @@ public class MergeBlock extends Entity {
         int height;
 
         if(x1 < x2) {
-            width = Settings.MERGE_BLOCK_LENGTH;
-            height = Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1);
+            width = Config.MERGE_BLOCK_LENGTH;
+            height = Config.BLOCK_WIDTH - (Config.GRID_SPACING - 1);
         }
         else {
-            height = Settings.MERGE_BLOCK_LENGTH;
-            width = Settings.BLOCK_WIDTH - (Settings.GRID_SPACING - 1);
+            height = Config.MERGE_BLOCK_LENGTH;
+            width = Config.BLOCK_WIDTH - (Config.GRID_SPACING - 1);
         }
 
         this.setPrefWidth(width);
         this.setPrefHeight(height);
 
         //Set background color
-        Color backgroundColor = (value == Settings.LEVEL) ?
-                Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(value);
+        Color backgroundColor = (value == Config.LEVEL) ?
+                Config.BLOCK_COLORS.get(0) : Config.BLOCK_COLORS.get(value);
 
         this.setBackground(new Background(new BackgroundFill(
                 backgroundColor,
-                new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
+                new CornerRadii(Config.BLOCK_BORDER_RADIUS),
                 Insets.EMPTY
         )));
     }

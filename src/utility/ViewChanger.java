@@ -1,6 +1,6 @@
 package utility;
 
-import config.Settings;
+import config.Config;
 import controller.*;
 import entity.Animations;
 import game.Highscore;
@@ -54,7 +54,6 @@ public class ViewChanger {
             root.setCenter(loader.load());
             mainMenuController.setButtons();
 
-
         } catch (IOException e) { e.printStackTrace(); }
     }
 
@@ -68,7 +67,7 @@ public class ViewChanger {
         try {
             playfieldModel = new PlayfieldModel();
             playfieldController = new PlayfieldController(playfieldModel);
-            BlockMatrix blockMatrix = new BlockMatrix(playfieldModel, Settings.GRID_DIMENSION_X, Settings.GRID_DIMENSION_Y);
+            BlockMatrix blockMatrix = new BlockMatrix(playfieldModel, Config.GRID_DIMENSION_X, Config.GRID_DIMENSION_Y);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"));
             loader.setController(playfieldController);
             Parent playfield = loader.load();
@@ -91,8 +90,8 @@ public class ViewChanger {
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/PlayfieldMenu.fxml"));
             loader.setController(playfieldMenuController);
             pauseMenu = loader.load();
-            pauseMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
-            pauseMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+            pauseMenu.setPrefWidth(Config.GRID_DIMENSION_X * Config.BLOCK_WIDTH);
+            pauseMenu.setPrefHeight(Config.GRID_DIMENSION_X * Config.BLOCK_HEIGHT);
             pauseMenu.setOpacity(0.0);
             playfieldMenuController.setButtons();
             playfieldContainer.getChildren().add(pauseMenu);
@@ -125,8 +124,8 @@ public class ViewChanger {
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/GameOverMenu.fxml"));
             loader.setController(gameOverMenuController);
             VBox gameOverMenu = loader.load();
-            gameOverMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
-            gameOverMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+            gameOverMenu.setPrefWidth(Config.GRID_DIMENSION_X * Config.BLOCK_WIDTH);
+            gameOverMenu.setPrefHeight(Config.GRID_DIMENSION_X * Config.BLOCK_HEIGHT);
             gameOverMenu.setOpacity(0.0);
             gameOverMenuController.setButtons();
             gameOverMenuController.setHighscore(highscore);
@@ -147,8 +146,8 @@ public class ViewChanger {
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/UndoMenu.fxml"));
             loader.setController(undoMenuController);
             undoMenu = loader.load();
-            undoMenu.setPrefWidth(Settings.GRID_DIMENSION_X * Settings.BLOCK_WIDTH);
-            undoMenu.setPrefHeight(Settings.GRID_DIMENSION_X * Settings.BLOCK_HEIGHT);
+            undoMenu.setPrefWidth(Config.GRID_DIMENSION_X * Config.BLOCK_WIDTH);
+            undoMenu.setPrefHeight(Config.GRID_DIMENSION_X * Config.BLOCK_HEIGHT);
             undoMenu.setOpacity(0.0);
             undoMenuController.setButtons();
             playfieldContainer.getChildren().add(undoMenu);

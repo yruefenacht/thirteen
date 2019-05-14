@@ -1,4 +1,4 @@
-import config.Settings;
+import config.Config;
 import utility.ViewChanger;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -24,11 +24,11 @@ public class ThirteenMain extends Application {
         //Font
         Font.loadFont(
             this.getClass().getResource("fonts/SourceSansPro-Regular.ttf").toExternalForm(),
-            Settings.FONT_SIZE_DEFAULT
+            Config.FONT_SIZE_DEFAULT
         );
         Font.loadFont(
             this.getClass().getResource("fonts/PermanentMarker-Regular.ttf").toExternalForm(),
-            Settings.FONT_SIZE_DEFAULT
+            Config.FONT_SIZE_DEFAULT
         );
 
         //View
@@ -36,15 +36,15 @@ public class ThirteenMain extends Application {
         ViewChanger.changeToMainMenu();
 
         //Scene
-        Scene scene = new Scene(root, Settings.SCENE_WIDTH, Settings.SCENE_HEIGHT);
+        Scene scene = new Scene(root, Config.SCENE_WIDTH, Config.SCENE_HEIGHT);
         scene.getStylesheets().add(this.getClass().getResource("css/style.css").toExternalForm());
 
         //Stage
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(Settings.SCENE_WIDTH);
-        primaryStage.setMinHeight(Settings.SCENE_HEIGHT);
+        primaryStage.setMinWidth(Config.SCENE_WIDTH);
+        primaryStage.setMinHeight(Config.SCENE_HEIGHT);
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/app_icon.png")));
-        primaryStage.setTitle(Settings.APP_TITLE);
+        primaryStage.setTitle(Config.APP_TITLE);
         primaryStage.show();
     }
 

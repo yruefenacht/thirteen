@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Settings.java
+ * Config.java
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
  * This class stores all constant variables of the project.
  */
-public class Settings {
+public class Config {
 
     //General
     public static final String APP_TITLE = "Thirteen";
@@ -34,6 +34,7 @@ public class Settings {
     public static boolean BOMB_MODE = false;
     public static boolean IS_ANIMATING = false;
     public static boolean SOUND = true;
+
     //Grid
     public static final int GRID_DIMENSION_X = 5;
     public static final int GRID_DIMENSION_Y = 5;
@@ -47,6 +48,7 @@ public class Settings {
     public static final int BLOCK_BORDER_RADIUS = 5;
     public static final int MERGE_BLOCK_LENGTH = (2 * BLOCK_WIDTH) - (2 * BLOCK_BORDER_RADIUS);
     public static final int MAX_PREVIOUS_STATES = 3;
+    public static final int MAIN_MENU_ICON_SIZE = 25;
 
     //Scene
     private static final int SCENE_TOP = 275;
@@ -73,4 +75,5 @@ public class Settings {
         put(14, Color.rgb(134, 134, 134));
         put(15, Color.rgb(79, 79, 79));
     }};
+
 }

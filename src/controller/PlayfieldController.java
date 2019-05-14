@@ -1,8 +1,8 @@
 package controller;
 
+import config.Config;
 import config.Events;
 import entity.*;
-import config.Settings;
 import game.Highscore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -73,10 +73,10 @@ public class PlayfieldController implements PropertyChangeListener {
         this.mergeBlocks = new ArrayList<>();
 
         //Display Level
-        this.playfieldLevel.setText(Integer.toString(Settings.LEVEL));
+        this.playfieldLevel.setText(Integer.toString(Config.LEVEL));
 
         //Display Money
-        this.playfieldStarCount.setText(Integer.toString(Settings.STAR_COUNT));
+        this.playfieldStarCount.setText(Integer.toString(Config.STAR_COUNT));
 
         //Set blur effect
         this.blurEffect = new BoxBlur();
@@ -260,9 +260,9 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void resetLevel() {
 
-        Settings.LEVEL = Settings.LEVEL_DEFAULT;
-        Settings.LEVEL_RANGE = Settings.LEVEL_RANGE_DEFAULT;
-        this.levelUp(Settings.LEVEL);
+        Config.LEVEL = Config.LEVEL_DEFAULT;
+        Config.LEVEL_RANGE = Config.LEVEL_RANGE_DEFAULT;
+        this.levelUp(Config.LEVEL);
     }
 
 
@@ -271,7 +271,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void undoLatestStep() {
 
-        if(Settings.STAR_COUNT < Settings.TOOL_COST) return;
+        if(Config.STAR_COUNT < Config.TOOL_COST) return;
         ViewChanger.showUndoMenu();
     }
 
@@ -281,11 +281,11 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void toggleBombMode() {
 
-        if(Settings.STAR_COUNT < Settings.TOOL_COST) return;
+        if(Config.STAR_COUNT < Config.TOOL_COST) return;
 
-        Settings.BOMB_MODE = !Settings.BOMB_MODE;
-        this.playfieldMergeBlocks.setVisible(!Settings.BOMB_MODE);
-        for (Block block : this.blocks) block.setBombMode(Settings.BOMB_MODE);
+        Config.BOMB_MODE = !Config.BOMB_MODE;
+        this.playfieldMergeBlocks.setVisible(!Config.BOMB_MODE);
+        for (Block block : this.blocks) block.setBombMode(Config.BOMB_MODE);
     }
 
 

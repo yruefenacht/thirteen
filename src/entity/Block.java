@@ -1,6 +1,6 @@
 package entity;
 
-import config.Settings;
+import config.Config;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -41,13 +41,13 @@ public class Block extends Entity {
 
         this.setBackground();
         this.center.setAlignment(Pos.CENTER);
-        this.center.setPrefWidth(Settings.BLOCK_WIDTH - Settings.GRID_SPACING);
-        this.center.setPrefHeight(Settings.BLOCK_HEIGHT - Settings.GRID_SPACING);
-        this.setLayoutX(this.x * Settings.BLOCK_WIDTH);
-        this.setLayoutY(this.y * Settings.BLOCK_HEIGHT);
+        this.center.setPrefWidth(Config.BLOCK_WIDTH - Config.GRID_SPACING);
+        this.center.setPrefHeight(Config.BLOCK_HEIGHT - Config.GRID_SPACING);
+        this.setLayoutX(this.x * Config.BLOCK_WIDTH);
+        this.setLayoutY(this.y * Config.BLOCK_HEIGHT);
         this.setScaleX(0);
         this.setScaleY(0);
-        this.setPrefSize(Settings.BLOCK_WIDTH, Settings.BLOCK_HEIGHT );
+        this.setPrefSize(Config.BLOCK_WIDTH, Config.BLOCK_HEIGHT );
         this.setCursor(Cursor.HAND);
         this.setAlignment(Pos.CENTER);
         this.getStyleClass().add("playfield__block");
@@ -61,14 +61,14 @@ public class Block extends Entity {
      */
     public void setBackground() {
 
-        Color backgroundColor = (this.value == Settings.LEVEL) ?
-            Settings.BLOCK_COLORS.get(0) : Settings.BLOCK_COLORS.get(this.value);
+        Color backgroundColor = (this.value == Config.LEVEL) ?
+            Config.BLOCK_COLORS.get(0) : Config.BLOCK_COLORS.get(this.value);
 
-        if(this.value == Settings.LEVEL) backgroundColor = Settings.BLOCK_COLORS.get(0);
+        if(this.value == Config.LEVEL) backgroundColor = Config.BLOCK_COLORS.get(0);
 
         this.center.setBackground(new Background(new BackgroundFill(
             backgroundColor,
-            new CornerRadii(Settings.BLOCK_BORDER_RADIUS),
+            new CornerRadii(Config.BLOCK_BORDER_RADIUS),
             Insets.EMPTY)
         ));
     }

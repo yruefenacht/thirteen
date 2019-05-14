@@ -1,56 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <!-- MAIN MENU -->
-
-<?import javafx.geometry.Insets?>
-
 <VBox alignment="CENTER" spacing="50.0" styleClass="mainMenu" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <!-- TOP LABEL -->
-      <Label alignment="CENTER" styleClass="mainMenu__icon" text="13" />
-      <!-- MAIN BUTTONS -->
-      <VBox alignment="CENTER">
-         <children>
-            <Button graphicTextGap="25.0" onAction="#showPlayfield" styleClass="mainMenu__MainButton" text="Play">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/playIcon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-         <padding>
-            <Insets top="30.0" />
-         </padding>
-      </VBox>
-   
-      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="336.0" spacing="50.0">
-      <children>
-      
-            <Button fx:id="soundButton" onAction="#muteSound" prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons">
-            </Button>
-
-            <Button prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons" text="EN" />
-      
-            <Button prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons">
-               <graphic>
-                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                     <Image url="@../images/settingIcon.png" />
-                  </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-      </children>
-      </HBox>
-   </children>
-
+   <!-- TOP LABEL -->
+   <Label alignment="CENTER" styleClass="mainMenu__icon" text="13" />
+   <!-- MAIN BUTTON -->
+   <VBox alignment="CENTER">
+      <Button fx:id="mainMenuPlayButton" graphicTextGap="25.0" styleClass="mainMenu__MainButton" text="Play">
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true">
+               <Image url="@../images/play_icon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
+      <padding>
+         <Insets top="30.0" />
+      </padding>
+   </VBox>
+   <!-- SETTINGS -->
+   <HBox alignment="CENTER" prefHeight="59.0" prefWidth="336.0" spacing="50.0">
+      <Button fx:id="soundButton" prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons" />
+      <Button prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons" text="EN" />
+      <Button prefHeight="59.0" prefWidth="62.0" styleClass="mainMenu__SettingsButtons">
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../images/settingIcon.png" />
+            </ImageView>
+         </graphic>
+      </Button>
+   </HBox>
 </VBox>

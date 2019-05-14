@@ -1,6 +1,6 @@
 package controller;
 
-import config.Settings;
+import config.Config;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -31,7 +31,7 @@ public class UndoMenuController {
      */
     public void setButtons() {
 
-        undoMenuConfirm.setText("BUY " + Settings.TOOL_COST);
+        undoMenuConfirm.setText("BUY " + Config.TOOL_COST);
         undoMenuConfirm.setContentDisplay(ContentDisplay.RIGHT);
         undoMenuConfirm.setOnAction(e ->  { ViewChanger.closeUndoMenu(); this.playfieldModel.undo(); });
         undoMenuAbort.setOnAction(e -> ViewChanger.closeUndoMenu());

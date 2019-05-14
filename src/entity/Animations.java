@@ -1,6 +1,6 @@
 package entity;
 
-import config.Settings;
+import config.Config;
 import javafx.animation.*;
 import javafx.scene.Parent;
 import javafx.util.Duration;
@@ -20,7 +20,7 @@ public class Animations {
 
         return new Timeline(
             new KeyFrame(
-                Duration.millis(Settings.BLOCK_ANIMATION),
+                Duration.millis(Config.BLOCK_ANIMATION),
                 new KeyValue(entity.scaleXProperty(), 1),
                 new KeyValue(entity.scaleYProperty(), 1)
             )
@@ -37,8 +37,8 @@ public class Animations {
 
         return new Timeline(
             new KeyFrame(
-                Duration.millis(Settings.BLOCK_ANIMATION),
-                new KeyValue(entity.layoutYProperty(), entity.getLayoutY() + (Settings.BLOCK_HEIGHT * steps)))
+                Duration.millis(Config.BLOCK_ANIMATION),
+                new KeyValue(entity.layoutYProperty(), entity.getLayoutY() + (Config.BLOCK_HEIGHT * steps)))
         );
     }
 

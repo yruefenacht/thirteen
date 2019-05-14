@@ -1,6 +1,6 @@
 package utility;
 
-import config.Settings;
+import config.Config;
 import game.Level;
 import java.util.Random;
 
@@ -31,7 +31,7 @@ public class NumberGenerator {
      */
     public int getInitialBlockX() {
 
-        return this.random.nextInt(Settings.GRID_DIMENSION_X);
+        return this.random.nextInt(Config.GRID_DIMENSION_X);
     }
 
 
@@ -42,8 +42,8 @@ public class NumberGenerator {
      */
     public int getRandomNumber() {
 
-        int max = Settings.LEVEL - 1;
-        int min = Settings.LEVEL - Settings.LEVEL_RANGE;
+        int max = Config.LEVEL - 1;
+        int min = Config.LEVEL - Config.LEVEL_RANGE;
         double range = max - min + 1;
         double p = (range / 3) / (range);
 
@@ -117,12 +117,12 @@ public class NumberGenerator {
      */
     public void increaseLevel() {
 
-        Settings.LEVEL++;
+        Config.LEVEL++;
         this.level.increaseLevel();
-        Settings.LEVEL_RANGE_HALT_COUNTER++;
+        Config.LEVEL_RANGE_HALT_COUNTER++;
         this.level.increaseLevelRangeHaltCounter();
-        if(Settings.LEVEL_RANGE_HALT_COUNTER % Settings.LEVEL_RANGE_HALT != 0) {
-            Settings.LEVEL_RANGE++;
+        if(Config.LEVEL_RANGE_HALT_COUNTER % Config.LEVEL_RANGE_HALT != 0) {
+            Config.LEVEL_RANGE++;
             this.level.increaseLevelRange();
         }
     }
@@ -134,9 +134,9 @@ public class NumberGenerator {
     public void resetLevel() {
 
         this.level = new Level(
-            Settings.LEVEL_DEFAULT,
-            Settings.STAR_COUNT_DEFAULT,
-            Settings.LEVEL_RANGE_DEFAULT, 0
+            Config.LEVEL_DEFAULT,
+            Config.STAR_COUNT_DEFAULT,
+            Config.LEVEL_RANGE_DEFAULT, 0
         );
     }
 
@@ -148,10 +148,10 @@ public class NumberGenerator {
     public void setLevel(Level level) {
 
         this.level = level;
-        Settings.LEVEL = level.getLevel();
-        Settings.STAR_COUNT = level.getStars();
-        Settings.LEVEL_RANGE = level.getLevelRange();
-        Settings.LEVEL_RANGE_HALT_COUNTER = level.getLevelRangeHaltCounter();
+        Config.LEVEL = level.getLevel();
+        Config.STAR_COUNT = level.getStars();
+        Config.LEVEL_RANGE = level.getLevelRange();
+        Config.LEVEL_RANGE_HALT_COUNTER = level.getLevelRangeHaltCounter();
     }
 
 
