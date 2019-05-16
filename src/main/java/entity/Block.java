@@ -11,6 +11,10 @@ import model.PlayfieldModel;
 
 /**
  * Block.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * This class represents a single block on the play grid.
  */
 public class Block extends Entity {
@@ -88,7 +92,7 @@ public class Block extends Entity {
 
 
     /**
-     * Sends coordinates to thirteen.model.
+     * Sends coordinates to model.
      */
     private void blockClicked() {
 
@@ -118,7 +122,7 @@ public class Block extends Entity {
 
 
     /**
-     * Shake when thirteen.game is over.
+     * Shake when game is over.
      */
     public void shake() {
 

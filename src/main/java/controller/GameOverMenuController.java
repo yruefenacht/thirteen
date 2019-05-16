@@ -11,7 +11,8 @@ import model.PlayfieldModel;
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
- * Defines click events of buttons from thirteen.game over screen.
+ *
+ * Defines click events of buttons from game over screen.
  */
 public class GameOverMenuController {
 
@@ -55,6 +56,5 @@ public class GameOverMenuController {
         this.gameOverMenuLevel.setText(Integer.toString(highscore.getLevel()));
         this.gameOverMenuStars.setText(Integer.toString(highscore.getStars()));
     }
-
 
 }

@@ -16,6 +16,10 @@ import java.util.List;
 
 /**
  * BotMain.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Launches application with BotMain-Window.
  */
 public class BotMain extends Application {
@@ -79,7 +83,8 @@ public class BotMain extends Application {
 
         //BotMain window
         List<BotStrategy> botStrategies = new ArrayList<>(Arrays.asList(
-                new RandomStrategy()
+                new RandomStrategy(),
+                new GreedyStrategy()
         ));
         Bot botController = new Bot(playfieldModel, botStrategies);
         FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("../view/BotWindow.fxml"));

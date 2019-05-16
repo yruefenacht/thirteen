@@ -7,13 +7,17 @@ import javafx.util.Duration;
 
 /**
  * Animations.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Provides all animations.
  */
 public class Animations {
 
     /**
-     * Creates initial scale animation on given thirteen.entity.
-     * @param entity given thirteen.entity
+     * Creates initial scale animation on given entity.
+     * @param entity given entity
      * @return timeline
      */
     static Timeline getScaleAnimation(Entity entity) {
@@ -29,8 +33,8 @@ public class Animations {
 
 
     /**
-     * Creates sinking animation on given thirteen.entity.
-     * @param entity given thirteen.entity
+     * Creates sinking animation on given entity.
+     * @param entity given entity
      * @return timeline
      */
     static Timeline getSinkAnimation(Entity entity, int steps) {
@@ -83,7 +87,7 @@ public class Animations {
 
     /**
      * Get Shake Animation.
-     * @param entity animate this thirteen.entity
+     * @param entity animate this entity
      * @return TimeLine
      */
     static Timeline getShakeAnimation(Entity entity) {

@@ -1,13 +1,12 @@
-# Group 9
+# Thirteen
 
-**Thirteen**
-
-*By Yannick Rüfenacht and Mohammed Ali*
+**By Yannick Rüfenacht and Mohammed Ali**
 
 
-## **Projekt pullen**
-* "--add-modules java.xml.bind" zu VM-Options hinzufügen
-* Thirteen.iml beinhaltet alle dependencies
+## **_Projekt pullen_**
+**_Dies ist ein Maven-Projekt, dementsprechend sollte das Projekt
+bei der betroffenen IDE als Maven-Projekt importiert werden,
+damit alle Dependencies heruntergeladen werden_**
 
 
 ## Git Workflow

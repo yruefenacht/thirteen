@@ -11,10 +11,11 @@ import java.util.List;
 
 /**
  * PlayfieldModel.java
- * Observable of thirteen.game logic
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
+ *
+ * Observable of game logic.
  * Notifies the controllers if any changes occur.
  */
 public class PlayfieldModel {
@@ -142,7 +143,7 @@ public class PlayfieldModel {
 
 
     /**
-     * Notify thirteen.game to continue.
+     * Notify game to continue.
      */
     public void continueGame() {
 
@@ -151,7 +152,7 @@ public class PlayfieldModel {
 
 
     /**
-     * Notify thirteen.game to restart.
+     * Notify game to restart.
      */
     public void restartGame() {
 
@@ -160,7 +161,7 @@ public class PlayfieldModel {
 
 
     /**
-     * Notify thirteen.game to terminate.
+     * Notify game to terminate.
      */
     public void quitGame() {
 
@@ -169,7 +170,7 @@ public class PlayfieldModel {
 
 
     /**
-     * Notify thirteen.game to show thirteen.game over screen.
+     * Notify game to show game over screen.
      */
     public void gameOver(Highscore highscore) {
 
@@ -178,7 +179,7 @@ public class PlayfieldModel {
 
 
     /**
-     * Notify thirteen.game to go back one step.
+     * Notify game to go back one step.
      */
     public void undo() {
 

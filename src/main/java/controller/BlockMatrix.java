@@ -21,6 +21,7 @@ import java.util.*;
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
+ *
  * This class creates and manages a matrix of Block elements.
  */
 public class BlockMatrix implements PropertyChangeListener {
@@ -538,7 +539,7 @@ public class BlockMatrix implements PropertyChangeListener {
             e -> this.generateNewMergeBlocks()
         );
 
-        //STEP 6 - Check for thirteen.game over
+        //STEP 6 - Check for game over
         final KeyFrame step6 = new KeyFrame(
             Duration.millis(Config.GRID_ANIMATION),
             e -> this.checkForGameOver()
@@ -557,7 +558,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Is called whenever thirteen.model fires propertyChangeEvent.
+     * Is called whenever model fires propertyChangeEvent.
      * @param evt Properties that have changed
      */
     @Override

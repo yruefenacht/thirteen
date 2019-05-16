@@ -8,7 +8,11 @@ import javafx.stage.Stage;
 import utility.ViewChanger;
 
 /**
- * thirteen.ThirteenMain.java
+ * ThirteenMain.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * This class provides the static main method as entry point for the JVM.
  */
 public class ThirteenMain extends Application {

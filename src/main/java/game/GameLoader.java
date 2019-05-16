@@ -8,7 +8,11 @@ import java.io.*;
 
 /**
  * GameLoader.java
- * Stores and retrieves previous thirteen.game states and scores.
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
+ * Stores and retrieves previous game states and scores.
  */
 public class GameLoader {
 

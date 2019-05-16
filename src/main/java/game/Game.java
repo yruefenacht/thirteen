@@ -7,7 +7,11 @@ import java.util.List;
 
 /**
  * Game.java
- * Stores state of current thirteen.game.
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
+ * Stores state of current game.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

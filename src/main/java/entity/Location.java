@@ -2,6 +2,10 @@ package entity;
 
 /**
  * Location.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Defines object with sole purpose to store coordinates.
  */
 public class Location {

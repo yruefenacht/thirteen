@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * RawBlock.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Defines mathematical properties of a Block.
  */
 @XmlAccessorType(XmlAccessType.FIELD)

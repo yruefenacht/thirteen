@@ -1,6 +1,5 @@
 package bot;
 
-import bot.BotStrategy;
 import config.Config;
 import controller.BlockMatrix;
 import javafx.animation.KeyFrame;
@@ -9,12 +8,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
-
 import java.util.List;
 
 /**
  * Bot.java
- * Handles thirteen.bot window user interface logic.
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
+ * Handles bot window user interface logic.
  */
 public class Bot {
 
@@ -31,7 +33,7 @@ public class Bot {
 
     /**
      * Class constructor
-     * @param blockMatrix thirteen.model.
+     * @param blockMatrix model.
      */
     public Bot(BlockMatrix blockMatrix, List<BotStrategy> strategies) {
 
@@ -47,7 +49,7 @@ public class Bot {
     /**
      * Defines click event of BotMain button.
      */
-    public void setButtons() {
+    void setButtons() {
 
         this.botPlayButton.setOnAction(e -> this.startStopBot());
         this.strategySelector.getItems().addAll(this.strategies);

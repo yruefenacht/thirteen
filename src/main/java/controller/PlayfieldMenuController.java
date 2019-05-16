@@ -9,6 +9,7 @@ import model.PlayfieldModel;
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
+ *
  * Defines click events of buttons from playfield menu.
  */
 public class PlayfieldMenuController {

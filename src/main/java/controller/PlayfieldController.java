@@ -21,6 +21,10 @@ import java.util.ArrayList;
 
 /**
  * PlayfieldController.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * The PlayfieldController class is responsible for handling user input.
  */
 public class PlayfieldController implements PropertyChangeListener {
@@ -384,7 +388,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Shake blocks and show thirteen.game over screen.
+     * Shake blocks and show game over screen.
      */
     private void showGameOverScreen(Highscore highscore) {
 
@@ -404,7 +408,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * This method is fired when changes happen in the thirteen.model observable.
+     * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
      */
     @Override

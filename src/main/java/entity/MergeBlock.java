@@ -9,6 +9,10 @@ import javafx.scene.paint.Color;
 
 /**
  * MergeBlock.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * A MergeBlock connects two Blocks graphically in a background layer.
  */
 public class MergeBlock extends Entity {

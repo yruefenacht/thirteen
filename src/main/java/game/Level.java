@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Level.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Saves level and related values.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
