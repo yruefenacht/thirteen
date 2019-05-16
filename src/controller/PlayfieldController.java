@@ -218,6 +218,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void pauseGame() {
 
+        if(Config.BOT_MODE) return;
         this.menuButtonImg.setImage(new Image(this.getClass().getResourceAsStream("/images/resume.png")));
         this.playfieldMenuBarButton.setDisable(true);
         ViewChanger.showPauseMenu();
@@ -271,6 +272,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void undoLatestStep() {
 
+        if(Config.BOT_MODE) return;
         if(Config.STAR_COUNT < Config.TOOL_COST) return;
         ViewChanger.showUndoMenu();
     }
@@ -281,6 +283,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void toggleBombMode() {
 
+        if(Config.BOT_MODE) return;
         if(Config.STAR_COUNT < Config.TOOL_COST) return;
 
         Config.BOMB_MODE = !Config.BOMB_MODE;

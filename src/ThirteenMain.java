@@ -48,6 +48,7 @@ public class ThirteenMain extends Application {
         primaryStage.show();
     }
 
+
     /**
      * Entry point of program.
      * @param args Has command line arguments stored

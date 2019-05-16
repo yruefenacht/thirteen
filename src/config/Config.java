@@ -15,6 +15,7 @@ public class Config {
 
     //General
     public static final String APP_TITLE = "Thirteen";
+    public static final String BOT_TITLE = "Thirteen Bot";
     public static final int FONT_SIZE_DEFAULT = 30;
 
     //Level
@@ -34,6 +35,7 @@ public class Config {
     public static boolean BOMB_MODE = false;
     public static boolean IS_ANIMATING = false;
     public static boolean SOUND = true;
+    public static boolean BOT_MODE = false;
 
     //Grid
     public static final int GRID_DIMENSION_X = 5;
@@ -55,6 +57,11 @@ public class Config {
     private static final int SCENE_SIDE_PADDING = 50;
     public static final int SCENE_WIDTH = (GRID_DIMENSION_X * BLOCK_WIDTH) + SCENE_SIDE_PADDING;
     public static final int SCENE_HEIGHT = (GRID_DIMENSION_Y * BLOCK_HEIGHT) + SCENE_TOP;
+    public static final int BOT_SCENE_WIDTH = 250;
+    public static final int BOT_SCENE_HEIGHT = 300;
+
+    //Bot
+    public static final int BOT_INTERVAL = 750;
 
     //Color codes
     public static final Map<Integer, Color> BLOCK_COLORS = new HashMap<>(){{

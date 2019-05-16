@@ -107,4 +107,14 @@ public class Game {
         this.previousBlocks = previousBlocks;
     }
 
+
+    /**
+     * Level setter.
+     * @param level level
+     */
+    public void setLevel(Level level) {
+
+        this.level = level;
+    }
+
 }

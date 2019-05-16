@@ -92,6 +92,7 @@ public class Block extends Entity {
      */
     private void blockClicked() {
 
+        if(Config.BOT_MODE) return;
         this.playfieldModel.blockClicked(new Location(this.x, this.y));
     }
 

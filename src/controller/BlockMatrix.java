@@ -87,13 +87,15 @@ public class BlockMatrix implements PropertyChangeListener {
 
         this.generateBlocks();
         this.generateMergeBlocks();
+        this.numberGenerator.resetLevel();
         this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
         this.playfieldModel.blocksCreated(this.getBlocksAsList());
         this.playfieldModel.setUndoButtonEnabled(false);
-        this.playfieldModel.updateStarCount(Config.STAR_COUNT_DEFAULT);
-        this.numberGenerator.resetLevel();
+        this.playfieldModel.updateStarCount(this.numberGenerator.getLevel().getStars());
+        this.playfieldModel.levelUp(this.numberGenerator.getLevel().getLevel());
         this.game.setRawBlocks(this.getBlocksAsList());
         this.game.setPreviousBlocks(new ArrayList<BlockList>());
+        this.game.setLevel(this.numberGenerator.getLevel());
         this.gameLoader.saveGame(this.game);
     }
 

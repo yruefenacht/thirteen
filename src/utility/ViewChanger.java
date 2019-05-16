@@ -26,6 +26,7 @@ public class ViewChanger {
     private static BorderPane root;
     private static PlayfieldController playfieldController;
     private static PlayfieldModel playfieldModel;
+    private static BlockMatrix blockMatrix;
     private static StackPane playfieldContainer;
     private static VBox pauseMenu;
     private static VBox undoMenu;
@@ -43,11 +44,22 @@ public class ViewChanger {
 
 
     /**
+     * Model getter.
+     * @return playfieldModel
+     */
+    public static BlockMatrix getBlockMatrix() {
+
+        return blockMatrix;
+    }
+
+
+    /**
      * Show MainMenu.fxml.
      */
     public static void changeToMainMenu() {
 
         try {
+            playfieldModel = new PlayfieldModel();
             MainMenuController mainMenuController = new MainMenuController();
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/MainMenu.fxml"));
             loader.setController(mainMenuController);
@@ -65,9 +77,8 @@ public class ViewChanger {
     public static void changeToPlayfield(boolean forceRestart) {
 
         try {
-            playfieldModel = new PlayfieldModel();
             playfieldController = new PlayfieldController(playfieldModel);
-            BlockMatrix blockMatrix = new BlockMatrix(playfieldModel, Config.GRID_DIMENSION_X, Config.GRID_DIMENSION_Y);
+            blockMatrix = new BlockMatrix(playfieldModel, Config.GRID_DIMENSION_X, Config.GRID_DIMENSION_Y);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"));
             loader.setController(playfieldController);
             Parent playfield = loader.load();
