@@ -499,7 +499,7 @@ public class BlockMatrix {
             }
 
             //Show Game Over screen
-            this.blockMatrixSupport.gameOver(highscore);
+            this.blockMatrixSupport.gameOver(this.game);
             this.audioPlayer.playGameOverSound();
         }
     }

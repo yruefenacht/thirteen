@@ -6,6 +6,10 @@ import java.io.IOException;
 
 /**
  * AudioPlayer.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Responsible for playing game soundtracks.
  */
 public class AudioPlayer {

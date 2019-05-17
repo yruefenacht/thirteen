@@ -4,32 +4,31 @@ import entity.Location;
 import entity.RawBlock;
 import model.BlockMatrix;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * RandomStrategy.java
+ * BottomUpStrategy.java
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
  *
- * Gets random block from random group.
+ * Searches each row from left to right.
+ * Starts at bottom row.
  */
-public class RandomStrategy implements BotStrategy {
+public class BottomUpStrategy implements BotStrategy {
 
 
-    /**
-     * Calculates the next move.
-     * @return x and y
-     */
     @Override
     public Location getNextMove(BlockMatrix blockMatrix) {
 
-        Random random = new Random();
-        List<RawBlock> blocksWithNeighbors = getBlocksWithNeighbors(blockMatrix);
-        RawBlock chosenBlock = blocksWithNeighbors.get(random.nextInt(blocksWithNeighbors.size()));
-
-        return new Location(chosenBlock.getX(), chosenBlock.getY());
+        List<RawBlock> blocksWithNeighbors = this.getBlocksWithNeighbors(blockMatrix);
+        blocksWithNeighbors.sort((RawBlock block1, RawBlock block2) -> {
+            if (block1.getY() == block2.getY())
+                return block2.getX() - block1.getX();
+            return block1.getY() - block2.getY();
+        });
+        RawBlock bottomLeftBlock = blocksWithNeighbors.get(blocksWithNeighbors.size() - 1);
+        return new Location(bottomLeftBlock.getX(), bottomLeftBlock.getY());
     }
 
 
@@ -70,7 +69,7 @@ public class RandomStrategy implements BotStrategy {
     @Override
     public String toString() {
 
-        return "Random";
+        return "Bottom Up";
     }
 
 }

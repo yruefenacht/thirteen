@@ -3,7 +3,7 @@ package utility;
 import config.Config;
 import controller.*;
 import entity.Animations;
-import game.Highscore;
+import game.Game;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,10 +15,11 @@ import java.io.IOException;
 
 /**
  * ViewChange.java
- * Changes views.
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
+ *
+ * Changes or overlaps layouts.
  * Accessible from everywhere.
  */
 public class ViewChanger {
@@ -126,7 +127,7 @@ public class ViewChanger {
     /**
      * Show GameOverMenu.fxml.
      */
-    public static void showGameOverScreen(Highscore highscore) {
+    public static void showGameOverScreen(Game game) {
 
         try {
             GameOverMenuController gameOverMenuController = new GameOverMenuController(blockMatrix);
@@ -137,7 +138,8 @@ public class ViewChanger {
             gameOverMenu.setPrefHeight(Config.GRID_DIMENSION_X * Config.BLOCK_HEIGHT);
             gameOverMenu.setOpacity(0.0);
             gameOverMenuController.setButtons();
-            gameOverMenuController.setHighscore(highscore);
+            gameOverMenuController.setLevel(game.getLevel());
+            gameOverMenuController.setHighscore(game.getHighscore());
             playfieldContainer.getChildren().add(gameOverMenu);
             playfieldController.setBlur(3);
             Animations.getFadeAnimation(gameOverMenu, 500.0, 1000.0, true).play();

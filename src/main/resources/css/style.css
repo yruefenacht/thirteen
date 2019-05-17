@@ -129,31 +129,49 @@
 }
 
 .mainMenu__icon {
+    -fx-text-fill: white;
+    -fx-font-family: "Permanent Marker";
+    -fx-font-size: 4em;
+    -fx-padding: 15 0 15 0;
+}
+
+.mainMenu__iconContainer {
+    -fx-background-color: #444;
+}
+
+.mainMenu__PlayButtonContainer {
+    -fx-pref-width: 375;
+    -fx-pref-height: 200;
+}
+
+#mainMenuPlayButton {
     -fx-text-fill: #333;
     -fx-background-color: rgb(230, 230, 230);
+    -fx-border-color: #333;
+    -fx-border-width: 10;
     -fx-font-family: "Permanent Marker";
-    -fx-font-size: 5em;
+    -fx-font-size: 3em;
+    -fx-font-weight: bold;
     -fx-pref-width: 140;
     -fx-pref-height: 140;
+    -fx-cursor: hand;
     -fx-rotate: 45;
 }
-.mainMenu__icon > * {
+
+#mainMenuPlayButton > * {
     -fx-rotate: -45;
 }
 
-.mainMenu__MainButton {
-    -fx-background-color: linear-gradient(to left, rgb(255, 21, 133), rgba(131, 12, 60, 0.97));
-    -fx-font-weight: bold;
-    -fx-font-size: 2em;
-    -fx-text-fill: rgb(230, 230, 230);
-    -fx-cursor: hand;
-    -fx-pref-width: 175;
-    -fx-pref-height: 65;
-}
-
-.mainMenu__MainButton:hover {
+#mainMenuPlayButton:hover {
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
+}
+
+.mainMenu__PlayButtonLine {
+    -fx-pref-width: 375;
+    -fx-pref-height: 100;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: white;
 }
 
 .mainMenu__SettingsButton {
@@ -184,10 +202,32 @@
 /*
     GAME OVER SCREEN
 */
-#gameOverMenuTitle {
+.gameOverMenu__Title {
     -fx-text-fill: rgb(230, 230, 230);
     -fx-font-family: "Permanent Marker";
     -fx-font-size: 3.5em;
+}
+
+#gameOverMenuScore {
+    -fx-pref-width: 90;
+    -fx-pref-height: 90;
+    -fx-text-fill: rgb(80, 80, 80);
+    -fx-background-color: rgb(230, 230, 230);
+    -fx-font-size: 3em;
+    -fx-font-family: "Permanent Marker";
+    -fx-rotate: 45;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+#gameOverMenuScore > * {
+    -fx-rotate: -45;
+}
+
+.gameOverMenu__Highscore {
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
 }
 
 #gameOverMenuPlayAgain {
@@ -199,11 +239,6 @@
     -fx-background-color: #df0054;
 }
 
-.gameOverMenuLabel {
-    -fx-font-size: 2.5em;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
 
 /*
     UNDO MENU

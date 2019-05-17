@@ -3,7 +3,7 @@ package controller;
 import config.Config;
 import config.Events;
 import entity.*;
-import game.Highscore;
+import game.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -309,9 +309,6 @@ public class PlayfieldController implements PropertyChangeListener {
 
     /**
      * Remove mergeBlock from pane.
-     * @author     Yannick Rüfenacht
-     * @author     Mohammed Ali
-     * @version    1.0
      * @param rawMergeBlock block to remove
      */
     private void removeMergeBlock(RawMergeBlock rawMergeBlock) {
@@ -390,10 +387,10 @@ public class PlayfieldController implements PropertyChangeListener {
     /**
      * Shake blocks and show game over screen.
      */
-    private void showGameOverScreen(Highscore highscore) {
+    private void showGameOverScreen(Game game) {
 
         for(Block block : this.blocks) block.shake();
-        ViewChanger.showGameOverScreen(highscore);
+        ViewChanger.showGameOverScreen(game);
     }
 
 
@@ -458,7 +455,7 @@ public class PlayfieldController implements PropertyChangeListener {
                 this.quitGame();
                 break;
             case Events.GAME_OVER:
-                this.showGameOverScreen((Highscore) evt.getNewValue());
+                this.showGameOverScreen((Game) evt.getNewValue());
                 break;
             case Events.MERGE_BLOCKS_RESET:
                 this.mergeBlocks.clear(); this.playfieldMergeBlocks.getChildren().clear();

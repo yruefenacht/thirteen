@@ -4,32 +4,31 @@ import entity.Location;
 import entity.RawBlock;
 import model.BlockMatrix;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- * RandomStrategy.java
+ * TopDownStrategy.java
  * @author     Yannick Rüfenacht
  * @author     Mohammed Ali
  * @version    1.0
  *
- * Gets random block from random group.
+ * Searches each row from left to right.
+ * Starts at top row.
  */
-public class RandomStrategy implements BotStrategy {
+public class TopDownStrategy implements BotStrategy {
 
 
-    /**
-     * Calculates the next move.
-     * @return x and y
-     */
     @Override
     public Location getNextMove(BlockMatrix blockMatrix) {
 
-        Random random = new Random();
-        List<RawBlock> blocksWithNeighbors = getBlocksWithNeighbors(blockMatrix);
-        RawBlock chosenBlock = blocksWithNeighbors.get(random.nextInt(blocksWithNeighbors.size()));
-
-        return new Location(chosenBlock.getX(), chosenBlock.getY());
+        List<RawBlock> blocksWithNeighbors = this.getBlocksWithNeighbors(blockMatrix);
+        blocksWithNeighbors.sort((RawBlock block1, RawBlock block2) -> {
+            if (block1.getY() == block2.getY())
+                return block1.getX() - block2.getX();
+            return block1.getY() - block2.getY();
+        });
+        RawBlock topLeftBlock = blocksWithNeighbors.get(0);
+        return new Location(topLeftBlock.getX(), topLeftBlock.getY());
     }
 
 
@@ -47,10 +46,10 @@ public class RandomStrategy implements BotStrategy {
             int value = block.getValue();
 
             RawBlock[] neighbors = new RawBlock[]{
-                blockMatrix.getBlockAt(x, y - 1),
-                blockMatrix.getBlockAt(x + 1, y),
-                blockMatrix.getBlockAt(x, y + 1),
-                blockMatrix.getBlockAt(x - 1, y)
+                    blockMatrix.getBlockAt(x, y - 1),
+                    blockMatrix.getBlockAt(x + 1, y),
+                    blockMatrix.getBlockAt(x, y + 1),
+                    blockMatrix.getBlockAt(x - 1, y)
             };
 
             for(RawBlock neighbor : neighbors) {
@@ -70,7 +69,7 @@ public class RandomStrategy implements BotStrategy {
     @Override
     public String toString() {
 
-        return "Random";
+        return "Top Down";
     }
 
 }

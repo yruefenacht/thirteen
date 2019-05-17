@@ -1,39 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <!-- GAME OVER MENU -->
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      alignment="CENTER"
-      spacing="20.0"
-      styleClass="playfieldMenu">
+<VBox alignment="CENTER" spacing="20.0" styleClass="playfieldMenu" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <!-- TITLE -->
-    <Label fx:id="gameOverMenuTitle" text="GAME OVER" />
+    <Label styleClass="gameOverMenu__Title" text="GAME OVER" />
+    <!-- LEVEL -->
+    <Label fx:id="gameOverMenuScore" alignment="CENTER">
+        <VBox.margin>
+            <Insets top="20.0" bottom="20.0" />
+        </VBox.margin>
+    </Label>
     <!-- HIGHSCORE -->
     <HBox alignment="CENTER" spacing="10.0">
         <HBox spacing="5.0">
-            <Label fx:id="gameOverMenuLevel" styleClass="gameOverMenuLabel" />
-            <ImageView fitHeight="40.0" fitWidth="40.0">
+            <Label fx:id="gameOverMenuLevel" styleClass="gameOverMenu__Highscore" />
+            <ImageView fitHeight="30.0" fitWidth="30.0">
                 <Image url="@../images/trophy.png" />
             </ImageView>
         </HBox>
         <HBox spacing="5.0">
-            <Label fx:id="gameOverMenuStars" styleClass="gameOverMenuLabel" />
-            <ImageView fitHeight="35.0" fitWidth="35.0">
+            <Label fx:id="gameOverMenuStars" styleClass="gameOverMenu__Highscore" />
+            <ImageView fitHeight="30.0" fitWidth="30.0">
                 <Image url="@../images/star.png" />
             </ImageView>
         </HBox>
         <padding>
-            <Insets top="50.0" bottom="50.0" />
+            <Insets bottom="10.0" top="5.0" />
         </padding>
     </HBox>
     <!-- MENU BUTTONS -->
-    <Button fx:id="gameOverMenuPlayAgain" text="PLAY AGAIN" styleClass="playfieldMenu__Button" />
-    <Button fx:id="gameOverMenuQuit" text="MAIN MENU" styleClass="playfieldMenu__Button" />
+    <Button fx:id="gameOverMenuPlayAgain" styleClass="playfieldMenu__Button" text="PLAY AGAIN" />
+    <Button fx:id="gameOverMenuQuit" styleClass="playfieldMenu__Button" text="MAIN MENU" />
 </VBox>

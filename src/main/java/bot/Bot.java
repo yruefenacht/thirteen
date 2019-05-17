@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
+import utility.ViewChanger;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class Bot {
     private Timeline botTimer;
     private List<BotStrategy> strategies;
     private BotStrategy selectedStrategy;
-    private boolean botPlaying = false;
+    private boolean isPlaying = false;
 
 
     /**
@@ -60,10 +61,8 @@ public class Bot {
         this.strategySelector.getItems().addAll(this.strategies);
         this.selectedStrategy = this.strategies.get(0);
         this.strategySelector.setValue(this.strategies.get(0));
-        this.strategySelector.getSelectionModel().selectedIndexProperty()
-            .addListener((observable, oldValue, newValue) -> {
-                this.selectedStrategy = (BotStrategy) newValue;
-            }
+        this.strategySelector.getSelectionModel().selectedIndexProperty().addListener(
+            (observable, oldValue, newValue) -> this.selectedStrategy = this.strategies.get((Integer) newValue)
         );
     }
 
@@ -73,7 +72,9 @@ public class Bot {
      */
     private void startStopBot() {
 
-        if(this.botPlaying) {
+        this.blockMatrix = ViewChanger.getBlockMatrix();
+
+        if(this.isPlaying) {
             this.botTimer.stop();
             this.botPlayButton.setText("Play");
         }
@@ -82,7 +83,7 @@ public class Bot {
             this.botPlayButton.setText("Stop");
         }
 
-        this.botPlaying = !this.botPlaying;
+        this.isPlaying = !this.isPlaying;
     }
 
 

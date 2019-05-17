@@ -84,8 +84,10 @@ public class BotMain extends Application {
 
         //BotMain window
         List<BotStrategy> botStrategies = new ArrayList<>(Arrays.asList(
-                new RandomStrategy(),
-                new GreedyStrategy()
+            new RandomStrategy(),
+            new GreedyStrategy(),
+            new BottomUpStrategy(),
+            new TopDownStrategy()
         ));
         Bot botController = new Bot(blockMatrix, botStrategies);
         FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("../view/BotWindow.fxml"));

@@ -6,6 +6,10 @@ import java.util.Random;
 
 /**
  * NumberGenerator.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
  * Generates random number for each block.
  */
 public class NumberGenerator {

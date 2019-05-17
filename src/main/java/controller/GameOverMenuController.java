@@ -1,6 +1,8 @@
 package controller;
 
+import config.Config;
 import game.Highscore;
+import game.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,15 +18,18 @@ import model.BlockMatrix;
  */
 public class GameOverMenuController {
 
-    private BlockMatrix blockMatrix;
     @FXML
-    private Button gameOverMenuPlayAgain;
-    @FXML
-    private Button gameOverMenuQuit;
+    private Label gameOverMenuScore;
     @FXML
     private Label gameOverMenuLevel;
     @FXML
     private Label gameOverMenuStars;
+    @FXML
+    private Button gameOverMenuPlayAgain;
+    @FXML
+    private Button gameOverMenuQuit;
+
+    private BlockMatrix blockMatrix;
 
 
     /**
@@ -44,11 +49,22 @@ public class GameOverMenuController {
 
         this.gameOverMenuPlayAgain.setOnAction(e -> this.blockMatrix.restartGame());
         this.gameOverMenuQuit.setOnAction(e -> this.blockMatrix.quitGame());
+        if(Config.BOT_MODE) this.gameOverMenuQuit.setVisible(false);
     }
 
 
     /**
-     * Shows highscore.
+     * Displays reached level.
+     * @param level level
+     */
+    public void setLevel(Level level) {
+
+        this.gameOverMenuScore.setText(String.valueOf(level.getLevel()));
+    }
+
+
+    /**
+     * Displays highscore.
      * @param highscore Highscore
      */
     public void setHighscore(Highscore highscore) {

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- BOT WINDOW -->
-
 <BorderPane styleClass="bot" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <!-- TITLE -->
     <top>

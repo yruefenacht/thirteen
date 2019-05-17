@@ -3,7 +3,7 @@ package model;
 import config.Events;
 import entity.RawBlock;
 import entity.RawMergeBlock;
-import game.Highscore;
+import game.Game;
 import java.beans.PropertyChangeSupport;
 import java.util.List;
 
@@ -14,6 +14,7 @@ import java.util.List;
  * @version    1.0
  *
  * Event shooter.
+ * It is preferable to have all property change events stored in one class.
  * Notifies the controllers if any changes occur.
  */
 class BlockMatrixSupport extends PropertyChangeSupport {
@@ -167,10 +168,11 @@ class BlockMatrixSupport extends PropertyChangeSupport {
 
     /**
      * Notify game to show game over screen.
+     * @param game values to display
      */
-    void gameOver(Highscore highscore) {
+    void gameOver(Game game) {
 
-        this.firePropertyChange(Events.GAME_OVER, null, highscore);
+        this.firePropertyChange(Events.GAME_OVER, null, game);
     }
 
 
