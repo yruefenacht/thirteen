@@ -28,7 +28,7 @@ public class RawBlock {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code RawBlock} object.
      * @param x location x
      * @param y location y
      * @param value number

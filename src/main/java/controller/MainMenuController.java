@@ -35,7 +35,7 @@ public class MainMenuController {
 
 
     /**
-     * Class constructor
+     * Constructs a {@code MainMenuController} object.
      */
     public MainMenuController() {
 

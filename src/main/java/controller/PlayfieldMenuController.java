@@ -2,7 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import model.PlayfieldModel;
+import model.BlockMatrix;
 
 /**
  * PlayfieldMenuController.java
@@ -14,7 +14,7 @@ import model.PlayfieldModel;
  */
 public class PlayfieldMenuController {
 
-    private PlayfieldModel playfieldModel;
+    private BlockMatrix blockMatrix;
     @FXML
     private Button playfieldMenuContinue;
     @FXML
@@ -24,12 +24,12 @@ public class PlayfieldMenuController {
 
 
     /**
-     * Class constructor.
-     * @param playfieldModel observable
+     * Constructs a {@code PlayfieldMenuController} object.
+     * @param blockMatrix observable
      */
-    public PlayfieldMenuController(PlayfieldModel playfieldModel) {
+    public PlayfieldMenuController(BlockMatrix blockMatrix) {
 
-        this.playfieldModel = playfieldModel;
+        this.blockMatrix = blockMatrix;
     }
 
 
@@ -38,9 +38,9 @@ public class PlayfieldMenuController {
      */
     public void setButtons() {
 
-        this.playfieldMenuContinue.setOnAction(e -> this.playfieldModel.continueGame());
-        this.playfieldMenuRestart.setOnAction(e -> this.playfieldModel.restartGame());
-        this.playfieldMenuQuit.setOnAction(e -> this.playfieldModel.quitGame());
+        this.playfieldMenuContinue.setOnAction(e -> this.blockMatrix.continueGame());
+        this.playfieldMenuRestart.setOnAction(e -> this.blockMatrix.restartGame());
+        this.playfieldMenuQuit.setOnAction(e -> this.blockMatrix.quitGame());
     }
 
 }

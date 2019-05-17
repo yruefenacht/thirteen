@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import config.Config;
 import game.Highscore;
@@ -11,7 +11,7 @@ import game.GameLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import model.PlayfieldModel;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
@@ -24,11 +24,11 @@ import java.util.*;
  *
  * This class creates and manages a matrix of Block elements.
  */
-public class BlockMatrix implements PropertyChangeListener {
+public class BlockMatrix {
 
     private int dimensionX;
     private int dimensionY;
-    private PlayfieldModel playfieldModel;
+    private BlockMatrixSupport blockMatrixSupport;
     private RawBlock[][] rawBlocks;
     private List<RawMergeBlock> rawMergeBlocks;
     private List<BlockList> previousBlocks;
@@ -39,17 +39,15 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Class constructor.
-     * @param playfieldModel Observable to be attached to
+     * Constructs a {@code BlockMatrix} object.
      * @param dimensionX Matrix dimension X length
      * @param dimensionY Matrix dimension Y length
      */
-    public BlockMatrix(PlayfieldModel playfieldModel, int dimensionX, int dimensionY) {
+    public BlockMatrix(int dimensionX, int dimensionY) {
 
         this.dimensionX = dimensionX;
         this.dimensionY = dimensionY;
-        this.playfieldModel = playfieldModel;
-        this.playfieldModel.addPropertyChangeListener(this);
+        this.blockMatrixSupport = new BlockMatrixSupport(this);
         this.rawBlocks = new RawBlock[dimensionX][dimensionY];
         this.audioPlayer = new AudioPlayer();
         this.gameLoader = new GameLoader();
@@ -89,11 +87,11 @@ public class BlockMatrix implements PropertyChangeListener {
         this.generateBlocks();
         this.generateMergeBlocks();
         this.numberGenerator.resetLevel();
-        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
-        this.playfieldModel.blocksCreated(this.getBlocksAsList());
-        this.playfieldModel.setUndoButtonEnabled(false);
-        this.playfieldModel.updateStarCount(this.numberGenerator.getLevel().getStars());
-        this.playfieldModel.levelUp(this.numberGenerator.getLevel().getLevel());
+        this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
+        this.blockMatrixSupport.blocksCreated(this.getBlocksAsList());
+        this.blockMatrixSupport.setUndoButtonEnabled(false);
+        this.blockMatrixSupport.updateStarCount(this.numberGenerator.getLevel().getStars());
+        this.blockMatrixSupport.levelUp(this.numberGenerator.getLevel().getLevel());
         this.game.setRawBlocks(this.getBlocksAsList());
         this.game.setPreviousBlocks(new ArrayList<BlockList>());
         this.game.setLevel(this.numberGenerator.getLevel());
@@ -107,11 +105,11 @@ public class BlockMatrix implements PropertyChangeListener {
     private void loadMatrix() {
 
         this.numberGenerator.setLevel(this.game.getLevel());
-        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
-        this.playfieldModel.blocksCreated(this.getBlocksAsList());
-        this.playfieldModel.levelUp(this.game.getLevel().getLevel());
-        this.playfieldModel.updateStarCount(this.game.getLevel().getStars());
-        this.playfieldModel.setUndoButtonEnabled(! this.previousBlocks.isEmpty());
+        this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
+        this.blockMatrixSupport.blocksCreated(this.getBlocksAsList());
+        this.blockMatrixSupport.levelUp(this.game.getLevel().getLevel());
+        this.blockMatrixSupport.updateStarCount(this.game.getLevel().getStars());
+        this.blockMatrixSupport.setUndoButtonEnabled(! this.previousBlocks.isEmpty());
     }
 
 
@@ -119,7 +117,7 @@ public class BlockMatrix implements PropertyChangeListener {
      * Returns 2D RawBlock array as ArrayList.
      * @return List of RawBlocks
      */
-    private ArrayList<RawBlock> getBlocksAsList() {
+    public ArrayList<RawBlock> getBlocksAsList() {
 
         ArrayList<RawBlock> blockList = new ArrayList<>();
 
@@ -127,6 +125,16 @@ public class BlockMatrix implements PropertyChangeListener {
             blockList.addAll(Arrays.asList(this.rawBlocks[i]).subList(0, this.dimensionY));
 
         return blockList;
+    }
+
+
+    /**
+     * MergeBlocks getter.
+     * @return RawMergeBlocks.
+     */
+    public List<RawMergeBlock> getMergeBlocksAsList() {
+
+        return this.rawMergeBlocks;
     }
 
 
@@ -198,7 +206,7 @@ public class BlockMatrix implements PropertyChangeListener {
      * @param y Value y axis
      * @return RawBlock
      */
-    private RawBlock getBlockAt(int x, int y) {
+    public RawBlock getBlockAt(int x, int y) {
 
         try {
             return this.rawBlocks[x][y];
@@ -246,15 +254,15 @@ public class BlockMatrix implements PropertyChangeListener {
     /**
      * Revert matrix back to previous step
      */
-    private void undo() {
+    public void undo() {
 
         if(this.previousBlocks.isEmpty()) return;
-        if(this.previousBlocks.size() == 1) this.playfieldModel.setUndoButtonEnabled(false);
+        if(this.previousBlocks.size() == 1) this.blockMatrixSupport.setUndoButtonEnabled(false);
 
-        this.playfieldModel.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
+        this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
 
         if(Config.STAR_COUNT < Config.TOOL_COST)
-            this.playfieldModel.setUndoButtonEnabled(false);
+            this.blockMatrixSupport.setUndoButtonEnabled(false);
 
         BlockList latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
 
@@ -263,9 +271,9 @@ public class BlockMatrix implements PropertyChangeListener {
 
         this.rawMergeBlocks.clear();
         this.generateMergeBlocks();
-        this.playfieldModel.blocksCreated(latestPreviousBlocks.getRawBlocks());
-        this.playfieldModel.resetMergeBlocks();
-        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
+        this.blockMatrixSupport.blocksCreated(latestPreviousBlocks.getRawBlocks());
+        this.blockMatrixSupport.resetMergeBlocks();
+        this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
         this.game.setRawBlocks(latestPreviousBlocks.getRawBlocks());
         this.game.setPreviousBlocks(this.previousBlocks);
         this.gameLoader.saveGame(this.game);
@@ -290,6 +298,33 @@ public class BlockMatrix implements PropertyChangeListener {
         this.game.setPreviousBlocks(this.previousBlocks);
     }
 
+
+    /**
+     * Remove play field menu.
+     */
+    public void continueGame() {
+
+        this.blockMatrixSupport.continueGame();
+    }
+
+
+    /**
+     * Reloads play field.
+     */
+    public void restartGame() {
+
+        this.blockMatrixSupport.restartGame();
+    }
+
+
+    /**
+     * Goes back to main menu.
+     */
+    public void quitGame() {
+
+        this.blockMatrixSupport.quitGame();
+    }
+
     
     /**
      * SPECIAL CASE
@@ -307,7 +342,7 @@ public class BlockMatrix implements PropertyChangeListener {
             if (neighbor.getValue() == Config.LEVEL) {
                 minBlocks.addAll(this.getMinBlocks());
                 this.numberGenerator.increaseLevel();
-                this.playfieldModel.levelUp(Config.LEVEL);
+                this.blockMatrixSupport.levelUp(Config.LEVEL);
                 this.audioPlayer.playLevelUpSound();
                 break;
             }
@@ -360,9 +395,9 @@ public class BlockMatrix implements PropertyChangeListener {
     private void removeBlocks(ArrayList<RawBlock> blocks) {
 
         for(RawBlock neighbor : blocks) {
-            this.playfieldModel.removeBlock(neighbor);
+            this.blockMatrixSupport.removeBlock(neighbor);
             for(RawMergeBlock rawMergeBlock : this.getMergeBlocksOfBlock(neighbor))
-                this.playfieldModel.removeMergeBlock(rawMergeBlock);
+                this.blockMatrixSupport.removeMergeBlock(rawMergeBlock);
         }
     }
 
@@ -376,7 +411,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private void increaseBlockValue(int x, int y) {
 
         this.rawBlocks[x][y].increaseBlockValue();
-        this.playfieldModel.increaseBlockValue(this.rawBlocks[x][y]);
+        this.blockMatrixSupport.increaseBlockValue(this.rawBlocks[x][y]);
     }
 
 
@@ -395,7 +430,7 @@ public class BlockMatrix implements PropertyChangeListener {
 
             for(int i = ry; i >= 1; i--) {
                 RawBlock blockAbove = this.rawBlocks[rx][i - 1];
-                this.playfieldModel.prepareToSinkBlock(blockAbove);
+                this.blockMatrixSupport.prepareToSinkBlock(blockAbove);
                 this.rawBlocks[rx][i - 1]  = rawBlock;
                 this.rawBlocks[rx][i] = blockAbove;
                 mergeBlocksToRemove.addAll(this.getMergeBlocksOfBlock(this.getBlockAt(rx, i - 1)));
@@ -406,9 +441,9 @@ public class BlockMatrix implements PropertyChangeListener {
         }
         this.rawMergeBlocks.removeAll(mergeBlocksToRemove);
         for(RawMergeBlock rawMergeBlock : mergeBlocksToRemove)
-            this.playfieldModel.removeMergeBlock(rawMergeBlock);
+            this.blockMatrixSupport.removeMergeBlock(rawMergeBlock);
         for(RawBlock rawBlock : this.getBlocksAsList())
-            this.playfieldModel.sinkBlock(rawBlock);
+            this.blockMatrixSupport.sinkBlock(rawBlock);
     }
 
 
@@ -425,7 +460,7 @@ public class BlockMatrix implements PropertyChangeListener {
             int ry = rawBlock.getY();
             RawBlock newRawBlock = new RawBlock(rx, ry, numberGenerator.getRandomNumber());
             this.rawBlocks[rx][ry] = newRawBlock;
-            this.playfieldModel.newBlockCreated(newRawBlock);
+            this.blockMatrixSupport.newBlockCreated(newRawBlock);
         }
     }
 
@@ -437,7 +472,7 @@ public class BlockMatrix implements PropertyChangeListener {
     private void generateNewMergeBlocks() {
 
         this.generateMergeBlocks();
-        this.playfieldModel.mergeBlocksCreated(this.rawMergeBlocks);
+        this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
     }
 
 
@@ -464,7 +499,7 @@ public class BlockMatrix implements PropertyChangeListener {
             }
 
             //Show Game Over screen
-            this.playfieldModel.gameOver(highscore);
+            this.blockMatrixSupport.gameOver(highscore);
             this.audioPlayer.playGameOverSound();
         }
     }
@@ -474,7 +509,7 @@ public class BlockMatrix implements PropertyChangeListener {
      * Apply rules on grid.
      * @param location coordinates from clicked block
      */
-    private void blockClicked(Location location) {
+    public void blockClicked(Location location) {
 
         if(Config.IS_ANIMATING) return;
 
@@ -489,15 +524,15 @@ public class BlockMatrix implements PropertyChangeListener {
         if(bombMode) {
             neighbors.clear();
             neighbors.add(this.getBlockAt(x, y));
-            this.playfieldModel.toggleBombMode();
-            this.playfieldModel.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
+            this.blockMatrixSupport.toggleBombMode();
+            this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
         }
 
         //Ignore single blocks
         if(neighbors.isEmpty()) return;
 
         //Enable undo button
-        if(Config.STAR_COUNT >= Config.TOOL_COST) this.playfieldModel.setUndoButtonEnabled(true);
+        if(Config.STAR_COUNT >= Config.TOOL_COST) this.blockMatrixSupport.setUndoButtonEnabled(true);
 
         //Store current state
         this.saveCurrentStates();
@@ -548,7 +583,7 @@ public class BlockMatrix implements PropertyChangeListener {
         Config.IS_ANIMATING = true;
         final Timeline timeline = new Timeline(step1, step2, step3, step4, step5, step6);
         timeline.setOnFinished(e -> {
-            this.playfieldModel.updateStarCount(Config.STAR_COUNT);
+            this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT);
             this.game.setRawBlocks(this.getBlocksAsList());
             this.gameLoader.saveGame(this.game);
             Config.IS_ANIMATING = false;
@@ -558,20 +593,12 @@ public class BlockMatrix implements PropertyChangeListener {
 
 
     /**
-     * Is called whenever model fires propertyChangeEvent.
-     * @param evt Properties that have changed
+     * This method adds observers to this observable.
+     * @param pcl Observer to add
      */
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
 
-        switch(evt.getPropertyName()) {
-            case Events.BLOCK_CLICKED:
-                this.blockClicked((Location) evt.getNewValue());
-                break;
-            case Events.UNDO:
-                this.undo();
-                break;
-        }
+        this.blockMatrixSupport.addPropertyChangeListener(pcl);
     }
 
 }

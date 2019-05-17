@@ -1,7 +1,7 @@
 package bot;
 
 import config.Config;
-import controller.BlockMatrix;
+import model.BlockMatrix;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,18 +32,19 @@ public class BotMain extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+
         //BotMain stage
         Stage botStage = new Stage();
 
 
         //Font
         Font.loadFont(
-                this.getClass().getResource("../fonts/SourceSansPro-Regular.ttf").toExternalForm(),
-                Config.FONT_SIZE_DEFAULT
+            this.getClass().getResource("../fonts/SourceSansPro-Regular.ttf").toExternalForm(),
+            Config.FONT_SIZE_DEFAULT
         );
         Font.loadFont(
-                this.getClass().getResource("../fonts/PermanentMarker-Regular.ttf").toExternalForm(),
-                Config.FONT_SIZE_DEFAULT
+            this.getClass().getResource("../fonts/PermanentMarker-Regular.ttf").toExternalForm(),
+            Config.FONT_SIZE_DEFAULT
         );
 
 
@@ -62,8 +63,8 @@ public class BotMain extends Application {
 
         //View
         Parent root = ViewChanger.init();
-        ViewChanger.changeToMainMenu();
-        BlockMatrix playfieldModel = ViewChanger.getBlockMatrix();
+        ViewChanger.changeToPlayfield(true);
+        BlockMatrix blockMatrix = ViewChanger.getBlockMatrix();
 
 
         //Scene
@@ -86,7 +87,7 @@ public class BotMain extends Application {
                 new RandomStrategy(),
                 new GreedyStrategy()
         ));
-        Bot botController = new Bot(playfieldModel, botStrategies);
+        Bot botController = new Bot(blockMatrix, botStrategies);
         FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("../view/BotWindow.fxml"));
         loader.setController(botController);
         Parent botWindow = loader.load();

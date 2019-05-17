@@ -1,6 +1,7 @@
 package bot;
 
 import entity.Location;
+import model.BlockMatrix;
 
 /**
  * BotStrategy.java
@@ -12,5 +13,5 @@ import entity.Location;
  */
 public interface BotStrategy {
 
-    Location getNextMove();
+    Location getNextMove(BlockMatrix blockMatrix);
 }

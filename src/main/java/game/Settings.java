@@ -22,6 +22,7 @@ public class Settings {
 
 
     /**
+     * Constructs a {@code Settings} object.
      * Default class constructor for JAXB.
      */
     public Settings() {}

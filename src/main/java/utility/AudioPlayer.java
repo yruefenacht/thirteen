@@ -16,7 +16,7 @@ public class AudioPlayer {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code AudioPlayer} object.
      */
     public AudioPlayer() {
 

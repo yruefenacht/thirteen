@@ -7,7 +7,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import model.PlayfieldModel;
+import model.BlockMatrix;
 
 /**
  * Block.java
@@ -25,23 +25,23 @@ public class Block extends Entity {
     private int sink;
     private Label center;
     private Label valueLabel;
-    private PlayfieldModel playfieldModel;
+    private BlockMatrix blockMatrix;
 
 
     /**
-     * Class constructor.
-     * @param x position x
-     * @param y position y
+     * Constructs a {@code Block} object.
+     * @param x array position x
+     * @param y array position y
      * @param value number on label
      */
-    public Block(PlayfieldModel playfieldModel, int x, int y, int value) {
+    public Block(BlockMatrix blockMatrix, int x, int y, int value) {
 
         this.x = x;
         this.y = y;
         this.value = value;
         this.center = new Label();
         this.valueLabel = new Label(Integer.toString(value));
-        this.playfieldModel = playfieldModel;
+        this.blockMatrix = blockMatrix;
 
         this.setBackground();
         this.center.setAlignment(Pos.CENTER);
@@ -97,7 +97,7 @@ public class Block extends Entity {
     private void blockClicked() {
 
         if(Config.BOT_MODE) return;
-        this.playfieldModel.blockClicked(new Location(this.x, this.y));
+        this.blockMatrix.blockClicked(new Location(this.x, this.y));
     }
 
 

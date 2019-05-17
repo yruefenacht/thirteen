@@ -24,7 +24,7 @@ public class MergeBlock extends Entity {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code MergeBlock} object.
      * @param x1 start x
      * @param y1 start y
      * @param x2 end x

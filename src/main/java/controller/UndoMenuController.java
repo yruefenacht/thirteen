@@ -4,7 +4,7 @@ import config.Config;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import model.PlayfieldModel;
+import model.BlockMatrix;
 import utility.ViewChanger;
 
 /**
@@ -17,7 +17,7 @@ import utility.ViewChanger;
  */
 public class UndoMenuController {
 
-    private PlayfieldModel playfieldModel;
+    private BlockMatrix blockMatrix;
     @FXML
     private Button undoMenuConfirm;
     @FXML
@@ -25,12 +25,12 @@ public class UndoMenuController {
 
 
     /**
-     * Class constructor.
-     * @param playfieldModel observable
+     * Constructs a {@code UndoMenuController} object.
+     * @param blockMatrix observable
      */
-    public UndoMenuController(PlayfieldModel playfieldModel) {
+    public UndoMenuController(BlockMatrix blockMatrix) {
 
-        this.playfieldModel = playfieldModel;
+        this.blockMatrix = blockMatrix;
     }
 
 
@@ -41,7 +41,7 @@ public class UndoMenuController {
 
         undoMenuConfirm.setText("BUY " + Config.TOOL_COST);
         undoMenuConfirm.setContentDisplay(ContentDisplay.RIGHT);
-        undoMenuConfirm.setOnAction(e ->  { ViewChanger.closeUndoMenu(); this.playfieldModel.undo(); });
+        undoMenuConfirm.setOnAction(e ->  { ViewChanger.closeUndoMenu(); this.blockMatrix.undo(); });
         undoMenuAbort.setOnAction(e -> ViewChanger.closeUndoMenu());
     }
     

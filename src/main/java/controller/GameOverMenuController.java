@@ -4,7 +4,7 @@ import game.Highscore;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import model.PlayfieldModel;
+import model.BlockMatrix;
 
 /**
  * GameOverMenuController.java
@@ -16,7 +16,7 @@ import model.PlayfieldModel;
  */
 public class GameOverMenuController {
 
-    private PlayfieldModel playfieldModel;
+    private BlockMatrix blockMatrix;
     @FXML
     private Button gameOverMenuPlayAgain;
     @FXML
@@ -28,12 +28,12 @@ public class GameOverMenuController {
 
 
     /**
-     * Class constructor.
-     * @param playfieldModel observable
+     * Constructs a {@code GameOverMenuController} object.
+     * @param blockMatrix observable
      */
-    public GameOverMenuController(PlayfieldModel playfieldModel) {
+    public GameOverMenuController(BlockMatrix blockMatrix) {
 
-        this.playfieldModel = playfieldModel;
+        this.blockMatrix = blockMatrix;
     }
 
 
@@ -42,8 +42,8 @@ public class GameOverMenuController {
      */
     public void setButtons() {
 
-        this.gameOverMenuPlayAgain.setOnAction(e -> this.playfieldModel.restartGame());
-        this.gameOverMenuQuit.setOnAction(e -> this.playfieldModel.quitGame());
+        this.gameOverMenuPlayAgain.setOnAction(e -> this.blockMatrix.restartGame());
+        this.gameOverMenuQuit.setOnAction(e -> this.blockMatrix.quitGame());
     }
 
 

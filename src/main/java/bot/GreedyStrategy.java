@@ -1,6 +1,7 @@
 package bot;
 
 import entity.Location;
+import model.BlockMatrix;
 
 /**
  * GreedyStrategy.java
@@ -18,8 +19,19 @@ public class GreedyStrategy implements BotStrategy {
      * @return Location
      */
     @Override
-    public Location getNextMove() {
+    public Location getNextMove(BlockMatrix blockMatrix) {
         return null;
+    }
+
+
+    /**
+     * ChoiceBox uses toString to display names of objects.
+     * @return name of strategy
+     */
+    @Override
+    public String toString() {
+
+        return "Greedy";
     }
 
 }

@@ -16,7 +16,7 @@ public class Config {
 
     //General
     public static final String APP_TITLE = "Thirteen";
-    public static final String BOT_TITLE = "Thirteen BotMain";
+    public static final String BOT_TITLE = "Thirteen Bot";
     public static final int FONT_SIZE_DEFAULT = 30;
 
     //Level
@@ -62,7 +62,7 @@ public class Config {
     public static final int BOT_SCENE_HEIGHT = 300;
 
     //BotMain
-    public static final int BOT_INTERVAL = 750;
+    public static final int BOT_INTERVAL = 850;
 
     //Color codes
     public static final Map<Integer, Color> BLOCK_COLORS = new HashMap<>(){{

@@ -1,7 +1,9 @@
 package bot;
 
 import config.Config;
-import controller.BlockMatrix;
+import entity.Location;
+import javafx.animation.Animation;
+import model.BlockMatrix;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -28,21 +30,24 @@ public class Bot {
     private BlockMatrix blockMatrix;
     private Timeline botTimer;
     private List<BotStrategy> strategies;
+    private BotStrategy selectedStrategy;
     private boolean botPlaying = false;
 
 
     /**
-     * Class constructor
+     * Constructs a {@code Bot} object.
      * @param blockMatrix model.
      */
     public Bot(BlockMatrix blockMatrix, List<BotStrategy> strategies) {
 
+        assert (!strategies.isEmpty());
         this.blockMatrix = blockMatrix;
         this.strategies = strategies;
         this.botTimer = new Timeline(new KeyFrame(
             Duration.millis(Config.BOT_INTERVAL),
             e -> this.makeMove()
         ));
+        this.botTimer.setCycleCount(Animation.INDEFINITE);
     }
 
 
@@ -53,8 +58,13 @@ public class Bot {
 
         this.botPlayButton.setOnAction(e -> this.startStopBot());
         this.strategySelector.getItems().addAll(this.strategies);
+        this.selectedStrategy = this.strategies.get(0);
         this.strategySelector.setValue(this.strategies.get(0));
-
+        this.strategySelector.getSelectionModel().selectedIndexProperty()
+            .addListener((observable, oldValue, newValue) -> {
+                this.selectedStrategy = (BotStrategy) newValue;
+            }
+        );
     }
 
 
@@ -81,6 +91,13 @@ public class Bot {
      */
     private void makeMove() {
 
+        if(blockMatrix.getMergeBlocksAsList().isEmpty()) {
+            startStopBot();
+            return;
+        }
+
+        Location nextMove = this.selectedStrategy.getNextMove(this.blockMatrix);
+        this.blockMatrix.blockClicked(nextMove);
     }
 
 }

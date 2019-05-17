@@ -15,7 +15,7 @@ public class NumberGenerator {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code NumberGenerator} object.
      * @param level level
      */
     public NumberGenerator(Level level) {

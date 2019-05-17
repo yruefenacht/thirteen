@@ -12,7 +12,7 @@ import java.io.*;
  * @author     Mohammed Ali
  * @version    1.0
  *
- * Stores and retrieves previous game states and scores.
+ * Stores and retrieves {@code Game} object into and from xml.
  */
 public class GameLoader {
 
@@ -21,7 +21,7 @@ public class GameLoader {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code GameLoader} object.
      */
     public GameLoader() {
 

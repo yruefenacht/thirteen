@@ -37,6 +37,7 @@ public class Game {
 
 
     /**
+     * Constructs a {@code Game} object.
      * Default Constructor for JAXB.
      */
     public Game() {}

@@ -13,7 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import model.PlayfieldModel;
+import model.BlockMatrix;
 import utility.ViewChanger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -50,20 +50,20 @@ public class PlayfieldController implements PropertyChangeListener {
 
     private ArrayList<Block> blocks;
     private ArrayList<MergeBlock> mergeBlocks;
-    private PlayfieldModel playfieldModel;
+    private BlockMatrix blockMatrix;
     private ImageView menuButtonImg;
     private BoxBlur blurEffect;
 
 
     /**
-     * Acts as class constructor.
-     * @param playfieldModel Observable to be attached to.
+     * Constructs a {@code PlayfieldController} object.
+     * @param blockMatrix Observable to be attached to.
      */
-    public PlayfieldController(PlayfieldModel playfieldModel) {
+    public PlayfieldController(BlockMatrix blockMatrix) {
 
         this.menuButtonImg = new ImageView();
-        this.playfieldModel = playfieldModel;
-        this.playfieldModel.addPropertyChangeListener(this);
+        this.blockMatrix = blockMatrix;
+        this.blockMatrix.addPropertyChangeListener(this);
     }
 
 
@@ -133,7 +133,7 @@ public class PlayfieldController implements PropertyChangeListener {
 
         for(RawBlock rawBlock : rawBlocks) {
 
-            Block block = new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
+            Block block = new Block(this.blockMatrix, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
             this.blocks.add(block);
             this.playfieldBlocks.getChildren().add(block);
             block.show();
@@ -368,7 +368,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void createNewBlock(RawBlock rawBlock) {
 
-        Block newBlock = new Block(this.playfieldModel, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
+        Block newBlock = new Block(this.blockMatrix, rawBlock.getX(), rawBlock.getY(), rawBlock.getValue());
         this.blocks.add(newBlock);
         this.playfieldBlocks.getChildren().add(newBlock);
         newBlock.show();

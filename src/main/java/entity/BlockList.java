@@ -23,7 +23,7 @@ public class BlockList {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code BlockList} object.
      * @param rawBlocks RawBlocks
      */
     public BlockList(List<RawBlock> rawBlocks) {

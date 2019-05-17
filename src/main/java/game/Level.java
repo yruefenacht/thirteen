@@ -31,7 +31,11 @@ public class Level {
 
 
     /**
-     * Default class constructor for JAXB.
+     * Constructs a {@code Level} object.
+     * @param level level
+     * @param stars stars/coins
+     * @param levelRange range of numbers for {@code NumberGenerator} to choose from
+     * @param levelRangeHaltCounter counter when to increase {@code levelRange}
      */
     public Level(int level, int stars, int levelRange, int levelRangeHaltCounter) {
 
@@ -43,6 +47,7 @@ public class Level {
 
 
     /**
+     * Constructs a {@code Level} object.
      * Default constructor for JAXB.
      */
     public Level() {}

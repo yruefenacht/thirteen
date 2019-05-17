@@ -25,6 +25,7 @@ public class Highscore {
 
 
     /**
+     * Constructs a {@code Highscore} object.
      * Default Class constructor for JAXB.
      */
     public Highscore() {}

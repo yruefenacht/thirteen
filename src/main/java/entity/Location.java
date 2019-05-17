@@ -15,7 +15,7 @@ public class Location {
 
 
     /**
-     * Class constructor.
+     * Constructs a {@code Location} object.
      * @param x
      * @param y
      */

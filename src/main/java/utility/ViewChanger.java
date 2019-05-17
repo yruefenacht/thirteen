@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import model.PlayfieldModel;
+import model.BlockMatrix;
 import java.io.IOException;
 
 /**
@@ -25,7 +25,6 @@ public class ViewChanger {
 
     private static BorderPane root;
     private static PlayfieldController playfieldController;
-    private static PlayfieldModel playfieldModel;
     private static BlockMatrix blockMatrix;
     private static StackPane playfieldContainer;
     private static VBox pauseMenu;
@@ -45,7 +44,7 @@ public class ViewChanger {
 
     /**
      * Model getter.
-     * @return playfieldModel
+     * @return blockMatrixSupport
      */
     public static BlockMatrix getBlockMatrix() {
 
@@ -59,7 +58,6 @@ public class ViewChanger {
     public static void changeToMainMenu() {
 
         try {
-            playfieldModel = new PlayfieldModel();
             MainMenuController mainMenuController = new MainMenuController();
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/MainMenu.fxml"));
             loader.setController(mainMenuController);
@@ -77,8 +75,8 @@ public class ViewChanger {
     public static void changeToPlayfield(boolean forceRestart) {
 
         try {
-            playfieldController = new PlayfieldController(playfieldModel);
-            blockMatrix = new BlockMatrix(playfieldModel, Config.GRID_DIMENSION_X, Config.GRID_DIMENSION_Y);
+            blockMatrix = new BlockMatrix(Config.GRID_DIMENSION_X, Config.GRID_DIMENSION_Y);
+            playfieldController = new PlayfieldController(blockMatrix);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"));
             loader.setController(playfieldController);
             Parent playfield = loader.load();
@@ -97,7 +95,7 @@ public class ViewChanger {
     public static void showPauseMenu() {
 
         try {
-            PlayfieldMenuController playfieldMenuController = new PlayfieldMenuController(playfieldModel);
+            PlayfieldMenuController playfieldMenuController = new PlayfieldMenuController(blockMatrix);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/PlayfieldMenu.fxml"));
             loader.setController(playfieldMenuController);
             pauseMenu = loader.load();
@@ -131,7 +129,7 @@ public class ViewChanger {
     public static void showGameOverScreen(Highscore highscore) {
 
         try {
-            GameOverMenuController gameOverMenuController = new GameOverMenuController(playfieldModel);
+            GameOverMenuController gameOverMenuController = new GameOverMenuController(blockMatrix);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/GameOverMenu.fxml"));
             loader.setController(gameOverMenuController);
             VBox gameOverMenu = loader.load();
@@ -153,7 +151,7 @@ public class ViewChanger {
     public static void showUndoMenu() {
 
         try {
-            UndoMenuController undoMenuController = new UndoMenuController(playfieldModel);
+            UndoMenuController undoMenuController = new UndoMenuController(blockMatrix);
             FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/UndoMenu.fxml"));
             loader.setController(undoMenuController);
             undoMenu = loader.load();
