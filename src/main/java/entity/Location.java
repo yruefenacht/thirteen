@@ -16,8 +16,8 @@ public class Location {
 
     /**
      * Constructs a {@code Location} object.
-     * @param x
-     * @param y
+     * @param x column
+     * @param y row
      */
     public Location(int x, int y) {
 

@@ -4,15 +4,12 @@ import config.Config;
 import game.Highscore;
 import utility.AudioPlayer;
 import utility.NumberGenerator;
-import config.Events;
 import game.Game;
 import entity.*;
 import game.GameLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.*;
 
@@ -93,7 +90,7 @@ public class BlockMatrix {
         this.blockMatrixSupport.updateStarCount(this.numberGenerator.getLevel().getStars());
         this.blockMatrixSupport.levelUp(this.numberGenerator.getLevel().getLevel());
         this.game.setRawBlocks(this.getBlocksAsList());
-        this.game.setPreviousBlocks(new ArrayList<BlockList>());
+        this.game.setPreviousBlocks(new ArrayList<>());
         this.game.setLevel(this.numberGenerator.getLevel());
         this.gameLoader.saveGame(this.game);
     }
@@ -117,9 +114,9 @@ public class BlockMatrix {
      * Returns 2D RawBlock array as ArrayList.
      * @return List of RawBlocks
      */
-    public ArrayList<RawBlock> getBlocksAsList() {
+    public List<RawBlock> getBlocksAsList() {
 
-        ArrayList<RawBlock> blockList = new ArrayList<>();
+        List<RawBlock> blockList = new ArrayList<>();
 
         for(int i = 0; i < this.dimensionX; i++)
             blockList.addAll(Arrays.asList(this.rawBlocks[i]).subList(0, this.dimensionY));
@@ -221,9 +218,9 @@ public class BlockMatrix {
      * Finds RawMergeBlocks at same position as RawBlock.
      * @param rawBlock given RawBlock
      */
-    private ArrayList<RawMergeBlock> getMergeBlocksOfBlock(RawBlock rawBlock) {
+    private List<RawMergeBlock> getMergeBlocksOfBlock(RawBlock rawBlock) {
 
-        ArrayList<RawMergeBlock> matchingMergeBlocks = new ArrayList<>();
+        List<RawMergeBlock> matchingMergeBlocks = new ArrayList<>();
 
         for(RawMergeBlock rawMergeBlock : this.rawMergeBlocks) {
 
@@ -239,9 +236,9 @@ public class BlockMatrix {
      * Retrieves smallest blocks.
      * @return list of blocks
      */
-    private ArrayList<RawBlock> getMinBlocks() {
+    private List<RawBlock> getMinBlocks() {
 
-        ArrayList<RawBlock> minBlocks = new ArrayList<>();
+        List<RawBlock> minBlocks = new ArrayList<>();
 
         for(RawBlock rawBlock : this.getBlocksAsList())
             if(rawBlock.getValue() == Config.LEVEL - Config.LEVEL_RANGE)
@@ -333,9 +330,9 @@ public class BlockMatrix {
      * @param bombMode if bombMode, return
      * @return smallest block or empty list
      */
-    private ArrayList<RawBlock> checkForLevelUp(ArrayList<RawBlock> neighbors, boolean bombMode) {
+    private List<RawBlock> checkForLevelUp(List<RawBlock> neighbors, boolean bombMode) {
 
-        ArrayList<RawBlock> minBlocks = new ArrayList<>();
+        List<RawBlock> minBlocks = new ArrayList<>();
         if(bombMode) return minBlocks;
 
         for(RawBlock neighbor : neighbors) {
@@ -359,9 +356,9 @@ public class BlockMatrix {
      * @param visitedBlocks Do not visit same block twice
      * @return list of rawBlocks
      */
-    private ArrayList<RawBlock> getEqualNeighbors(int x, int y, ArrayList<RawBlock> visitedBlocks) {
+    private List<RawBlock> getEqualNeighbors(int x, int y, List<RawBlock> visitedBlocks) {
 
-        ArrayList<RawBlock> equalNeighbors = new ArrayList<>();
+        List<RawBlock> equalNeighbors = new ArrayList<>();
         RawBlock block = this.getBlockAt(x, y);
 
         if(block == null) return equalNeighbors;
@@ -392,7 +389,7 @@ public class BlockMatrix {
      * Remove neighbors and their MergeBlocks from GUI.
      * @param blocks given Blocks
      */
-    private void removeBlocks(ArrayList<RawBlock> blocks) {
+    private void removeBlocks(List<RawBlock> blocks) {
 
         for(RawBlock neighbor : blocks) {
             this.blockMatrixSupport.removeBlock(neighbor);
@@ -420,9 +417,9 @@ public class BlockMatrix {
      * Puts removed RawBlocks (gaps) to the top of matrix.
      * @param rawBlocks Empty RawBlocks
      */
-    private void riseBlocksToTop(ArrayList<RawBlock> rawBlocks) {
+    private void riseBlocksToTop(List<RawBlock> rawBlocks) {
 
-        ArrayList<RawMergeBlock> mergeBlocksToRemove = new ArrayList<>();
+        List<RawMergeBlock> mergeBlocksToRemove = new ArrayList<>();
         for(RawBlock rawBlock : rawBlocks) {
 
             int rx = rawBlock.getX();
@@ -452,7 +449,7 @@ public class BlockMatrix {
      * Create new Blocks at null positions.
      * @param nullBlocks null positions
      */
-    private void createNewBlocks(ArrayList<RawBlock> nullBlocks) {
+    private void createNewBlocks(List<RawBlock> nullBlocks) {
 
         for(RawBlock rawBlock : nullBlocks) {
 
@@ -518,7 +515,7 @@ public class BlockMatrix {
         boolean bombMode = Config.BOMB_MODE;
 
         //STEP 0 - Get neighbors
-        ArrayList<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<RawBlock>());
+        List<RawBlock> neighbors = this.getEqualNeighbors(x, y, new ArrayList<>());
 
         //Bomb Mode
         if(bombMode) {
@@ -532,13 +529,12 @@ public class BlockMatrix {
         if(neighbors.isEmpty()) return;
 
         //Enable undo button
-        if(Config.STAR_COUNT >= Config.TOOL_COST) this.blockMatrixSupport.setUndoButtonEnabled(true);
+        this.blockMatrixSupport.setUndoButtonEnabled(Config.STAR_COUNT >= Config.TOOL_COST);
 
         //Store current state
         this.saveCurrentStates();
 
         //Play sound effect
-
         this.audioPlayer.playPopSound();
 
         //SPECIAL CASE - Check for level up

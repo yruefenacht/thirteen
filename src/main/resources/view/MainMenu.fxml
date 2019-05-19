@@ -13,7 +13,8 @@
    </top>
    <center>
       <StackPane>
-         <VBox alignment="CENTER" spacing="50.0">
+         <Pane fx:id="mainMenuBackground" />
+         <VBox styleClass="mainMenu__ButtonsContainer" alignment="CENTER" spacing="100.0">
             <!-- PLAY BUTTON -->
             <StackPane styleClass="mainMenu__PlayButtonContainer">
                <Label styleClass="mainMenu__PlayButtonLine" StackPane.alignment="BOTTOM_CENTER" />

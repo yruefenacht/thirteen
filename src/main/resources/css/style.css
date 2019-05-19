@@ -139,6 +139,10 @@
     -fx-background-color: #444;
 }
 
+.mainMenu__ButtonsContainer {
+    -fx-background-color: rgba(8, 8, 8, 0.35);
+}
+
 .mainMenu__PlayButtonContainer {
     -fx-pref-width: 375;
     -fx-pref-height: 200;
@@ -191,7 +195,7 @@
 }
 
 .mainMenu__SettingsButton:hover {
-    -fx-background-color: rgba(230, 230, 230, 0.7) ;
+    -fx-background-color: rgba(230, 230, 230, 0.25) ;
 }
 
 .mainMenu__SettingsButton:pressed {

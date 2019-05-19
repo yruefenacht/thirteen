@@ -37,7 +37,8 @@ public class Bot {
 
     /**
      * Constructs a {@code Bot} object.
-     * @param blockMatrix model.
+     * @param blockMatrix model
+     * @param strategies are displayed in ChoiceBox
      */
     public Bot(BlockMatrix blockMatrix, List<BotStrategy> strategies) {
 

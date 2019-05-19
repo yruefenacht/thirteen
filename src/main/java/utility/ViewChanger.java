@@ -126,6 +126,7 @@ public class ViewChanger {
 
     /**
      * Show GameOverMenu.fxml.
+     * @param game has level and highscore
      */
     public static void showGameOverScreen(Game game) {
 

@@ -33,6 +33,7 @@ public class Block extends Entity {
      * @param x array position x
      * @param y array position y
      * @param value number on label
+     * @param blockMatrix tell model when button is clicked
      */
     public Block(BlockMatrix blockMatrix, int x, int y, int value) {
 

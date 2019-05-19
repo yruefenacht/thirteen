@@ -102,8 +102,8 @@ public class NumberGenerator {
             k--;
             n--;
         }
-        return flattenExponentialCurve * probability;
 
+        return flattenExponentialCurve * probability;
     }
 
 

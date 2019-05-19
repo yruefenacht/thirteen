@@ -12,7 +12,7 @@ import java.util.List;
  * @version    1.0
  *
  * Has sole purpose of storing blocks as list.
- * This is necessary, since JAXB cannot store elements of type List<List<T>>
+ * This is necessary, since JAXB cannot store elements of type {@code List<List<T>>}
  */
 @XmlType
 public class BlockList {
