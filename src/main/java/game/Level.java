@@ -103,11 +103,21 @@ public class Level {
 
 
     /**
-     * Stars setter.
+     * Stars increment.
      */
     public void increaseStars() {
 
         this.stars++;
+    }
+
+
+    /**
+     * Stars setter.
+     * @param value stars
+     */
+    public void setStars(int value) {
+
+        this.stars = value;
     }
 
 

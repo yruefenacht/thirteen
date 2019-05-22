@@ -187,6 +187,16 @@ class BlockMatrixSupport extends PropertyChangeSupport {
 
 
     /**
+     * Notify to update bomb button
+     * @param enabled true to enable, vice versa
+     */
+    void setBombButtonEnabled(boolean enabled) {
+
+        this.firePropertyChange(Events.BOMB_SET_ENABLED, null, enabled);
+    }
+
+
+    /**
      * Notify to clear all MergeBlocks.
      */
     void resetMergeBlocks() {

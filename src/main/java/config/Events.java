@@ -10,7 +10,6 @@ package config;
  */
 public class Events {
 
-    public static final String BLOCK_CLICKED = "blockClicked";
     public static final String REMOVE_BLOCK = "removeBlock";
     public static final String REMOVE_MERGE_BLOCK = "removeMergeBlock";
     public static final String BLOCKS_CREATED = "blocksCreated";
@@ -26,7 +25,7 @@ public class Events {
     public static final String RESTART_GAME = "restartGame";
     public static final String QUIT_GAME = "quitGame";
     public static final String GAME_OVER = "gameOver";
-    public static final String UNDO = "undo";
     public static final String UNDO_SET_ENABLED = "undoSetEnabled";
+    public static final String BOMB_SET_ENABLED = "bombSetEnabled";
     public static final String MERGE_BLOCKS_RESET = "mergeBlocksReset";
 }

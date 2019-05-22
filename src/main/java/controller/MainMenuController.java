@@ -26,13 +26,16 @@ import java.util.Random;
  *
  * Defines click events of main menu screen.
  */
-public class MainMenuController {
+public class MainMenuController implements MenuController {
 
     @FXML
     private Button mainMenuPlayButton;
 
     @FXML
     private Button soundButton;
+
+    @FXML
+    private Button helpButton;
 
     @FXML
     private Pane mainMenuBackground;
@@ -67,11 +70,13 @@ public class MainMenuController {
     /**
      * Defines click events of main menu buttons.
      */
+    @Override
     public void setButtons(){
 
         this.mainMenuPlayButton.setOnAction(e -> ViewChanger.changeToPlayfield(false));
         this.soundButton.setGraphic(soundButtonImageView);
         this.soundButton.setOnAction(e -> this.toggleSound());
+        this.helpButton.setOnAction(e -> ViewChanger.showHelpWindow());
         this.letItSnow();
     }
 
@@ -95,7 +100,7 @@ public class MainMenuController {
     private void letItSnow() {
 
         Timeline snowFall = new Timeline(new KeyFrame(
-            Duration.millis(1000),
+            Duration.millis(750),
             e -> this.createSnowFlake()
         ));
         snowFall.setCycleCount(Animation.INDEFINITE);
@@ -116,6 +121,10 @@ public class MainMenuController {
         int rectangleMaxLength = 50;
         int rectangleLength = random.nextInt((rectangleMaxLength - rectangleMinLength) + 1) + rectangleMinLength;
 
+        int durationMin = 3000;
+        int durationMax = 9000;
+        int duration = random.nextInt((durationMax - durationMin) + 1) + durationMin;
+
         int rotate = random.nextInt(360);
         Color rectangleBackground = Config.BLOCK_COLORS.get(random.nextInt(10));
 
@@ -124,6 +133,7 @@ public class MainMenuController {
             rectangleX,
             rectangleLength,
             rotate,
+            duration,
             rectangleBackground
         ));
     }

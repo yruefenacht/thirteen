@@ -12,7 +12,7 @@ import model.BlockMatrix;
  *
  * Defines click events of buttons from playfield menu.
  */
-public class PlayfieldMenuController {
+public class PlayfieldMenuController implements MenuController {
 
     private BlockMatrix blockMatrix;
     @FXML
@@ -36,6 +36,7 @@ public class PlayfieldMenuController {
     /**
      * Defines button click events.
      */
+    @Override
     public void setButtons() {
 
         this.playfieldMenuContinue.setOnAction(e -> this.blockMatrix.continueGame());

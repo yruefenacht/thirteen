@@ -181,4 +181,20 @@ public class ViewChanger {
         fadeTransition.play();
     }
 
+
+    /**
+     * Show HelpWindow.fxml.
+     */
+    public static void showHelpWindow() {
+
+        try {
+            HelpWindowController helpWindowController = new HelpWindowController();
+            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/HelpWindow.fxml"));
+            loader.setController(helpWindowController);
+            root.setCenter(loader.load());
+            helpWindowController.setButtons();
+
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
 }

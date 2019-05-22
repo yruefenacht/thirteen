@@ -81,12 +81,13 @@ public class BlockMatrix {
      */
     private void createMatrix() {
 
+        this.numberGenerator.resetLevel();
         this.generateBlocks();
         this.generateMergeBlocks();
-        this.numberGenerator.resetLevel();
         this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
         this.blockMatrixSupport.blocksCreated(this.getBlocksAsList());
         this.blockMatrixSupport.setUndoButtonEnabled(false);
+        this.blockMatrixSupport.setBombButtonEnabled(true);
         this.blockMatrixSupport.updateStarCount(this.numberGenerator.getLevel().getStars());
         this.blockMatrixSupport.levelUp(this.numberGenerator.getLevel().getLevel());
         this.game.setRawBlocks(this.getBlocksAsList());
@@ -106,7 +107,10 @@ public class BlockMatrix {
         this.blockMatrixSupport.blocksCreated(this.getBlocksAsList());
         this.blockMatrixSupport.levelUp(this.game.getLevel().getLevel());
         this.blockMatrixSupport.updateStarCount(this.game.getLevel().getStars());
-        this.blockMatrixSupport.setUndoButtonEnabled(! this.previousBlocks.isEmpty());
+        this.blockMatrixSupport.setBombButtonEnabled(Config.STAR_COUNT >= Config.TOOL_COST);
+        this.blockMatrixSupport.setUndoButtonEnabled(
+            !this.previousBlocks.isEmpty() && Config.STAR_COUNT >= Config.TOOL_COST
+        );
     }
 
 
@@ -254,13 +258,8 @@ public class BlockMatrix {
     public void undo() {
 
         if(this.previousBlocks.isEmpty()) return;
-        if(this.previousBlocks.size() == 1) this.blockMatrixSupport.setUndoButtonEnabled(false);
 
-        this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
-
-        if(Config.STAR_COUNT < Config.TOOL_COST)
-            this.blockMatrixSupport.setUndoButtonEnabled(false);
-
+        this.game.getLevel().setStars(Config.STAR_COUNT -= Config.TOOL_COST);
         BlockList latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
 
         for(RawBlock block : latestPreviousBlocks.getRawBlocks())
@@ -268,12 +267,16 @@ public class BlockMatrix {
 
         this.rawMergeBlocks.clear();
         this.generateMergeBlocks();
-        this.blockMatrixSupport.blocksCreated(latestPreviousBlocks.getRawBlocks());
-        this.blockMatrixSupport.resetMergeBlocks();
-        this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
         this.game.setRawBlocks(latestPreviousBlocks.getRawBlocks());
         this.game.setPreviousBlocks(this.previousBlocks);
         this.gameLoader.saveGame(this.game);
+        this.blockMatrixSupport.blocksCreated(latestPreviousBlocks.getRawBlocks());
+        this.blockMatrixSupport.resetMergeBlocks();
+        this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
+        this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT);
+        this.blockMatrixSupport.setUndoButtonEnabled(
+            !this.previousBlocks.isEmpty() && Config.STAR_COUNT >= Config.TOOL_COST
+        );
     }
 
 
@@ -479,7 +482,6 @@ public class BlockMatrix {
      */
     private void checkForGameOver() {
 
-        Config.STAR_COUNT++;
         this.numberGenerator.increaseStarCount();
 
         if(this.rawMergeBlocks.isEmpty()) {
@@ -522,14 +524,18 @@ public class BlockMatrix {
             neighbors.clear();
             neighbors.add(this.getBlockAt(x, y));
             this.blockMatrixSupport.toggleBombMode();
-            this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT -= Config.TOOL_COST);
+            this.game.getLevel().setStars(Config.STAR_COUNT -= Config.TOOL_COST);
+            this.blockMatrixSupport.updateStarCount(Config.STAR_COUNT);
         }
 
         //Ignore single blocks
         if(neighbors.isEmpty()) return;
 
-        //Enable undo button
-        this.blockMatrixSupport.setUndoButtonEnabled(Config.STAR_COUNT >= Config.TOOL_COST);
+        //Enable or disable tool buttons
+        this.blockMatrixSupport.setBombButtonEnabled(Config.STAR_COUNT >= Config.TOOL_COST);
+        this.blockMatrixSupport.setUndoButtonEnabled(
+            !this.previousBlocks.isEmpty() && Config.STAR_COUNT >= Config.TOOL_COST
+        );
 
         //Store current state
         this.saveCurrentStates();

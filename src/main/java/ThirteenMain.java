@@ -45,8 +45,8 @@ public class ThirteenMain extends Application {
 
         //Stage
         primaryStage.setScene(scene);
-        primaryStage.setMinWidth(Config.SCENE_WIDTH);
-        primaryStage.setMinHeight(Config.SCENE_HEIGHT);
+        primaryStage.setMinWidth(Config.SCENE_WIDTH + Config.STAGE_WIDTH_PADDING);
+        primaryStage.setMinHeight(Config.SCENE_HEIGHT + Config.STAGE_HEIGHT_PADDING);
         primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("images/app_icon.png")));
         primaryStage.setTitle(Config.APP_TITLE);
         primaryStage.show();

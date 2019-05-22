@@ -28,9 +28,9 @@ public class Config {
     public static int LEVEL_RANGE_HALT_COUNTER = 0;
 
     //Prices
-    public static final int TOOL_COST = 50;
-    public static final int STAR_COUNT_DEFAULT = 50;
-    public static int STAR_COUNT = 50;
+    public static final int TOOL_COST = 100;
+    public static final int STAR_COUNT_DEFAULT = 100;
+    public static int STAR_COUNT = 100;
 
     //Boolean
     public static boolean BOMB_MODE = false;
@@ -60,6 +60,8 @@ public class Config {
     public static final int SCENE_HEIGHT = (GRID_DIMENSION_Y * BLOCK_HEIGHT) + SCENE_TOP;
     public static final int BOT_SCENE_WIDTH = 250;
     public static final int BOT_SCENE_HEIGHT = 300;
+    public static final int STAGE_HEIGHT_PADDING = 35;
+    public static final int STAGE_WIDTH_PADDING = 15;
 
     //BotMain
     public static final int BOT_INTERVAL = 850;

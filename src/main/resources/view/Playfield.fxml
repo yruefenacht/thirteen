@@ -63,14 +63,14 @@
          <Label fx:id="playfieldLevel" alignment="CENTER" styleClass="playfield__level" />
          <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
          <Button fx:id="playfieldToolBomb" styleClass="playfield__tool">
-             <graphic>
-                 <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true">
-                     <Image url="@../images/bomb.png"/>
-                 </ImageView>
-             </graphic>
             <HBox.margin>
                <Insets right="50.0" />
             </HBox.margin>
+             <graphic>
+                 <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true" styleClass="playfield__tool__img">
+                     <Image url="@../images/bomb.png"/>
+                 </ImageView>
+             </graphic>
          </Button>
          <padding>
             <Insets bottom="50.0" top="50.0" />

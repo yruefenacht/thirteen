@@ -15,7 +15,7 @@ import utility.ViewChanger;
  *
  * Handles undo confirm action of user.
  */
-public class UndoMenuController {
+public class UndoMenuController implements MenuController {
 
     private BlockMatrix blockMatrix;
     @FXML
@@ -37,6 +37,7 @@ public class UndoMenuController {
     /**
      * Defines click events
      */
+    @Override
     public void setButtons() {
 
         undoMenuConfirm.setText("BUY " + Config.TOOL_COST);

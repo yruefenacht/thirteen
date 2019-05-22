@@ -112,6 +112,7 @@ public class NumberGenerator {
      */
     public void increaseStarCount() {
 
+        Config.STAR_COUNT++;
         this.level.increaseStars();
     }
 
@@ -142,6 +143,10 @@ public class NumberGenerator {
             Config.STAR_COUNT_DEFAULT,
             Config.LEVEL_RANGE_DEFAULT, 0
         );
+        Config.LEVEL = Config.LEVEL_DEFAULT;
+        Config.STAR_COUNT = Config.STAR_COUNT_DEFAULT;
+        Config.LEVEL_RANGE = Config.LEVEL_RANGE_DEFAULT;
+        Config.LEVEL_RANGE_HALT_COUNTER = 0;
     }
 
 

@@ -244,7 +244,6 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void restartGame() {
 
-        this.resetLevel();
         ViewChanger.changeToPlayfield(true);
     }
 
@@ -254,19 +253,7 @@ public class PlayfieldController implements PropertyChangeListener {
      */
     private void quitGame() {
 
-        this.resetLevel();
         ViewChanger.changeToMainMenu();
-    }
-
-
-    /**
-     * Resets level and NumberGenerator values.
-     */
-    private void resetLevel() {
-
-        Config.LEVEL = Config.LEVEL_DEFAULT;
-        Config.LEVEL_RANGE = Config.LEVEL_RANGE_DEFAULT;
-        this.levelUp(Config.LEVEL);
     }
 
 
@@ -395,16 +382,6 @@ public class PlayfieldController implements PropertyChangeListener {
 
 
     /**
-     * Disable or enable undo button.
-     * @param enabled true to enable, vice versa
-     */
-    private void setUndoButtonEnabled(boolean enabled) {
-
-        this.playfieldToolUndo.setDisable(! enabled);
-    }
-
-
-    /**
      * This method is fired when changes happen in the model observable.
      * @param evt Object that stores event properties
      */
@@ -461,7 +438,10 @@ public class PlayfieldController implements PropertyChangeListener {
                 this.mergeBlocks.clear(); this.playfieldMergeBlocks.getChildren().clear();
                 break;
             case Events.UNDO_SET_ENABLED:
-                this.setUndoButtonEnabled((Boolean) evt.getNewValue());
+                this.playfieldToolUndo.setDisable(! (Boolean) evt.getNewValue());
+                break;
+            case Events.BOMB_SET_ENABLED:
+                this.playfieldToolBomb.setDisable(! (Boolean) evt.getNewValue());
                 break;
         }
     }

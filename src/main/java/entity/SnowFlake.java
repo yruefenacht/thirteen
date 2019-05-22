@@ -28,7 +28,7 @@ public class SnowFlake extends Rectangle {
      * @param rotate rotation value
      * @param background background color
      */
-    public SnowFlake(Pane menuBackground, int x, int size, int rotate, Color background) {
+    public SnowFlake(Pane menuBackground, int x, int size, int rotate, int duration, Color background) {
 
         super(x, 0, size, size);
         this.setFill(background);
@@ -38,7 +38,7 @@ public class SnowFlake extends Rectangle {
 
         Timeline fallDown = new Timeline(
             new KeyFrame(
-                Duration.millis(6000),
+                Duration.millis(duration),
                 new KeyValue(this.yProperty(), Config.SCENE_HEIGHT)
             )
         );

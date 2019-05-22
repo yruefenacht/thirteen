@@ -16,7 +16,7 @@ import model.BlockMatrix;
  *
  * Defines click events of buttons from game over screen.
  */
-public class GameOverMenuController {
+public class GameOverMenuController implements MenuController {
 
     @FXML
     private Label gameOverMenuScore;
@@ -45,6 +45,7 @@ public class GameOverMenuController {
     /**
      * Defines click events.
      */
+    @Override
     public void setButtons() {
 
         this.gameOverMenuPlayAgain.setOnAction(e -> this.blockMatrix.restartGame());

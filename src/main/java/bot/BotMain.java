@@ -74,8 +74,8 @@ public class BotMain extends Application {
 
         //Stage
         primaryStage.setScene(mainScene);
-        primaryStage.setMinWidth(Config.SCENE_WIDTH);
-        primaryStage.setMinHeight(Config.SCENE_HEIGHT);
+        primaryStage.setMinWidth(Config.SCENE_WIDTH + Config.STAGE_WIDTH_PADDING);
+        primaryStage.setMinHeight(Config.SCENE_HEIGHT + Config.STAGE_HEIGHT_PADDING);
         primaryStage.getIcons().add(icon);
         primaryStage.setTitle(Config.APP_TITLE);
         primaryStage.setOnCloseRequest(e -> botStage.close());
