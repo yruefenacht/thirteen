@@ -140,5 +140,6 @@
     </level>
     <settings>
         <sound>true</sound>
+        <languagePointer>1</languagePointer>
     </settings>
 </game>

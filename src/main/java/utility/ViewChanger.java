@@ -12,9 +12,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.BlockMatrix;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -31,13 +28,10 @@ public class ViewChanger {
     private static BorderPane root;
     private static PlayfieldController playfieldController;
     private static BlockMatrix blockMatrix;
+    private static LanguageChanger languageChanger;
     private static StackPane playfieldContainer;
     private static VBox pauseMenu;
     private static VBox undoMenu;
-    private static ResourceBundle bundle;
-    private static List<Locale> locales;
-    private static Locale currentLocale;
-    private static int currentLocaleIndex = 0;
 
 
     /**
@@ -47,15 +41,8 @@ public class ViewChanger {
     public static BorderPane init() {
 
         root = new BorderPane();
-        locales = new ArrayList<>();
-        locales.add(new Locale("en", "GB"));
-        locales.add(new Locale("de", "DE"));
-        locales.add(new Locale("fr", "FR"));
-        locales.add(new Locale("ar"));
-        currentLocale = locales.get(currentLocaleIndex);
-        bundle = ResourceBundle.getBundle("languages", currentLocale);
+        languageChanger = new LanguageChanger();
         return root;
-
     }
 
 
@@ -70,34 +57,41 @@ public class ViewChanger {
 
 
     /**
-     * bundle getter
-     * @return bundle
+     * Set language of languageChanger.
+     * @param languagePointer index
      */
-    public static ResourceBundle getBundle() {
+    public static void setLanguage(int languagePointer) {
 
-        return bundle;
+        languageChanger.setCurrentLocaleIndex(languagePointer);
     }
 
 
     /**
-     * bundle getter
+     * bundle getter.
      * @return bundle
      */
-    public static Locale getLocale() {
+    public static ResourceBundle getLanguage() {
 
-        return currentLocale;
+        return languageChanger.getBundle();
     }
 
 
     /**
-     *
+     * Language pointer getter.
+     * @return index
+     */
+    public static int getLanguagePointer() {
+
+        return languageChanger.getCurrentLocaleIndex();
+    }
+
+
+    /**
+     * Changes to next language in languageList.
      */
     public static void changeLanguage() {
 
-        currentLocaleIndex++;
-        if(currentLocaleIndex > locales.size() - 1) currentLocaleIndex = 0;
-        currentLocale = locales.get(currentLocaleIndex);
-        bundle = ResourceBundle.getBundle("languages", currentLocale);
+        languageChanger.changeLanguage();
     }
 
 
@@ -108,7 +102,10 @@ public class ViewChanger {
 
         try {
             MainMenuController mainMenuController = new MainMenuController();
-            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/MainMenu.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(
+                ViewChanger.class.getResource("/view/MainMenu.fxml"),
+                languageChanger.getBundle()
+            );
             loader.setController(mainMenuController);
             root.setCenter(loader.load());
             mainMenuController.setButtons();
@@ -126,7 +123,10 @@ public class ViewChanger {
         try {
             blockMatrix = new BlockMatrix(Config.GRID_DIMENSION_X, Config.GRID_DIMENSION_Y);
             playfieldController = new PlayfieldController(blockMatrix);
-            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/Playfield.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(
+                ViewChanger.class.getResource("/view/Playfield.fxml"),
+                languageChanger.getBundle()
+            );
             loader.setController(playfieldController);
             Parent playfield = loader.load();
             playfieldContainer = playfieldController.getPlayfield();
@@ -145,7 +145,10 @@ public class ViewChanger {
 
         try {
             PlayfieldMenuController playfieldMenuController = new PlayfieldMenuController(blockMatrix);
-            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/PlayfieldMenu.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(
+                ViewChanger.class.getResource("/view/PlayfieldMenu.fxml"),
+                languageChanger.getBundle()
+            );
             loader.setController(playfieldMenuController);
             pauseMenu = loader.load();
             pauseMenu.setPrefWidth(Config.GRID_DIMENSION_X * Config.BLOCK_WIDTH);
@@ -180,7 +183,10 @@ public class ViewChanger {
 
         try {
             GameOverMenuController gameOverMenuController = new GameOverMenuController(blockMatrix);
-            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/GameOverMenu.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(
+                ViewChanger.class.getResource("/view/GameOverMenu.fxml"),
+                languageChanger.getBundle()
+            );
             loader.setController(gameOverMenuController);
             VBox gameOverMenu = loader.load();
             gameOverMenu.setPrefWidth(Config.GRID_DIMENSION_X * Config.BLOCK_WIDTH);
@@ -203,7 +209,10 @@ public class ViewChanger {
 
         try {
             UndoMenuController undoMenuController = new UndoMenuController(blockMatrix);
-            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/UndoMenu.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(
+                ViewChanger.class.getResource("/view/UndoMenu.fxml"),
+                languageChanger.getBundle()
+            );
             loader.setController(undoMenuController);
             undoMenu = loader.load();
             undoMenu.setPrefWidth(Config.GRID_DIMENSION_X * Config.BLOCK_WIDTH);
@@ -237,7 +246,10 @@ public class ViewChanger {
 
         try {
             HelpWindowController helpWindowController = new HelpWindowController();
-            FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("/view/HelpWindow.fxml"), bundle);
+            FXMLLoader loader = new FXMLLoader(
+                ViewChanger.class.getResource("/view/HelpWindow.fxml"),
+                languageChanger.getBundle()
+            );
             loader.setController(helpWindowController);
             root.setCenter(loader.load());
             helpWindowController.setButtons();

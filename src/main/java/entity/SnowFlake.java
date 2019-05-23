@@ -30,7 +30,7 @@ public class SnowFlake extends Rectangle {
      */
     public SnowFlake(Pane menuBackground, int x, int size, int rotate, int duration, Color background) {
 
-        super(x, 0, size, size);
+        super(x, 10, size, size);
         this.setFill(background);
         this.setRotate(rotate);
         this.setArcWidth(5);

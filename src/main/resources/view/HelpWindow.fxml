@@ -34,8 +34,7 @@
                 <Label styleClass="help_h2" text="%HelpWindow.goalLabel"/>
             </HBox>
             <HBox styleClass="help__article">
-                <TextArea styleClass="help__text" wrapText="true" editable="false"
-                      text="%HelpWindoW.goal"/>
+                <TextArea styleClass="help__text" wrapText="true" editable="false" text="%HelpWindow.goal"/>
             </HBox>
             <!-- GAME PLAY -->
             <HBox alignment="CENTER">

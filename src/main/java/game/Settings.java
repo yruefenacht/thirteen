@@ -14,12 +14,14 @@ import javax.xml.bind.annotation.XmlType;
  * Stores user settings.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(propOrder = { "sound" })
+@XmlType(propOrder = { "sound", "languagePointer" })
 public class Settings {
 
     @XmlElement
     private boolean sound;
 
+    @XmlElement
+    private int languagePointer;
 
     /**
      * Constructs a {@code Settings} object.
@@ -39,11 +41,31 @@ public class Settings {
 
 
     /**
+     * Language pointer getter.
+     * @return index
+     */
+    public int getLanguagePointer() {
+
+        return this.languagePointer;
+    }
+
+
+    /**
      * Sound setter.
      */
     public void toggleSound() {
 
         this.sound = !this.sound;
+    }
+
+
+    /**
+     * Language pointer setter.
+     * @param value index
+     */
+    public void setLanguagePointer(int value) {
+
+        this.languagePointer = value;
     }
 
 }

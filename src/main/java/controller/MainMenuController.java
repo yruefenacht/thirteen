@@ -38,10 +38,10 @@ public class MainMenuController implements MenuController {
     private Button helpButton;
 
     @FXML
-    private Pane mainMenuBackground;
+    private Button languageButton;
 
     @FXML
-    private Button languageButton;
+    private Pane mainMenuBackground;
 
     private GameLoader gameLoader;
     private Game game;
@@ -67,6 +67,7 @@ public class MainMenuController implements MenuController {
         Image soundImage = (this.settings.isSound()) ? this.soundOnIcon : this.soundOffIcon;
         this.soundButtonImageView.setImage(soundImage);
         Config.SOUND = this.settings.isSound();
+        ViewChanger.setLanguage(this.game.getSettings().getLanguagePointer());
     }
 
 
@@ -81,18 +82,30 @@ public class MainMenuController implements MenuController {
         this.soundButton.setOnAction(e -> this.toggleSound());
         this.helpButton.setOnAction(e -> ViewChanger.showHelpWindow());
         this.languageButton.setOnAction(e -> changeLanguage());
+        this.updateLanguageOnButtons();
         this.letItSnow();
     }
 
 
     /**
-     *
+     * Changes bundle of ViewChanger
      */
     private void changeLanguage(){
 
         ViewChanger.changeLanguage();
-        this.mainMenuPlayButton.setText(ViewChanger.getBundle().getString("MainMenu.play"));
-        this.languageButton.setText(ViewChanger.getBundle().getString("MainMenu.language"));
+        this.updateLanguageOnButtons();
+        this.game.getSettings().setLanguagePointer(ViewChanger.getLanguagePointer());
+        this.gameLoader.saveGame(this.game);
+    }
+
+
+    /**
+     * Sets current text on buttons in current language.
+     */
+    private void updateLanguageOnButtons() {
+
+        this.mainMenuPlayButton.setText(ViewChanger.getLanguage().getString("MainMenu.play"));
+        this.languageButton.setText(ViewChanger.getLanguage().getString("MainMenu.language"));
     }
 
 
@@ -154,4 +167,3 @@ public class MainMenuController implements MenuController {
     }
 
 }
-
