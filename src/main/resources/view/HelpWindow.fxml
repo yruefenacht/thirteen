@@ -31,18 +31,18 @@
         <VBox>
             <!-- GOAL -->
             <HBox alignment="CENTER">
-                <Label styleClass="help_h2" text="GOAL"/>
+                <Label styleClass="help_h2" text="%HelpWindow.goalLabel"/>
             </HBox>
             <HBox styleClass="help__article">
-                <TextArea styleClass="help__text" wrapText="true"
-                      text="The main goal is to reach a score of 13 or higher. Although this might seem easy to achieve at first, the game increasingly becomes quite difficult."/>
+                <TextArea styleClass="help__text" wrapText="true" editable="false"
+                      text="%HelpWindoW.goal"/>
             </HBox>
             <!-- GAME PLAY -->
             <HBox alignment="CENTER">
                 <Label styleClass="help_h2" text="GAME PLAY"/>
             </HBox>
             <HBox styleClass="help__article">
-                <TextArea styleClass="help__text" wrapText="true"
+                <TextArea styleClass="help__text" wrapText="true" editable="false"
                       text="To increase the value of a block it must be merged with another adjacent block of equal value. If each block has no neighbor of equal value the game ist over."/>
             </HBox>
             <!-- SCORE -->
@@ -50,7 +50,7 @@
                 <Label styleClass="help_h2" text="SCORE"/>
             </HBox>
             <HBox styleClass="help__article">
-                <TextArea styleClass="help__text" wrapText="true"
+                <TextArea styleClass="help__text" wrapText="true" editable="false"
                       text="The score consists of the current level, which is the value of the highest block, and the number of stars. Buying a bomb or an undo action reduces the number of stars and thus the score."/>
             </HBox>
         </VBox>

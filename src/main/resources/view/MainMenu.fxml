@@ -18,12 +18,12 @@
             <!-- PLAY BUTTON -->
             <StackPane styleClass="mainMenu__PlayButtonContainer">
                <Label styleClass="mainMenu__PlayButtonLine" StackPane.alignment="BOTTOM_CENTER" />
-               <Button fx:id="mainMenuPlayButton" alignment="CENTER" text="Play" />
+               <Button fx:id="mainMenuPlayButton" alignment="CENTER" text="%MainMenu.play" />
             </StackPane>
             <!-- SETTINGS -->
             <HBox alignment="CENTER" spacing="50.0">
                <Button fx:id="soundButton" styleClass="mainMenu__SettingsButton" />
-               <Button styleClass="mainMenu__SettingsButton" text="EN" />
+               <Button fx:id="languageButton" styleClass="mainMenu__SettingsButton" text="%MainMenu.language" />
                <Button fx:id="helpButton" styleClass="mainMenu__SettingsButton">
                   <graphic>
                      <ImageView fitHeight="25.0" fitWidth="25.0" preserveRatio="true">

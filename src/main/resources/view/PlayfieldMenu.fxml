@@ -10,7 +10,7 @@
       spacing="20.0"
       styleClass="playfieldMenu">
     <!-- MENU BUTTONS -->
-    <Button fx:id="playfieldMenuContinue" text="CONTINUE" styleClass="playfieldMenu__Button" />
-    <Button fx:id="playfieldMenuRestart" text="RESTART" styleClass="playfieldMenu__Button" />
-    <Button fx:id="playfieldMenuQuit" text="MAIN MENU" styleClass="playfieldMenu__Button" />
+    <Button fx:id="playfieldMenuContinue" text="%PlayfieldMenu.continue" styleClass="playfieldMenu__Button" />
+    <Button fx:id="playfieldMenuRestart" text="%PlayfieldMenu.restart" styleClass="playfieldMenu__Button" />
+    <Button fx:id="playfieldMenuQuit" text="%PlayfieldMenu.main" styleClass="playfieldMenu__Button" />
 </VBox>

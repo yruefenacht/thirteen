@@ -40,6 +40,9 @@ public class MainMenuController implements MenuController {
     @FXML
     private Pane mainMenuBackground;
 
+    @FXML
+    private Button languageButton;
+
     private GameLoader gameLoader;
     private Game game;
     private Settings settings;
@@ -77,7 +80,19 @@ public class MainMenuController implements MenuController {
         this.soundButton.setGraphic(soundButtonImageView);
         this.soundButton.setOnAction(e -> this.toggleSound());
         this.helpButton.setOnAction(e -> ViewChanger.showHelpWindow());
+        this.languageButton.setOnAction(e -> changeLanguage());
         this.letItSnow();
+    }
+
+
+    /**
+     *
+     */
+    private void changeLanguage(){
+
+        ViewChanger.changeLanguage();
+        this.mainMenuPlayButton.setText(ViewChanger.getBundle().getString("MainMenu.play"));
+        this.languageButton.setText(ViewChanger.getBundle().getString("MainMenu.language"));
     }
 
 
