@@ -41,9 +41,9 @@ public class UndoMenuController implements MenuController {
     @Override
     public void setButtons() {
 
-        undoMenuConfirm.setText(ViewChanger.getLanguage().getString("UndoMenu.buy") +" "+Config.TOOL_COST);
+        undoMenuConfirm.setText(ViewChanger.getLanguage().getString("UndoMenu.buy") + " " + Config.TOOL_COST);
         undoMenuConfirm.setContentDisplay(ContentDisplay.RIGHT);
-        undoMenuConfirm.setOnAction(e ->  { ViewChanger.closeUndoMenu(); this.blockMatrix.undo(); });
+        undoMenuConfirm.setOnAction(e -> { ViewChanger.closeUndoMenu(); this.blockMatrix.undo(); });
         undoMenuAbort.setOnAction(e -> ViewChanger.closeUndoMenu());
     }
     

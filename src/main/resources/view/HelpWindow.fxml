@@ -41,16 +41,14 @@
                 <Label styleClass="help_h2" text="%HelpWindow.gamePlayLabel"/>
             </HBox>
             <HBox styleClass="help__article">
-                <TextArea styleClass="help__text" wrapText="true" editable="false"
-                      text="%HelpWindow.gamePlay"/>
+                <TextArea styleClass="help__text" wrapText="true" editable="false" text="%HelpWindow.gamePlay"/>
             </HBox>
             <!-- SCORE -->
             <HBox alignment="CENTER">
                 <Label styleClass="help_h2" text="%HelpWindow.scoreLabel"/>
             </HBox>
             <HBox styleClass="help__article">
-                <TextArea styleClass="help__text" wrapText="true" editable="false"
-                      text="%HelpWindow.score"/>
+                <TextArea styleClass="help__text" wrapText="true" editable="false" text="%HelpWindow.score"/>
             </HBox>
         </VBox>
     </center>

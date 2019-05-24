@@ -297,7 +297,7 @@
 .help_h2 {
     -fx-text-fill: white;
     -fx-font-size: 1.5em;
-    -fx-padding: 50 0 10 0;
+    -fx-padding: 25 0 10 0;
     -fx-font-weight: bold;
 }
 
@@ -306,7 +306,7 @@
 }
 
 .help__text {
-    -fx-pref-height: 95;
+    -fx-pref-height: 115;
     -fx-text-fill: white;
     -fx-font-size: 1.25em;
     -fx-background-color: transparent;
