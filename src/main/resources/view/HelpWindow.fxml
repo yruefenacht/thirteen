@@ -22,7 +22,7 @@
                 </graphic>
             </Button>
             <Region prefWidth="0.0" HBox.hgrow="ALWAYS" />
-            <Label styleClass="help__title" text="Help" />
+            <Label styleClass="help__title" text="%HelpWindow.help" />
             <Region prefWidth="50.0" HBox.hgrow="ALWAYS" />
         </HBox>
     </top>
@@ -38,19 +38,19 @@
             </HBox>
             <!-- GAME PLAY -->
             <HBox alignment="CENTER">
-                <Label styleClass="help_h2" text="GAME PLAY"/>
+                <Label styleClass="help_h2" text="%HelpWindow.gamePlayLabel"/>
             </HBox>
             <HBox styleClass="help__article">
                 <TextArea styleClass="help__text" wrapText="true" editable="false"
-                      text="To increase the value of a block it must be merged with another adjacent block of equal value. If each block has no neighbor of equal value the game ist over."/>
+                      text="%HelpWindow.gamePlay"/>
             </HBox>
             <!-- SCORE -->
             <HBox alignment="CENTER">
-                <Label styleClass="help_h2" text="SCORE"/>
+                <Label styleClass="help_h2" text="%HelpWindow.scoreLabel"/>
             </HBox>
             <HBox styleClass="help__article">
                 <TextArea styleClass="help__text" wrapText="true" editable="false"
-                      text="The score consists of the current level, which is the value of the highest block, and the number of stars. Buying a bomb or an undo action reduces the number of stars and thus the score."/>
+                      text="%HelpWindow.score"/>
             </HBox>
         </VBox>
     </center>

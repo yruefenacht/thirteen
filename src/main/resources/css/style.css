@@ -306,7 +306,7 @@
 }
 
 .help__text {
-    -fx-pref-height: 80;
+    -fx-pref-height: 95;
     -fx-text-fill: white;
     -fx-font-size: 1.25em;
     -fx-background-color: transparent;
