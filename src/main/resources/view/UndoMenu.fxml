@@ -13,7 +13,7 @@
       spacing="20.0"
       styleClass="playfieldMenu">
     <!-- TITLE -->
-    <Label fx:id="undoMenuTitle" text="Revert to previous move?" />
+    <Label fx:id="undoMenuTitle" text="%UndoMenu.label" />
     <!-- MENU BUTTONS -->
     <Button fx:id="undoMenuConfirm" styleClass="playfieldMenu__Button" >
         <graphic>
@@ -22,5 +22,5 @@
             </ImageView>
         </graphic>
     </Button>
-    <Button fx:id="undoMenuAbort" text="CANCEL" styleClass="playfieldMenu__Button" />
+    <Button fx:id="undoMenuAbort" text="%UndoMenu.cancel" styleClass="playfieldMenu__Button" />
 </VBox>

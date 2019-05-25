@@ -11,7 +11,7 @@
 <!-- GAME OVER MENU -->
 <VBox alignment="CENTER" spacing="20.0" styleClass="playfieldMenu" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <!-- TITLE -->
-    <Label styleClass="gameOverMenu__Title" text="GAME OVER" />
+    <Label styleClass="gameOverMenu__Title" text="%GameOverMenu.title" />
     <!-- LEVEL -->
     <Label fx:id="gameOverMenuScore" alignment="CENTER">
         <VBox.margin>
@@ -37,6 +37,6 @@
         </padding>
     </HBox>
     <!-- MENU BUTTONS -->
-    <Button fx:id="gameOverMenuPlayAgain" styleClass="playfieldMenu__Button" text="PLAY AGAIN" />
-    <Button fx:id="gameOverMenuQuit" styleClass="playfieldMenu__Button" text="MAIN MENU" />
+    <Button fx:id="gameOverMenuPlayAgain" styleClass="playfieldMenu__Button" text="%GameOverMenu.playAgain" />
+    <Button fx:id="gameOverMenuQuit" styleClass="playfieldMenu__Button" text="%GameOverMenu.mainMenu" />
 </VBox>
