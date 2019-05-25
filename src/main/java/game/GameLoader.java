@@ -16,7 +16,6 @@ import java.io.*;
  */
 public class GameLoader {
 
-    private String GAME_XML = "src/main/resources/data/Game.xml";
     private JAXBContext jaxbContext;
 
 
@@ -40,9 +39,9 @@ public class GameLoader {
         Game game = null;
         try {
             Unmarshaller unmarshaller = this.jaxbContext.createUnmarshaller();
-            game = (Game) unmarshaller.unmarshal(new FileReader(this.GAME_XML));
+            game = (Game) unmarshaller.unmarshal(this.getClass().getResourceAsStream("../data/Game.xml"));
 
-        } catch (JAXBException | FileNotFoundException e) { e.printStackTrace(); }
+        } catch (JAXBException e) { e.printStackTrace(); }
 
         return game;
     }
@@ -57,7 +56,7 @@ public class GameLoader {
         try {
             Marshaller m = this.jaxbContext.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(game, new File(this.GAME_XML));
+            m.marshal(game, new File(this.getClass().getResource("../data/Game.xml").getFile()));
 
         } catch (JAXBException e) { e.printStackTrace(); }
     }

@@ -149,6 +149,7 @@ public class BlockMatrix {
                 this.rawBlocks[i][j] = new RawBlock(i, j, this.numberGenerator.getRandomNumber());
             }
         }
+        //Create main Block somewhere at bottom line.
         int initialX = this.numberGenerator.getInitialBlockX();
         int initialY = Config.GRID_DIMENSION_Y - 1;
         this.rawBlocks[initialX][initialY] = new RawBlock(initialX, initialY, Config.LEVEL);
@@ -160,8 +161,25 @@ public class BlockMatrix {
      */
     private void loadBlocks() {
 
-        List<RawBlock> rawBlocks = this.game.getRawBlocks();
-        for(RawBlock rawBlock : rawBlocks) this.rawBlocks[rawBlock.getX()][rawBlock.getY()] = rawBlock;
+        List<RawBlock> rawBlocksFromXml = this.game.getRawBlocks();
+
+        //Fill all blocks from xml into 2DArray.
+        //rawBlocksFromXml might be bigger or smaller than this.rawBlocks
+        //If rawBlocksFromXml is bigger, ignore redundant Blocks.
+        for(RawBlock rawBlock : rawBlocksFromXml) {
+            try {
+                this.rawBlocks[rawBlock.getX()][rawBlock.getY()] = rawBlock;
+            }
+            catch(ArrayIndexOutOfBoundsException ignored) { }
+        }
+        //Check for empty spaces in array and fill them with new Blocks.
+        //If rawBlocksFromXml was smaller, new Blocks will be added to this.rawBlocks.
+        for(int x = 0; x < this.dimensionX; x++){
+            for(int y = 0; y < this.dimensionY; y++) {
+                if(this.rawBlocks[x][y] == null)
+                    this.rawBlocks[x][y] = new RawBlock(x, y, this.numberGenerator.getRandomNumber());
+            }
+        }
     }
 
 
@@ -179,6 +197,8 @@ public class BlockMatrix {
             int rawBlockX = rawBlock.getX();
             int rawBlockY = rawBlock.getY();
             int rawBlockValue = rawBlock.getValue();
+
+            //Only one horizontal and one vertical neighbor is necessary
 
             RawBlock topNeighbor = this.getBlockAt(rawBlockX, rawBlockY - 1);
             RawBlock rightNeighbor = this.getBlockAt(rawBlockX + 1, rawBlockY);
@@ -253,23 +273,30 @@ public class BlockMatrix {
 
 
     /**
-     * Revert matrix back to previous step
+     * Revert matrix back to previous step.
      */
     public void undo() {
 
         if(this.previousBlocks.isEmpty()) return;
 
+        //Subtract price from stars and remove current blocks from history.
         this.game.getLevel().setStars(Config.STAR_COUNT -= Config.TOOL_COST);
         BlockList latestPreviousBlocks = this.previousBlocks.remove(this.previousBlocks.size() - 1);
 
+        //Set previous blocks on 2DArray.
         for(RawBlock block : latestPreviousBlocks.getRawBlocks())
             this.rawBlocks[block.getX()][block.getY()] = block;
 
+        //Regenerate MergeBlocks.
         this.rawMergeBlocks.clear();
         this.generateMergeBlocks();
+
+        //Save changes to xml.
         this.game.setRawBlocks(latestPreviousBlocks.getRawBlocks());
         this.game.setPreviousBlocks(this.previousBlocks);
         this.gameLoader.saveGame(this.game);
+
+        //Update changes to GUI.
         this.blockMatrixSupport.blocksCreated(latestPreviousBlocks.getRawBlocks());
         this.blockMatrixSupport.resetMergeBlocks();
         this.blockMatrixSupport.mergeBlocksCreated(this.rawMergeBlocks);
@@ -285,6 +312,7 @@ public class BlockMatrix {
      */
     private void saveCurrentStates() {
 
+        //Copy all RawBlocks and add them to previous block list.
         List<RawBlock> currentBlocks = new ArrayList<>();
 
         for(RawBlock block : this.getBlocksAsList())
@@ -292,9 +320,11 @@ public class BlockMatrix {
 
         this.previousBlocks.add(new BlockList(currentBlocks));
 
+        //Limit size of previous blocks list.
         if(this.previousBlocks.size() > Config.MAX_PREVIOUS_STATES)
             this.previousBlocks.remove(0);
 
+        //Store new previous block list to xml.
         this.game.setPreviousBlocks(this.previousBlocks);
     }
 
@@ -336,8 +366,11 @@ public class BlockMatrix {
     private List<RawBlock> checkForLevelUp(List<RawBlock> neighbors, boolean bombMode) {
 
         List<RawBlock> minBlocks = new ArrayList<>();
+
+        //Level up is not possible by removing a single block (bomb mode).
         if(bombMode) return minBlocks;
 
+        //If highest blocks are being merged, return all blocks with min value.
         for(RawBlock neighbor : neighbors) {
             if (neighbor.getValue() == Config.LEVEL) {
                 minBlocks.addAll(this.getMinBlocks());
@@ -361,13 +394,13 @@ public class BlockMatrix {
      */
     private List<RawBlock> getEqualNeighbors(int x, int y, List<RawBlock> visitedBlocks) {
 
+        //List that will contain all total neighbors after recursion.
         List<RawBlock> equalNeighbors = new ArrayList<>();
         RawBlock block = this.getBlockAt(x, y);
 
-        if(block == null) return equalNeighbors;
-
         visitedBlocks.add(block);
 
+        //Get top, right, bottom and left neighbor
         RawBlock[] neighbors = new RawBlock[] {
             this.getBlockAt(x, y - 1),
             this.getBlockAt(x + 1, y),
@@ -375,6 +408,8 @@ public class BlockMatrix {
             this.getBlockAt(x - 1, y)
         };
 
+        //If current neighbor has equal value and not been visited before,
+        //add neighbors of current neighbor to total list.
         for(RawBlock neighbor : neighbors) {
             if(neighbor == null) continue;
             if(neighbor.getValue() == block.getValue() && ! visitedBlocks.contains(neighbor)) {
@@ -417,28 +452,34 @@ public class BlockMatrix {
 
     /**
      * STEP 3
-     * Puts removed RawBlocks (gaps) to the top of matrix.
+     * Instead of making all the blocks to fall down,
+     * we simply put the empty blocks to the top of matrix.
      * @param rawBlocks Empty RawBlocks
      */
     private void riseBlocksToTop(List<RawBlock> rawBlocks) {
 
+        //Store MergeBlocks and remove them all together eventually
+        //to prevent conflicts in animations.
         List<RawMergeBlock> mergeBlocksToRemove = new ArrayList<>();
-        for(RawBlock rawBlock : rawBlocks) {
 
-            int rx = rawBlock.getX();
-            int ry = rawBlock.getY();
+        for(RawBlock emptyRawBlock : rawBlocks) {
 
+            int rx = emptyRawBlock.getX();
+            int ry = emptyRawBlock.getY();
+
+            //Swap each empty RawBlock with Block above until top is reached.
             for(int i = ry; i >= 1; i--) {
                 RawBlock blockAbove = this.rawBlocks[rx][i - 1];
                 this.blockMatrixSupport.prepareToSinkBlock(blockAbove);
-                this.rawBlocks[rx][i - 1]  = rawBlock;
+                this.rawBlocks[rx][i - 1]  = emptyRawBlock;
                 this.rawBlocks[rx][i] = blockAbove;
                 mergeBlocksToRemove.addAll(this.getMergeBlocksOfBlock(this.getBlockAt(rx, i - 1)));
                 mergeBlocksToRemove.addAll(this.getMergeBlocksOfBlock(this.getBlockAt(rx, i)));
-                rawBlock.rise();
+                emptyRawBlock.rise();
                 blockAbove.fall();
             }
         }
+        //Update changes to GUI.
         this.rawMergeBlocks.removeAll(mergeBlocksToRemove);
         for(RawMergeBlock rawMergeBlock : mergeBlocksToRemove)
             this.blockMatrixSupport.removeMergeBlock(rawMergeBlock);
