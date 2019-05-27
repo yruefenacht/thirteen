@@ -2,7 +2,9 @@ package utility;
 
 import config.Config;
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * AudioPlayer.java
@@ -26,19 +28,25 @@ public class AudioPlayer {
 
         try {
             AudioInputStream popAudioInputStream = AudioSystem.getAudioInputStream(
-                this.getClass().getResourceAsStream("../audio/pop_sound.wav")
+                new BufferedInputStream(Objects.requireNonNull(
+                    this.getClass().getClassLoader().getResourceAsStream("audio/pop_sound.wav")
+                ))
             );
             this.popSound = AudioSystem.getClip();
             this.popSound.open(popAudioInputStream);
 
             AudioInputStream levelUpAudioInputStream = AudioSystem.getAudioInputStream(
-                this.getClass().getResourceAsStream("../audio/level_up_sound.wav")
+                new BufferedInputStream(Objects.requireNonNull(
+                    this.getClass().getClassLoader().getResourceAsStream("audio/level_up_sound.wav")
+                ))
             );
             this.levelUpSound = AudioSystem.getClip();
             this.levelUpSound.open(levelUpAudioInputStream);
 
             AudioInputStream gameOverAudioInputStream = AudioSystem.getAudioInputStream(
-                this.getClass().getResourceAsStream("../audio/game_over_sound.wav")
+                new BufferedInputStream(Objects.requireNonNull(
+                    this.getClass().getClassLoader().getResourceAsStream("audio/game_over_sound.wav")
+                ))
             );
             this.gameOverSoundSound = AudioSystem.getClip();
             this.gameOverSoundSound.open(gameOverAudioInputStream);
