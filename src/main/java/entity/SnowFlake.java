@@ -26,6 +26,7 @@ public class SnowFlake extends Rectangle {
      * @param x layout x
      * @param size width and height
      * @param rotate rotation value
+     * @param duration in milliseconds
      * @param background background color
      */
     public SnowFlake(Pane menuBackground, int x, int size, int rotate, int duration, Color background) {

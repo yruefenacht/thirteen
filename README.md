@@ -1,21 +1,22 @@
 # Thirteen
-
 **By Yannick Rüfenacht and Mohammed Ali**
 
+* Main-Klasse: src/main/java/ThirteenMain.java
+* JavaDoc: doc/index.html
 
-## **_Projekt pullen_**
-**_Dies ist ein Maven-Projekt, dementsprechend sollte das Projekt
-bei der betroffenen IDE als Maven-Projekt importiert werden,
-damit alle Dependencies heruntergeladen werden_**
+
+## Projekt pullen
+**_Dies ist ein Maven-Projekt!_**
+
+*Systemanforderungen:*
+* Java 10 installiert
 
 
 ## Git Workflow
 *Vor der Arbeit*
-
 1. git pull
 
 *Nach der Arbeit*
-
 1. git add *
 2. git commit -m "Sagen was geändert wurde"
 3. git push

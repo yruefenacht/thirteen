@@ -2,7 +2,6 @@ package utility;
 
 import config.Config;
 import game.Level;
-import utility.NumberGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
@@ -10,8 +9,12 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * utility.NumberGeneratorTest.java
- * Unit Test Class of NumberGenerator.java.
+ * NumberGeneratorTest.java
+ * @author     Yannick Rüfenacht
+ * @author     Mohammed Ali
+ * @version    1.0
+ *
+ * Test class of NumberGenerator.java.
  */
 class NumberGeneratorTest {
 
@@ -49,13 +52,19 @@ class NumberGeneratorTest {
 
         int[] randomNumberCounters = new int[Config.LEVEL];
 
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 1000; i++) {
             int randomNumber = this.numberGenerator.getRandomNumber();
             randomNumberCounters[Config.LEVEL - randomNumber]++;
         }
 
         int[] randomNumberCountersSorted = Arrays.copyOf(randomNumberCounters, Config.LEVEL);
         Arrays.sort(randomNumberCountersSorted);
+
+        //Ignore low numbers
+        randomNumberCounters[Config.LEVEL - 1] = 0;
+        randomNumberCounters[Config.LEVEL - 2] = 0;
+        randomNumberCountersSorted[Config.LEVEL - 1] = 0;
+        randomNumberCountersSorted[Config.LEVEL - 2] = 0;
 
         //Ensure that lower numbers have higher frequency
         assertArrayEquals(randomNumberCounters, randomNumberCountersSorted);
