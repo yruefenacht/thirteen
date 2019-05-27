@@ -5,6 +5,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
+import java.util.Objects;
 
 /**
  * GameLoader.java
@@ -39,7 +40,9 @@ public class GameLoader {
         Game game = null;
         try {
             Unmarshaller unmarshaller = this.jaxbContext.createUnmarshaller();
-            game = (Game) unmarshaller.unmarshal(this.getClass().getClassLoader().getResourceAsStream("data/Game.xml"));
+            game = (Game) unmarshaller.unmarshal(
+                this.getClass().getClassLoader().getResourceAsStream("data/Game.xml")
+            );
 
         } catch (JAXBException e) { e.printStackTrace(); }
 
@@ -56,7 +59,11 @@ public class GameLoader {
         try {
             Marshaller m = this.jaxbContext.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(game, new File(this.getClass().getClassLoader().getResource("data/Game.xml").getFile()));
+            m.marshal(game,
+                new File(
+                    Objects.requireNonNull(this.getClass().getClassLoader().getResource("data/Game.xml")).getFile()
+                )
+            );
 
         } catch (JAXBException e) { e.printStackTrace(); }
     }
