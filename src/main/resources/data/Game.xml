@@ -4,11 +4,7 @@
         <block>
             <x>0</x>
             <y>0</y>
-<<<<<<< HEAD
-            <value>1</value>
-=======
             <value>2</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>0</x>
@@ -23,7 +19,7 @@
         <block>
             <x>0</x>
             <y>3</y>
-            <value>2</value>
+            <value>3</value>
         </block>
         <block>
             <x>0</x>
@@ -38,25 +34,17 @@
         <block>
             <x>1</x>
             <y>1</y>
-            <value>3</value>
+            <value>1</value>
         </block>
         <block>
             <x>1</x>
             <y>2</y>
-<<<<<<< HEAD
-            <value>1</value>
-=======
             <value>2</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>1</x>
             <y>3</y>
-<<<<<<< HEAD
-            <value>1</value>
-=======
             <value>3</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>1</x>
@@ -71,7 +59,7 @@
         <block>
             <x>2</x>
             <y>1</y>
-            <value>1</value>
+            <value>3</value>
         </block>
         <block>
             <x>2</x>
@@ -91,34 +79,22 @@
         <block>
             <x>3</x>
             <y>0</y>
-            <value>1</value>
+            <value>2</value>
         </block>
         <block>
             <x>3</x>
             <y>1</y>
-<<<<<<< HEAD
-            <value>2</value>
-=======
             <value>3</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>3</x>
             <y>2</y>
-<<<<<<< HEAD
-            <value>1</value>
-=======
             <value>2</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>3</x>
             <y>3</y>
-<<<<<<< HEAD
-            <value>2</value>
-=======
             <value>3</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>3</x>
@@ -128,16 +104,12 @@
         <block>
             <x>4</x>
             <y>0</y>
-<<<<<<< HEAD
-            <value>2</value>
-=======
             <value>3</value>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         </block>
         <block>
             <x>4</x>
             <y>1</y>
-            <value>3</value>
+            <value>1</value>
         </block>
         <block>
             <x>4</x>
@@ -147,7 +119,7 @@
         <block>
             <x>4</x>
             <y>3</y>
-            <value>2</value>
+            <value>1</value>
         </block>
         <block>
             <x>4</x>
@@ -155,9 +127,6 @@
             <value>1</value>
         </block>
     </rawBlocks>
-<<<<<<< HEAD
-    <previousBlocks/>
-=======
     <previousBlocks>
         <blockList>
             <blocks>
@@ -547,18 +516,13 @@
             </blocks>
         </blockList>
     </previousBlocks>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
     <highscore>
         <level>11</level>
         <stars>408</stars>
     </highscore>
     <level>
         <level>6</level>
-<<<<<<< HEAD
-        <stars>100</stars>
-=======
         <stars>102</stars>
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
         <levelRange>5</levelRange>
         <levelRangeHaltCounter>0</levelRangeHaltCounter>
     </level>

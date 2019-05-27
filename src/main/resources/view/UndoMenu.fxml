@@ -13,11 +13,7 @@
       spacing="20.0"
       styleClass="playfieldMenu">
     <!-- TITLE -->
-<<<<<<< HEAD
-    <Label fx:id="undoMenuTitle" text="%UndoMenu.label" />
-=======
     <Label fx:id="undoMenuTitle" text="%UndoMenu.title" />
->>>>>>> e61bbe0659f092ee69451a0d6fd553f9ffcbfaa5
     <!-- MENU BUTTONS -->
     <Button fx:id="undoMenuConfirm" styleClass="playfieldMenu__Button" >
         <graphic>
