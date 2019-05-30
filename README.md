@@ -2,6 +2,7 @@
 **By Yannick Rüfenacht and Mohammed Ali**
 
 * Main-Klasse: src/main/java/ThirteenMain.java
+* Bot-Main-Klasse: src/main/java/bot/BotMain.java
 * JavaDoc: doc/index.html
 
 
