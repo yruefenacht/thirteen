@@ -161,4 +161,14 @@ public class Block extends Entity {
         return this.y;
     }
 
+
+    /**
+     * Value getter.
+     * @return value
+     */
+    public int getValue() {
+
+        return this.value;
+    }
+
 }
