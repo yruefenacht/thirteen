@@ -2,9 +2,6 @@ package config;
 
 /**
  * Events.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Defines all propertyChangeEvent names as static access.
  */

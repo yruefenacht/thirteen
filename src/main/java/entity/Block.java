@@ -11,9 +11,6 @@ import model.BlockMatrix;
 
 /**
  * Block.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * This class represents a single block on the play grid.
  */

@@ -9,9 +9,6 @@ import utility.ViewChanger;
 
 /**
  * ThirteenMain.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * This class provides the static main method as entry point for the JVM.
  */

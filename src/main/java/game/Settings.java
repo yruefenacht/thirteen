@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Settings.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Stores user settings.
  */

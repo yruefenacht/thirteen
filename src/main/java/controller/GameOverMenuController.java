@@ -10,9 +10,6 @@ import model.BlockMatrix;
 
 /**
  * GameOverMenuController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Defines click events of buttons from game over screen.
  */

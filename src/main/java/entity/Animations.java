@@ -7,9 +7,6 @@ import javafx.util.Duration;
 
 /**
  * Animations.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Provides all animations.
  */

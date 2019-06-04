@@ -9,9 +9,6 @@ import java.util.Objects;
 
 /**
  * GameLoader.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Stores and retrieves {@code Game} object into and from xml.
  */

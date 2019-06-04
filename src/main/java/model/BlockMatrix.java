@@ -15,9 +15,6 @@ import java.util.*;
 
 /**
  * BlockMatrix.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * This class creates and manages a matrix of Block elements.
  */

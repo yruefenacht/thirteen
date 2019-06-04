@@ -7,9 +7,6 @@ import java.util.List;
 
 /**
  * Game.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Stores state of current game.
  */

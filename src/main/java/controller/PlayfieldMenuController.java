@@ -6,9 +6,6 @@ import model.BlockMatrix;
 
 /**
  * PlayfieldMenuController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Defines click events of buttons from playfield menu.
  */

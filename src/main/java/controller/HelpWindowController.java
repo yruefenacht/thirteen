@@ -6,9 +6,6 @@ import utility.ViewChanger;
 
 /**
  * HelpWindowController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Defines action for back button in main menu.
  */

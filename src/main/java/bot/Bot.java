@@ -15,9 +15,6 @@ import java.util.List;
 
 /**
  * Bot.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Handles bot window user interface logic.
  */

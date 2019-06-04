@@ -6,9 +6,6 @@ import java.util.Map;
 
 /**
  * Config.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * This class stores all constant variables of the project.
  */

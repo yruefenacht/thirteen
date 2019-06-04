@@ -9,9 +9,6 @@ import java.util.List;
 
 /**
  * BlockMatrixSupport.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Event shooter.
  * It is preferable to have all property change events stored in one class.

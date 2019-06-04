@@ -7,9 +7,6 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Highscore.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  * 
  * Stores current highscore.
  */

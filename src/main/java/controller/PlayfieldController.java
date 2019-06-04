@@ -21,9 +21,6 @@ import java.util.ArrayList;
 
 /**
  * PlayfieldController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * The PlayfieldController class is responsible for handling user input.
  */

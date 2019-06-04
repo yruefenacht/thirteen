@@ -20,9 +20,6 @@ import java.util.Random;
 
 /**
  * MainMenuController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Defines click events of main menu screen.
  */

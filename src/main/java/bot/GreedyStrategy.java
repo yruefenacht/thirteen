@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 /**
  * GreedyStrategy.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Goes for the blocks with highest values.
  */

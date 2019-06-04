@@ -9,9 +9,6 @@ import utility.ViewChanger;
 
 /**
  * UndoMenuController.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Handles undo confirm action of user.
  */

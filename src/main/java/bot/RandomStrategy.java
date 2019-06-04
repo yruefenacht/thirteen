@@ -9,9 +9,6 @@ import java.util.stream.Collectors;
 
 /**
  * RandomStrategy.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Gets random block from random group.
  */

@@ -8,9 +8,6 @@ import java.util.stream.Collectors;
 
 /**
  * BottomUpStrategy.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Searches each row from left to right.
  * Starts at bottom row.

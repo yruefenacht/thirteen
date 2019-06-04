@@ -7,9 +7,6 @@ import java.util.List;
 
 /**
  * BlockList.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Has sole purpose of storing blocks as list.
  * This is necessary, since JAXB cannot store elements of type {@code List<List<T>>}

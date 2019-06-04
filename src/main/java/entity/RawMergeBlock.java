@@ -2,9 +2,6 @@ package entity;
 
 /**
  * RawMergeBlock.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Defines mathematical properties of a MergeBlock.
  */

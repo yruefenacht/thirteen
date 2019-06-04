@@ -16,9 +16,6 @@ import java.util.List;
 
 /**
  * BotMain.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Launches application with BotMain-Window.
  */

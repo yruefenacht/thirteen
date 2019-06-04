@@ -11,9 +11,6 @@ import javafx.util.Duration;
 
 /**
  * SnowFlake.java
- * @author     Yannick Rüfenacht
- * @author     Mohammed Ali
- * @version    1.0
  *
  * Rectangle falling down.
  */
