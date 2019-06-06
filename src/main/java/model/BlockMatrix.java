@@ -559,6 +559,7 @@ public class BlockMatrix {
 
         //Bomb Mode
         if(bombMode) {
+            if(this.getBlockAt(x, y).getValue() == Config.LEVEL) return;
             neighbors.clear();
             neighbors.add(this.getBlockAt(x, y));
             this.blockMatrixSupport.toggleBombMode();
