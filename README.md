@@ -5,7 +5,7 @@
 * JavaDoc: doc/index.html
 
 ## Clean game design
-![Clean game design](https://github.com/yruefenacht/Thirteen/blob/master/thumbnail/main.JPG)
+<img src="https://github.com/yruefenacht/Thirteen/blob/master/thumbnail/main.JPG" width="500"/>
 
 ## Simple game play
-![Simple](https://github.com/yruefenacht/Thirteen/blob/master/thumbnail/game.JPG)
+<img src="https://github.com/yruefenacht/Thirteen/blob/master/thumbnail/game.JPG" width="500"/>
