@@ -1,6 +1,6 @@
-package entity;
+package main.java.entity;
 
-import config.Config;
+import main.java.config.Config;
 import javafx.animation.*;
 import javafx.scene.Parent;
 import javafx.util.Duration;

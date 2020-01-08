@@ -1,7 +1,7 @@
-package bot;
+package main.java.bot;
 
-import entity.Location;
-import model.BlockMatrix;
+import main.java.entity.Location;
+import main.java.model.BlockMatrix;
 
 /**
  * BotStrategy.java

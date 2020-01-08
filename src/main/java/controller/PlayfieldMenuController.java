@@ -1,8 +1,8 @@
-package controller;
+package main.java.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import model.BlockMatrix;
+import main.java.model.BlockMatrix;
 
 /**
  * PlayfieldMenuController.java

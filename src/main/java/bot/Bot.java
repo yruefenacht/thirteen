@@ -1,16 +1,17 @@
-package bot;
+package main.java.bot;
 
-import config.Config;
-import entity.Location;
+import main.java.config.Config;
+import main.java.entity.Location;
+import main.java.model.BlockMatrix;
+import main.java.utility.ViewChanger;
 import javafx.animation.Animation;
-import model.BlockMatrix;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.util.Duration;
-import utility.ViewChanger;
+
 import java.util.List;
 
 /**

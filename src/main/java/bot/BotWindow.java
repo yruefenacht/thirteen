@@ -1,25 +1,26 @@
-package bot;
+package main.java.bot;
 
-import config.Config;
-import model.BlockMatrix;
-import javafx.application.Application;
+import javafx.application.Preloader;
+import main.java.config.Config;
+import main.java.utility.ViewChanger;
+import main.java.model.BlockMatrix;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import utility.ViewChanger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * BotMain.java
  *
  * Launches application with BotMain-Window.
  */
-public class BotMain extends Application {
+public class BotWindow extends Preloader {
 
     /**
      * Creates and launches BotMain-Window.
@@ -36,22 +37,28 @@ public class BotMain extends Application {
 
         //Font
         Font.loadFont(
-            this.getClass().getResource("../fonts/SourceSansPro-Regular.ttf").toExternalForm(),
+            this.getClass().getClassLoader().getResourceAsStream("fonts/SourceSansPro-Regular.ttf"),
             Config.FONT_SIZE_DEFAULT
         );
         Font.loadFont(
-            this.getClass().getResource("../fonts/PermanentMarker-Regular.ttf").toExternalForm(),
+            this.getClass().getClassLoader().getResourceAsStream("fonts/PermanentMarker-Regular.ttf"),
             Config.FONT_SIZE_DEFAULT
         );
 
 
         //Icon
-        Image icon = new Image(this.getClass().getResourceAsStream("../images/app_icon.png"));
+        Image icon = new Image(
+            Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("images/app_icon.png"))
+        );
 
 
         //Stylesheet
-        String stylesheet = this.getClass().getResource("../css/style.css").toExternalForm();
-        String botStylesheet = this.getClass().getResource("../css/bot.css").toExternalForm();
+        String stylesheet = Objects.requireNonNull(
+            this.getClass().getClassLoader().getResource("css/style.css")
+        ).toString();
+        String botStylesheet = Objects.requireNonNull(
+            this.getClass().getClassLoader().getResource("css/bot.css")
+        ).toString();
 
 
         //Enable bot mode
@@ -87,7 +94,7 @@ public class BotMain extends Application {
             new TopDownStrategy()
         ));
         Bot botController = new Bot(blockMatrix, botStrategies);
-        FXMLLoader loader = new FXMLLoader(ViewChanger.class.getResource("../view/BotWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getClassLoader().getResource("view/BotWindow.fxml"));
         loader.setController(botController);
         Parent botWindow = loader.load();
         botController.setButtons();
@@ -107,12 +114,4 @@ public class BotMain extends Application {
         botStage.setOnCloseRequest(e -> primaryStage.close());
         botStage.show();
     }
-
-
-    /**
-     * Entry point of program.
-     * @param args Has command line arguments stored
-     */
-    public static void main(String[] args) { launch(args); }
-
 }

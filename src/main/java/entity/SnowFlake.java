@@ -1,6 +1,6 @@
-package entity;
+package main.java.entity;
 
-import config.Config;
+import main.java.config.Config;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

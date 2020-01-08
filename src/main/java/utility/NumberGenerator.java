@@ -1,7 +1,8 @@
-package utility;
+package main.java.utility;
 
-import config.Config;
-import game.Level;
+import main.java.config.Config;
+import main.java.game.Level;
+
 import java.util.Random;
 
 /**

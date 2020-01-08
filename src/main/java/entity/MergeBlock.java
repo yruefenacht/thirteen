@@ -1,6 +1,6 @@
-package entity;
+package main.java.entity;
 
-import config.Config;
+import main.java.config.Config;
 import javafx.geometry.Insets;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;

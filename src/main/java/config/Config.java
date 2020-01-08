@@ -1,4 +1,4 @@
-package config;
+package main.java.config;
 
 import javafx.scene.paint.Color;
 import java.util.HashMap;

@@ -1,4 +1,6 @@
-import entity.Block;
+package main.java;
+
+import main.java.entity.Block;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
  * ---------------------------------------
  */
 @ExtendWith(ApplicationExtension.class)
-class ThirteenMainTest {
+class ThirteenTest {
 
 
     /**
@@ -35,7 +37,7 @@ class ThirteenMainTest {
     @Start
     private void start(Stage stage) throws Exception {
 
-        new ThirteenMain().start(stage);
+        new Thirteen().start(stage);
     }
 
 

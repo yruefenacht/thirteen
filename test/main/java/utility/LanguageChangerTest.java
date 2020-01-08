@@ -1,4 +1,4 @@
-package utility;
+package main.java.utility;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

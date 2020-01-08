@@ -1,7 +1,8 @@
-package game;
+package main.java.game;
 
-import entity.BlockList;
-import entity.RawBlock;
+import main.java.entity.BlockList;
+import main.java.entity.RawBlock;
+
 import javax.xml.bind.annotation.*;
 import java.util.List;
 

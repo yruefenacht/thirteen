@@ -1,11 +1,11 @@
-package controller;
+package main.java.controller;
 
-import config.Config;
+import main.java.config.Config;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
-import model.BlockMatrix;
-import utility.ViewChanger;
+import main.java.model.BlockMatrix;
+import main.java.utility.ViewChanger;
 
 /**
  * UndoMenuController.java

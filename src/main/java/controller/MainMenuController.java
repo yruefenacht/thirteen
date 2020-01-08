@@ -1,10 +1,11 @@
-package controller;
+package main.java.controller;
 
-import config.Config;
-import entity.SnowFlake;
-import game.Game;
-import game.GameLoader;
-import game.Settings;
+import main.java.config.Config;
+import main.java.utility.ViewChanger;
+import main.java.entity.SnowFlake;
+import main.java.game.Game;
+import main.java.game.GameLoader;
+import main.java.game.Settings;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,7 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import utility.ViewChanger;
+
 import java.util.Random;
 
 /**

@@ -1,7 +1,7 @@
-package utility;
+package main.java.utility;
 
-import config.Config;
-import game.Level;
+import main.java.config.Config;
+import main.java.game.Level;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;

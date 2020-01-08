@@ -1,6 +1,6 @@
-package utility;
+package main.java.utility;
 
-import javafx.embed.swing.JFXPanel;
+//import javafx.embed.swing.JFXPanel;
 import javafx.scene.layout.BorderPane;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +26,7 @@ class ViewChangerTest {
     void setUp() {
 
         //Declare new JFXPanel to prevent "Toolkit not initialized" error
-        JFXPanel jfxPanel = new JFXPanel();
+        //JFXPanel jfxPanel = new JFXPanel();
         this.root = ViewChanger.init();
         assertNotNull(this.root);
         assertNull(this.root.getCenter());

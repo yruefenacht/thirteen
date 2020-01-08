@@ -1,6 +1,7 @@
-package utility;
+package main.java.utility;
 
-import config.Config;
+import main.java.config.Config;
+
 import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;

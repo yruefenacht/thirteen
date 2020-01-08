@@ -1,13 +1,13 @@
-package entity;
+package main.java.entity;
 
-import config.Config;
+import main.java.config.Config;
+import main.java.model.BlockMatrix;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import model.BlockMatrix;
 
 /**
  * Block.java

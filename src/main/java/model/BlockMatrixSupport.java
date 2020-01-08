@@ -1,9 +1,10 @@
-package model;
+package main.java.model;
 
-import config.Events;
-import entity.RawBlock;
-import entity.RawMergeBlock;
-import game.Game;
+import main.java.config.Events;
+import main.java.entity.RawBlock;
+import main.java.entity.RawMergeBlock;
+import main.java.game.Game;
+
 import java.beans.PropertyChangeSupport;
 import java.util.List;
 

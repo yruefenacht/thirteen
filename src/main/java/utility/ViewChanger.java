@@ -1,16 +1,17 @@
-package utility;
+package main.java.utility;
 
-import config.Config;
-import controller.*;
-import entity.Animations;
-import game.Game;
+import main.java.config.Config;
+import main.java.controller.*;
+import main.java.entity.Animations;
+import main.java.game.Game;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import model.BlockMatrix;
+import main.java.model.BlockMatrix;
+
 import java.io.IOException;
 import java.util.ResourceBundle;
 

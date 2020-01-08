@@ -1,12 +1,12 @@
-package controller;
+package main.java.controller;
 
-import config.Config;
-import game.Highscore;
-import game.Level;
+import main.java.config.Config;
+import main.java.model.BlockMatrix;
+import main.java.game.Highscore;
+import main.java.game.Level;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import model.BlockMatrix;
 
 /**
  * GameOverMenuController.java

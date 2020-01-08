@@ -1,9 +1,9 @@
-package controller;
+package main.java.controller;
 
-import config.Config;
-import config.Events;
-import entity.*;
-import game.Game;
+import main.java.config.Config;
+import main.java.config.Events;
+import main.java.entity.*;
+import main.java.game.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,8 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import model.BlockMatrix;
-import utility.ViewChanger;
+import main.java.model.BlockMatrix;
+import main.java.utility.ViewChanger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;

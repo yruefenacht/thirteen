@@ -1,8 +1,9 @@
-package bot;
+package main.java.bot;
 
-import entity.Location;
-import entity.RawBlock;
-import model.BlockMatrix;
+import main.java.entity.Location;
+import main.java.entity.RawBlock;
+import main.java.model.BlockMatrix;
+
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;

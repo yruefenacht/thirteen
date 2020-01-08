@@ -1,12 +1,15 @@
-package model;
+package main.java.model;
 
-import config.Config;
-import game.Highscore;
-import utility.AudioPlayer;
-import utility.NumberGenerator;
-import game.Game;
-import entity.*;
-import game.GameLoader;
+import main.java.config.Config;
+import main.java.entity.BlockList;
+import main.java.entity.Location;
+import main.java.entity.RawBlock;
+import main.java.entity.RawMergeBlock;
+import main.java.utility.AudioPlayer;
+import main.java.utility.NumberGenerator;
+import main.java.game.Highscore;
+import main.java.game.Game;
+import main.java.game.GameLoader;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
