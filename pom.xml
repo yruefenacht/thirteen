@@ -36,7 +36,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>main.java.Thirteen</mainClass>
+                            <mainClass>ThirteenApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
